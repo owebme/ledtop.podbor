@@ -1,0 +1,93 @@
+<screen-step1 class="section { showAnim-group1 : animate }" data-active={ active }>
+
+    <div class="container pos-centered h95v">
+        <div name="tooltip" class="tooltip anim-group1 anim-tb" delay-show="xl" data-duration="xl">
+            Выберите тип подстветки
+        </div>
+        <div class="row">
+            <div onClick={ select } class="col-md-8 cell anim-group1 anim-bt" data-duration="xl">
+                <div class="column" data-column="1">
+                    <div class="column__content">
+                        <div class="column__content__text">Монохромная подстветка</div>
+                    </div>
+                    <div class="column__tooltip" data-tooltip="1">
+                        <div class="column__tooltip__icon" data-icon="mono"></div>
+                        <span class="column__tooltip__title">Монохромная подстветка</span>
+                        <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                    </div>
+                </div>
+            </div>
+            <div onClick={ select } class="col-md-8 cell anim-group1 anim-scale-soft" delay-show="xs">
+                <div class="column" data-column="2">
+                    <div class="column__content">
+                        <div class="column__content__text">Мультицветная</div>
+                    </div>
+                    <div class="column__tooltip" data-tooltip="2">
+                        <div class="column__tooltip__icon" data-icon="rgb"></div>
+                        <span class="column__tooltip__title">Мультицветная</span>
+                        <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                    </div>
+                </div>
+            </div>
+            <div onClick={ select } class="col-md-8 cell anim-group1 anim-bt" delay-show="xs" data-duration="xl">
+                <div class="column" data-column="3">
+                    <div class="column__content">
+                        <div class="column__content__text">Бегущий огонь</div>
+                    </div>
+                    <div class="column__tooltip" data-tooltip="3">
+                        <div class="column__tooltip__icon" data-icon="fire"></div>
+                        <span class="column__tooltip__title">Бегущий огонь</span>
+                        <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = false;
+    $.animate = false;
+
+    $.show = function(){
+        $afterlag.run(function(){
+            $.update({
+                animate: true
+            });
+        });
+        _.onEndTransition($.tooltip, function(){
+            $.update({
+                active: true
+            });
+        }, {
+            iterations: 5
+        });
+    };
+
+    $.select = function(){
+        $afterlag.run(function(){
+            $.hide(function(){
+                $Screens.step2.show();
+            });
+        });
+    };
+
+    $.hide = function(callback){
+        $.update({
+            animate: false,
+            active: false
+        })
+        if (_.isFunction(callback)){
+            _.onEndTransition($.tooltip, function(){
+                $.root.setAttribute("data-hidden", true);
+                callback();
+            });
+        }
+    };
+
+</script>
+
+</screen-step1>

@@ -1,0 +1,50 @@
+<ui-select class="select select-{ opts.size ? opts.size : 'm' } { short : typeof opts.short !== 'undefined' }">
+
+    <select onChange={ onChange } onUpdate={ opts.onupdate ? opts.onupdate : "none" } disabled={ disable }>
+        <option each={ item in opts.items } selected={ item._id == value || item == value } value={ item._id ? item._id : item }>{ item.title ? item.title : item }</option>
+    </select>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        if ($.opts.update && $.opts.cursor){
+            $.value = $.opts.cursor.get($.opts.update);
+        }
+        else {
+            $.value = $.opts.value;
+        }
+        $.disable = $.opts.disable;
+    });
+
+    $.on("update", function(){
+        if (!$.opts.value && $.opts.update && $.opts.cursor){
+            $.value = $.opts.cursor.get($.opts.update);
+        }
+        else if ($.opts.value && $.opts.value !== $.value){
+            $.value = $.opts.value;
+        }
+        if (_.isBoolean($.opts.disable) && $.opts.disable !== $.disable){
+            $.disable = $.opts.disable;
+        }
+    });
+
+    $.onChange = function(e){
+        var value = e.target.value;
+
+        if ($.opts.commit === true || $.opts.commit == "true") $.parent.update();
+        else if (_.isFunction($.opts.commit)) {
+            $.opts.commit.call(this, value, $.opts.i);
+        }
+        else if ($.opts.commit && $.parent[$.opts.commit]){
+            $.parent[$.opts.commit](value, $.opts.i);
+        }
+        if ($.opts.update && $.opts.cursor){
+            $.opts.cursor.set($.opts.update, value);
+        }
+    };
+
+</script>
+
+</ui-select>

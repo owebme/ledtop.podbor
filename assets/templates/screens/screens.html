@@ -1,0 +1,35 @@
+<screens class="screens section">
+
+    <screen-begin></screen-begin>
+
+    <screen-step1></screen-step1>
+
+    <screen-step2></screen-step2>
+
+    <screen-step3></screen-step3>
+
+    <screen-progress></screen-progress>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.on("before-mount", function(){
+        $Screens = {
+            progress: $.tags["screen-progress"],
+            begin: $.tags["screen-begin"],
+            step1: $.tags["screen-step1"],
+            step2: $.tags["screen-step2"],
+            step3: $.tags["screen-step3"]
+        };
+    });
+
+    $.on("mount", function(){
+        //$Screens.begin.show();
+        $Screens.step3.show();
+    });
+
+</script>
+
+</screens>

@@ -1,0 +1,30 @@
+<product-content class="product__content">
+
+    <div class="title">{ parent.opts.item.get().title }</div>
+    <div class="product__label">{ parent.opts.item.get('product').pack }</div>
+    <div onClick={ parent.tags["products-list"].toggle } onUpdate="none" class="product__select">
+        <div class="product__select__count">{ $Data.getProductsCount(parent.opts.item.get("_id")) }</div>
+    </div>
+    <div class="product__item">
+        <div class="product__item__photo">
+            <img class="product__item__photo__image" src="{ parent.opts.item.get('product').photo }">
+        </div>
+        <div class="product__item__title">{ parent.opts.item.get('product').desc }</div>
+    </div>
+    <div class="product__price">{ _.numberFormat(parent.opts.item.get('product').price, 0, "", ",") } ₽ { "/ м" : parent.opts.item.get("_id") == "ledribbon" }</div>
+
+    <div class="product__scribble">Управлять не нужно</div>
+
+<script>
+
+    // var $ = this;
+    //
+    // $.open = {
+    //     products: function(){
+    //         $.parent.tags["products-list"].show();
+    //     }
+    // };
+
+</script>
+
+</product-content>

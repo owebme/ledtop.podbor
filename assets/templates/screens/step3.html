@@ -1,0 +1,225 @@
+<screen-step3 class="section" data-active={ active } data-hidden="false">
+
+    <section-panel></section-panel>
+
+    <div class="content">
+        <div class="rows">
+            <div class="row">
+                <product-item name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item>
+                <product-item name="power-supply" item={ $Data.getProduct('power-supply') }></product-item>
+                <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = true;
+
+    $.tooltipScreen = null;
+
+    $.on("before-mount", function(){
+
+        $Products = {
+            "ledribbon": $["ledribbon"]._tag,
+            "power-supply": $["power-supply"]._tag,
+            "ir-control": $["ir-control"]._tag
+        };
+
+        $Config = new Baobab({
+            tooltipScreen: false,
+            showProducts: false,
+            control: true
+        },
+        { autoCommit: true });
+
+        $Config.on("update", function(e){
+            var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
+                value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
+
+            if (prop){
+                if (prop == "control"){
+                    $Products["ir-control"].update();
+                }
+                else if (prop == "showProducts" && !$Config.get("tooltipScreen")){
+                    if (value){
+                        $afterlag.run(function(){
+                            if (value == "ledribbon"){
+                                $.tooltipScreen = $Products["ir-control"].tags["product-tooltip-screen"];
+                            }
+                            else if (value == "power-supply"){
+                                $.tooltipScreen = $Products["ledribbon"].tags["product-tooltip-screen"];
+                            }
+                            else if (value == "ir-control"){
+                                $.tooltipScreen = $Products["ledribbon"].tags["product-tooltip-screen"];
+                            }
+                            $.tooltipScreen.show();
+                        }, {
+                            delay: 500,
+                            iterations: 5
+                        });
+                    }
+                    else {
+                        $.tooltipScreen.hide();
+                    }
+                }
+            }
+        });
+
+        $Data = _.extend(new Baobab([
+            {
+                _id: "ledribbon",
+                title: "Лента",
+                product: {
+                    pack: "norm",
+                    article: "014383",
+                    photo: "http://ledtop-shop.ru/files/catalog/014383.jpg",
+                    price: "168",
+                    desc: "Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир."
+                },
+                products: [
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "014383",
+                        photo: "http://ledtop-shop.ru/files/catalog/014383.jpg",
+                        price: "168",
+                        desc: "Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "014380",
+                        photo: "http://ledtop-shop.ru/files/catalog/014380.jpg",
+                        price: "168",
+                        desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
+                    }
+                ]
+            },
+            {
+                _id: "power-supply",
+                title: "Блок питания",
+                product: {
+                    pack: "norm",
+                    article: "019122",
+                    photo: "http://ledtop-shop.ru/files/catalog/019122.jpg",
+                    price: "452",
+                    desc: "Блок питания для светодиодных лент, входное напряжение 100-264V АС, выходное напряжение 12V, мощность 36W, размеры 85x58x33 мм."
+                },
+                products: [
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "019122",
+                        photo: "http://ledtop-shop.ru/files/catalog/019122.jpg",
+                        price: "452",
+                        desc: "Блок питания для светодиодных лент, входное напряжение 100-264V АС, выходное напряжение 12V, мощность 36W, размеры 85x58x33 мм."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "014980",
+                        photo: "http://ledtop-shop.ru/files/catalog/014980.jpg",
+                        price: "713",
+                        desc: "Блок питание марки Haitaik — отличается высокой надежностью. Рекомендуется использовать в ответственных местах."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "018968",
+                        photo: "http://ledtop-shop.ru/files/catalog/018968.jpg",
+                        price: "638",
+                        desc: "Герметичный блок питания в пластиковом корпусе. Рекомендуется использовать в более запыленных и влажных условиях."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "019372",
+                        photo: "http://ledtop-shop.ru/files/catalog/019372.jpg",
+                        price: "612",
+                        desc: "Сверхтонкий блок для узких мест."
+                    }
+                ]
+            },
+            {
+                _id: "ir-control",
+                title: "Управление",
+                product: {
+                    pack: "norm",
+                    article: "012985",
+                    photo: "http://ledtop-shop.ru/files/catalog/012985.jpg",
+                    price: "1521",
+                    desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
+                },
+                products: [
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "012985",
+                        photo: "http://ledtop-shop.ru/files/catalog/012985.jpg",
+                        price: "1381",
+                        desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "015668",
+                        photo: "http://ledtop-shop.ru/files/catalog/015668.jpg",
+                        price: "684",
+                        desc: "Стандартный диммер с улучшенным пультом и держателем для него."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "015669",
+                        photo: "http://ledtop-shop.ru/files/catalog/015669.jpg",
+                        price: "684",
+                        desc: "Бюджетный вариант с сенсорным пультом."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "021223",
+                        photo: "http://ledtop-shop.ru/files/catalog/021223.jpg",
+                        price: "684",
+                        desc: "Сенсорный диммер с компактными размерами."
+                    },
+                    {
+                        active: true,
+                        pack: "norm",
+                        article: "021626",
+                        photo: "http://ledtop-shop.ru/files/catalog/021626.jpg",
+                        price: "684",
+                        desc: "Мощный сенсорный диммер."
+                    }
+                ]
+            }
+            ]),
+            {
+                getProduct: function(id){
+                    return $Data.select({"_id": id});
+                },
+                getProductsList: function(id, pack){
+                    return _.where($Data.select({"_id": id}).get("products"), {"pack": pack});
+                },
+                getProductsCount: function(id){
+                    return $Data.select({"_id": id}).get("products").length;
+                }
+            }
+        );
+    });
+
+    $.on("mount", function(){
+
+    });
+
+    $.show = function(){
+        $.root.setAttribute("data-hidden", false);
+    };
+
+</script>
+
+</screen-step3>

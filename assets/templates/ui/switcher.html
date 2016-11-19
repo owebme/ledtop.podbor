@@ -1,0 +1,31 @@
+<ui-switcher onClick={ onClick } onUpdate={ opts.onupdate ? opts.onupdate : "self" } class="switcher" active="{ value }">
+
+    <div class="switch">
+        <input class="switch-input" type="checkbox" checked="">
+        <span class="switch-left">ON</span>
+        <label class="switch-label">&nbsp;</label>
+        <span class="switch-right">OFF</span>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        $.value = $.opts.value;
+    });
+
+    $.onClick = function(){
+        $.value = !$.value;
+        if ($.opts.commit === true || $.opts.commit == "true") $.parent.update();
+        else if (_.isFunction($.opts.commit)) {
+            $.opts.commit.call(this, $.value, $.opts.i);
+        }
+        else if ($.opts.commit && $.parent[$.opts.commit]){
+            $.parent[$.opts.commit]($.value, $.opts.i);
+        }
+    };
+
+</script>
+
+</ui-switcher>

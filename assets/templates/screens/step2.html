@@ -1,0 +1,185 @@
+<screen-step2 class="section { showAnim-group1 : animate.pack }" data-active={ active } data-overlay="false" data-tooltip="false" data-hidden="true">
+
+    <div class="section__overlay"></div>
+
+    <div class="container pos-centered-h zIndex-10">
+        <div class="row">
+            <div class="col-md-10 centered main__tooltip">Выберайте близкий вам класс, в последующем его можно легко сменить или модифицировать.</div>
+        </div>
+    </div>
+
+    <div class="arrow__left">Эконом</div>
+    <div class="arrow__right">Люкс</div>
+
+    <div class="container pos-centered header">
+        <div name="container" class="row anim-text anim-text-bt { anim-textIn : animate.in, anim-textOut : animate.out }">
+            <div class="col-md-24 centered">
+                <div class="title">Выбираем класс компонентов</div>
+            </div>
+        </div>
+    </div>
+    <div class="container pos-centered packs zIndex-10">
+        <div class="row packs__container">
+            <div class="col-md-8 pack pack-econom anim-group1 anim-bt" data-duration="xl">
+                <div class="pack__container" data-pack="econom">
+                    <div class="pack__circle__big">
+                        <div class="pack__circle__big__title">Эконом</div>
+                        <div class="pack__circle__big__tooltip">
+                            <span class="pack__circle__big__tooltip__title">Эконом</span>
+                            <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                        </div>
+                    </div>
+                    <div class="pack__circle__small">
+                        28
+                        <div class="pack__circle__small__text">комплектов</div>
+                    </div>
+                    <div class="tooltips">
+                        <div class="tooltip" data-tooltip="power-supply">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Компактные и очень надежные блоки питания</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="led">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Светодиоды высокого качества</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="ir-control">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Легкое и функциональное управление</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 pack pack-norm anim-group1 anim-bt" delay-show="s" data-duration="xl">
+                <div class="pack__container" data-pack="norm">
+                    <div class="pack__circle__big">
+                        <div class="pack__circle__big__title">Норма</div>
+                        <div class="pack__circle__big__tooltip">
+                            <span class="pack__circle__big__tooltip__title">Норма</span>
+                            <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                        </div>
+                    </div>
+                    <div class="pack__circle__small">
+                        31
+                        <div class="pack__circle__small__text">комплектов</div>
+                    </div>
+                    <div class="tooltips">
+                        <div class="tooltip" data-tooltip="power-supply">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Компактные и очень надежные блоки питания</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="ledribbon">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Лента класса LUX, супер надежная и качественная</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="humidity">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Высокая степень влагозащищенности IP68</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="ir-control">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Легкое и функциональное управление</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div name="lastPack" class="col-md-8 pack pack-lux anim-group1 anim-bt" delay-show="l" data-duration="xl">
+                <div class="pack__container" data-pack="lux">
+                    <div class="pack__circle__big">
+                        <div class="pack__circle__big__title">Люкс</div>
+                        <div class="pack__circle__big__tooltip">
+                            <span class="pack__circle__big__tooltip__title">Люкс</span>
+                            <p>Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир</p>
+                        </div>
+                    </div>
+                    <div class="pack__circle__small">
+                        24
+                        <div class="pack__circle__small__text">комплектов</div>
+                    </div>
+                    <div class="tooltips">
+                        <div class="tooltip" data-tooltip="power-supply">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Компактные и очень надежные блоки питания</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="ledribbon">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Лента класса LUX, супер надежная и качественная</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="led">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Светодиоды высокого качества</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="humidity">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Высокая степень влагозащищенности IP68</div>
+                        </div>
+                        <div class="tooltip" data-tooltip="ir-control">
+                            <div class="tooltip__icon"></div>
+                            <div class="tooltip__text">Легкое и функциональное управление</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = false;
+    $.animate = {
+        in: false,
+        out: false,
+        pack: false
+    };
+
+    $.on("mount", function(){
+        $scope.on("mouseenter mouseleave", ".pack", function(e){
+            if (e.type === "mouseenter"){
+                $.root.setAttribute("data-overlay", true);
+            }
+            else {
+                $.root.setAttribute("data-overlay", false);
+            }
+            if (e.currentTarget.getAttribute("class").match(/norm/)){
+                $.root.setAttribute("data-tooltip", true);
+            }
+            else {
+                $.root.setAttribute("data-tooltip", false);
+            }
+        });
+    });
+
+    $.show = function(){
+        $.root.setAttribute("data-hidden", false);
+        $afterlag.run(function(){
+            $.update({
+                animate: {
+                    in: true,
+                    out: false,
+                    pack: false
+                }
+            });
+            _.onEndAnimation($.container, function(){
+                $.update({
+                    animate: {
+                        in: true,
+                        out: false,
+                        pack: true
+                    }
+                });
+                _.onEndTransition($.lastPack, function(){
+                    $.update({
+                        active: true
+                    });
+                });
+            });
+        }, {
+            iterations: 5
+        });
+    };
+
+</script>
+
+</screen-step2>

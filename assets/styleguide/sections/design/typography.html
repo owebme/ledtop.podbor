@@ -1,0 +1,268 @@
+<design-typography>
+
+    <h2 class="mb-xl">Typography</h2>
+
+    <h4 class="mb-xxs">Typefaces</h4>
+    <p class="fontSize-l mb-l">Yuap's primary typeface is Myriad — a robust typeface with legible numbers that renders well at all sizes. It is soft and friendly, yet plain enough to get out of the way and let the user's designs shine.</p>
+
+    <h3 class="letterSpacing-0 mb-m">Myriad font-family</h3>
+    <div class="inline borderWidth-1 p-m borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="fontFamily-myriad fontSize-xl lineHeight-xl c-blackLight pl-xxs">
+            <div class="mb-xs">
+                <div each={ alpha in alphabet } no-reorder class="display-inlineBlock mr-xs">
+                    { alpha }
+                </div>
+            </div>
+            <div class="mb-xs">
+                <div each={ alpha in alphabet } no-reorder class="display-inlineBlock mr-xs">
+                    { alpha.toLowerCase() }
+                </div>
+            </div>
+            <div class="mb-xxs fontWeight-7">
+                <div each={ num in number } no-reorder class="display-inlineBlock mr-xs">
+                    { num }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-l">
+        <pre><code class="hljs">{ fontFamilyMyriad() }</code></pre>
+        <script>
+            this.fontFamilyMyriad = function(){
+                return '<p class="fontFamily-myriad">...<⁄p>';
+            };
+        </script>
+    </div>
+
+    <h3 class="fontFamily-helvetica letterSpacing-0 mb-m">Helvetica Neue font-family</h3>
+    <div class="inline borderWidth-1 p-m borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="fontFamily-helvetica fontSize-xl lineHeight-xl c-blackLight pl-xxs">
+            <div class="mb-xs">
+                <div each={ alpha in alphabet } no-reorder class="display-inlineBlock mr-xs">
+                    { alpha }
+                </div>
+            </div>
+            <div class="mb-xs">
+                <div each={ alpha in alphabet } no-reorder class="display-inlineBlock mr-xs">
+                    { alpha.toLowerCase() }
+                </div>
+            </div>
+            <div class="mb-xxs fontWeight-5">
+                <div each={ num in number } no-reorder class="display-inlineBlock mr-xs">
+                    { num }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-l">
+        <pre><code class="hljs">{ fontFamilyHelvetica() }</code></pre>
+        <script>
+            this.fontFamilyHelvetica = function(){
+                return '<p class="fontFamily-helvetica">...<⁄p>';
+            };
+        </script>
+    </div>
+
+    <h4 class="mb-xxs">Font sizes</h4>
+    <p class="fontSize-l mb-l">The font scale consists of 9 different font sizes. The default size applied to the <strong class="fontWeight-5 c-blue">body</strong> is Medium.</p>
+
+    <div each={ item, i in sizes } no-reorder class="fontFamily-myriad verflow-hidden borderWidth-1 borderStyle-solid borderColor-smoke { i == 0 ? 'borderRadiusTop-m' : 'mt--1' }">
+        <div class="c-blackLight p-m pr0">
+            <div class="p-xxs pr0 w100p overflow-hidden">
+                <div class="mb-xs mr0 nowrap">
+                    <p class="fontSize-{ item.size }">The quick brown fox jumps over the lazy dog</p>
+                </div>
+                <p class="fontSize-s c-gray nowrap">{ item.title }</p>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-xl">
+        <pre><code class="hljs">{ fontSizes() }</code></pre>
+        <script>
+            this.fontSizes = function(){
+                return '<p class="fontSize-xxl">...<⁄p>\n'+
+                        '<p class="fontSize-xl">...<⁄p>\n'+
+                        '<p class="fontSize-m">...<⁄p>\n'+
+                        '<p class="fontSize-s">...<⁄p>\n'+
+                        '<p class="fontSize-xs">...<⁄p>';
+            };
+        </script>
+    </div>
+
+    <h4 class="mb-xxs">Font weight</h4>
+    <p class="fontSize-l mb-l">There are three font weights available to use — Blond, Regular and Medium. These can be applied with <strong class="fontWeight-5 c-blue">.fontWeight-3</strong>, <strong class="fontWeight-5 c-blue">.fontWeight-4</strong> and <strong class="fontWeight-5 c-blue">.fontWeight-5</strong> respectively.</p>
+
+    <div class="borderWidth-1 borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="row">
+            <div class="col-md-8 borderStyle-solid d-borderRightWidth-1 xs-borderBottomWidth-1 borderColor-smoke text-center p-m">
+                <div class="p-xs">
+                    <div class="fontSize-xxxxxxxl fontWeight-3 mb-xxs">Aa</div>
+                    <p class="fontSize-s lineHeight-s c-gray">Myriad Light</p>
+                </div>
+            </div>
+            <div class="col-md-8 borderStyle-solid d-borderRightWidth-1 xs-borderBottomWidth-1 borderColor-smoke text-center p-m">
+                <div class="p-xs">
+                    <div class="fontSize-xxxxxxxl fontWeight-4 mb-xxs">Aa</div>
+                    <p class="fontSize-s lineHeight-s c-gray">Myriad Regular</p>
+                </div>
+            </div>
+            <div class="col-md-8 text-center p-m">
+                <div class="p-xs">
+                    <div class="fontSize-xxxxxxxl fontWeight-5 mb-xxs">Aa</div>
+                    <p class="fontSize-s lineHeight-s c-gray">Myriad Medium</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-xl">
+        <pre><code class="hljs">{ fontWeight() }</code></pre>
+        <script>
+            this.fontWeight = function(){
+                return '<p class="fontWeight-3">...</p>\n'+
+                        '<p class="fontWeight-4">...</p>\n'+
+                        '<p class="fontWeight-5">...</p>';
+            };
+        </script>
+    </div>
+
+    <h4 class="mb-xxs">Type tags</h4>
+    <p class="fontSize-l mb-l">Text can be set in a number of different html tags — <strong class="fontWeight-5 c-blue">&lt;p&gt;</strong>, <strong class="fontWeight-5 c-blue">&lt;small&gt;</strong>, <strong class="fontWeight-5 c-blue">&lt;strong&gt;</strong>, <strong class="fontWeight-5 c-blue">&lt;time&gt;</strong>, etc. Each tag communicates a different semantic meaning but tags don't carry any aesthetic value. To order the appearance of a string of text, add additional classes for font size or font weight.</p>
+
+    <div class="p-m c-blackLight borderWidth-1 borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="p-xxs">
+            <div class="mb-s">
+                <strong class="fontSize-l lineHeight-l fontWeight-5">This is semantically emphasized text which is also bold.</strong>
+            </div>
+            <small class="fontSize-s lineHeight-s fontWeight-3">This is semantically de-emphasized text which is also small.</small>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-xl">
+        <pre><code class="hljs">{ typeTags() }</code></pre>
+        <script>
+            this.typeTags = function(){
+                return '<strong class="fontWeight-5">...</strong>\n'+
+                        '<small class="fontSize-s fontWeight-3">...</small>';
+            };
+        </script>
+    </div>
+
+    <h4 class="mb-xxs">Alignment classes</h4>
+    <p class="fontSize-l mb-l">Left, right or center align text with text alignment classes.</p>
+
+    <div class="p-m c-blackLight borderWidth-1 borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="p-xxs">
+            <div class="row c-blackLight">
+                <div class="col-md-8 text-left xs-pb-m">
+                    Left aligned text
+                </div>
+                <div class="col-md-8 text-center xs-pb-m">
+                    Center aligned text
+                </div>
+                <div class="col-md-8 text-right">
+                    Right aligned text
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-xl">
+        <pre><code class="hljs">{ alignClasses() }</code></pre>
+        <script>
+            this.alignClasses = function(){
+                return '<p class="text-left">...</p>\n'+
+                        '<p class="text-center">...</p>\n'+
+                        '<p class="text-right">...</p>';
+            };
+        </script>
+    </div>
+
+    <h4 class="mb-xxs">Transformation classes</h4>
+    <p class="fontSize-l mb-l">Transform text with text transformation classes.</p>
+
+    <div class="p-m c-blackLight borderWidth-1 borderStyle-solid borderColor-smoke borderRadiusTop-m">
+        <div class="p-xxs">
+            <div class="row c-blackLight">
+                <div class="col-md-8 text-left text-lowercase xs-pb-m">
+                    Lowercased text
+                </div>
+                <div class="col-md-8 text-center text-uppercase xs-pb-m">
+                    Uppercased text
+                </div>
+                <div class="col-md-8 text-right text-capitalize">
+                    Capitalized text
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="code-preview borderRadiusTop-none mt--1 mb-m">
+        <pre><code class="hljs">{ transformClasses() }</code></pre>
+        <script>
+            this.transformClasses = function(){
+                return '<p class="text-lowercase">...</p>\n'+
+                        '<p class="text-uppercase">...</p>\n'+
+                        '<p class="text-capitalize">...</p>';
+            };
+        </script>
+    </div>
+
+<script>
+
+    this.alphabet = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ').split('');
+
+    this.number = ('0123456789').split('');
+
+    this.sizes = [
+        {
+            size: 'xxxxxxl',
+            title: '40px — Extra extra extra extra extra extra large'
+        },
+        {
+            size: 'xxxxxl',
+            title: '36px — Extra extra extra extra extra large'
+        },
+        {
+            size: 'xxxxl',
+            title: '32px — Extra extra extra extra large'
+        },
+        {
+            size: 'xxxl',
+            title: '28px — Extra extra extra large'
+        },
+        {
+            size: 'xxl',
+            title: '24px — Extra extra large'
+        },
+        {
+            size: 'xl',
+            title: '20px — Extra large'
+        },
+        {
+            size: 'l',
+            title: '18px — Large'
+        },
+        {
+            size: 'm',
+            title: '16px — Medium'
+        },
+        {
+            size: 's',
+            title: '14px — Small'
+        },
+        {
+            size: 'xs',
+            title: '13px — Extra small'
+        },
+        {
+            size: 'xxs',
+            title: '12px — Extra extra small'
+        }
+    ];
+
+    this.on("mount", function(){
+        $$('pre > code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    });
+
+</script>
+
+</design-typography>

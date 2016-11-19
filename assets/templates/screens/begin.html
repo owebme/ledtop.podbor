@@ -1,0 +1,66 @@
+<screen-begin class="section">
+
+    <div class="container pos-centered">
+        <div name="text1" class="row anim-text anim-text-bt { anim-textIn : animate.text1.in, anim-textOut : animate.text1.out }" delay-hide="s">
+            <div class="col-md-20 centered">
+                <div class="fontSize-52 fontWeight-3 text-center">Мы вам поможем подобрать готовый комплект для вашей подсветки.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pos-centered h60">
+        <div name="text2" class="row anim-text anim-text-bt { anim-textIn : animate.text2.in, anim-textOut : animate.text2.out }" delay-hide="m">
+            <div class="col-md-20 centered">
+                <div class="fontSize-44 fontWeight-3 text-center">Уделите несколько минут внимания, и выбранный комплект будет радовать вас долгие годы.</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.animate = {
+        text1: {
+            in: false,
+            out: false
+        },
+        text2: {
+            in: false,
+            out: false
+        }
+    };
+
+    $.show = function(){
+        $afterlag.run(function(){
+            $.animate.text1.in = true;
+            $.update();
+            _.onEndAnimation($.text1, function(){
+                $.animate.text1.in = false;
+                $.animate.text1.out = true;
+                $.update();
+                _.onEndAnimation($.text1, function(){
+                    $.animate.text1.out = false;
+                    $.animate.text2.in = true;
+                    $.update();
+                    _.onEndAnimation($.text2, function(){
+                        $.animate.text2.in = false;
+                        $.animate.text2.out = true;
+                        $.update();
+                        _.onEndAnimation($.text2, function(){
+                            $.animate.text2.out = false;
+                            $.update();
+                            $Screens.step1.show();
+                        });
+                    });
+                });
+            });
+        }, {
+            iterations: 5
+        });
+    };
+
+</script>
+
+</screen-begin>

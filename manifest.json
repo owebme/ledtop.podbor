@@ -1,0 +1,26 @@
+{
+  "name": "Ledtop.Styleguide",
+  "short_name": "Ledtop",
+  "icons": [{
+    "src": "http://fantasy.co/build/images/favicons/32.png",
+    "sizes": "32x32",
+    "type": "image/png"
+  }, {
+    "src": "http://fantasy.co/build/images/favicons/60.png",
+    "sizes": "60x60",
+    "type": "image/png"
+  }, {
+    "src":"http://fantasy.co/build/images/favicons/76.png",
+    "sizes": "76x76",
+    "type": "image/png"
+  }, {
+    "src": "http://fantasy.co/build/images/favicons/120.png",
+    "sizes": "120x120",
+    "type": "image/png"
+  }],
+  "start_url": "/styleguide.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#333",
+  "orientation": "portrait"
+}

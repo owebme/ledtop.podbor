@@ -1,0 +1,15 @@
+{
+    "protocol": "ftp",
+    "host": "5.101.124.21",
+    "port": 21,
+    "user": "ledtop",
+    "pass": "Dpk7YwHw1s60Rf1V",
+    "promptForPass": false,
+    "remote": "/ledtop-shop.ru",
+    "secure": false,
+    "secureOptions": null,
+    "connTimeout": 10000,
+    "pasvTimeout": 10000,
+    "keepalive": 10000,
+    "watch": []
+}

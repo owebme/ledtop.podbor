@@ -1,0 +1,11 @@
+<product-item class="col-md-8 product" data-pack={ opts.item.get('product').pack } data-product={ opts.item.get("_id") } data-hidden={ opts.item.get("_id") === "ir-control" && !$Config.get('control') }>
+
+    <product-content></product-content>
+
+    <connect-control></connect-control>
+
+    <products-list></products-list>
+
+    <product-tooltip-screen></product-tooltip-screen>
+
+</product-item>

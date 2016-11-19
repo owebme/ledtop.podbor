@@ -1,0 +1,110 @@
+<products-list class="products__list" data-active="false">
+
+    <div class="products__list__container">
+        <div onClick={ hide } onUpdate="none" class="products__list__close">скрыть</div>
+        <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'lux').length }">
+            <div class="products__list__title">LUX</div>
+            <div class="products__list__items" data-items="lux">
+                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), 'lux') } data-id="{ item.article }"  class="products__list__item" data-active={ get.select(item) }>
+                    <img src="{ item.photo }" class="products__list__item__image">
+                </div>
+            </div>
+        </div>
+        <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'norm').length }">
+            <div class="products__list__title">Норма</div>
+            <div class="products__list__items" data-items="norm">
+                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "norm") } data-id="{ item.article }" class="products__list__item" data-active={ get.select(item) }>
+                    <img src="{ item.photo }" class="products__list__item__image">
+                </div>
+            </div>
+        </div>
+        <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'econom').length }">
+            <div class="products__list__title">Эконом</div>
+            <div class="products__list__items" data-items="econom">
+                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "econom") } data-id="{ item.article }" class="products__list__item" data-active={ get.select(item) }>
+                    <img src="{ item.photo }" class="products__list__item__image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$($.root);
+
+    $.active = false;
+
+    $.selected = null;
+
+    $.product = null;
+
+    $.on("mount", function(){
+        $scope.on("mouseenter mouseleave", ".products__list__item", function(e){
+            if (e.currentTarget.getAttribute("data-active") != "true"){
+                if (e.type === "mouseenter"){
+                    $.product = _.copyArray($.parent.opts.item.get("product"));
+                    var item = $.parent.opts.item.get("products", {"article": e.currentTarget.getAttribute("data-id")})
+                    $.selected = $.product.article;
+                    $.parent.opts.item.set("product", item);
+                    $Products[$.parent.opts.item.get("_id")].update();
+                }
+                else {
+                    $.selected = null;
+                    $.parent.opts.item.set("product", $.product);
+                    $Products[$.parent.opts.item.get("_id")].update();
+                }
+            }
+        });
+    });
+
+    $.get = {
+        select: function(item){
+            if ($.selected){
+                return $.selected === item.article;
+            }
+            else {
+                return $.parent.opts.item.get("product").article === item.article;
+            }
+        }
+    };
+
+    $.onSelect = function(){
+        $.selected = null;
+        $.parent.opts.item.set("product", this.item);
+        $Products[$.parent.opts.item.get("_id")].update();
+        $.hide();
+    };
+
+    $.toggle = function(){
+        $.active = !$.active;
+        $.control();
+    };
+
+    $.show = function(){
+        $.active = true;
+        $.control();
+    };
+
+    $.hide = function(){
+        $.active = false;
+        $.control();
+    };
+
+    $.control = function(){
+        $.parent.root.setAttribute("data-products", $.active);
+        $.root.setAttribute("data-active", $.active);
+
+        if ($.active){
+            $Products["power-supply"].tags["connect-control"].hide();
+            $Config.set("showProducts", $.parent.opts.item.get("_id"));
+        }
+        else {
+            $Products["power-supply"].tags["connect-control"].show();
+            $Config.set("showProducts", false);
+        }
+    };
+
+</script>
+
+</products-list>

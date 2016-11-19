@@ -1,0 +1,23 @@
+<connect-control onClick={ toggle } class="connect__control" data-active={ $Config.get('control') } data-hidden={ hidden }>
+
+<script>
+
+    var $ = this;
+
+    $.hidden = false;
+
+    $.toggle = function(){
+        $Config.set('control', !$Config.get('control'));
+    };
+
+    $.show = function(){
+        $.root.setAttribute("data-hidden", false);
+    };
+
+    $.hide = function(){
+        $.root.setAttribute("data-hidden", true);
+    };
+
+</script>
+
+</connect-control>
