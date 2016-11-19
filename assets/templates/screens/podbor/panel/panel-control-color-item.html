@@ -1,0 +1,13 @@
+<panel-control-color-item class="control__color__items" data-items="{ opts.content.split('|').length }">
+
+<script>
+
+    this.on("updated", function(){
+        this.root.innerHTML = this.opts.content.split("|").map(function(item){
+            return '<span class="control__color__item color-' + item + '"></span>';
+        }).join("");
+    });
+
+</script>
+
+</panel-control-color-item>

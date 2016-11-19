@@ -1,0 +1,31 @@
+<panel-control-length class="control" data-active={ active }>
+
+    <div onClick={ toggle } onUpdate="none" class="control__value">{ $Config.get('length') }м</div>
+    <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="length"></div>
+    <div class="control__container flex-row-left-center">
+        <div class="control__container__title">длина ленты</div>
+        <ui-slider update="length" cursor={ $Config.select() } size="m" min="5" max="50" step="5" ed="м" readonly="true"></ui-slider>
+        <div onClick={ hide } onUpdate="none" class="control__button"></div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.toggle = function(){
+        $.update({
+            active: !$.active
+        })
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</panel-control-length>

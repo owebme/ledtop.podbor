@@ -1,9 +1,9 @@
 <ui-slider class="display-block pos-rel">
 
     <span if={ opts.title } class="input-title">{ opts.title }</span>
-    <input class="display-none" name="slider_input" type="range" value={ opts.value } min="{ opts.min }" max="{ opts.max }" step="{ opts.step }">
-    <input class="input input-{ opts.size ? opts.size : 'm' }" onKeyup={ onKeySlider } name="slider_data" type="number" autocomplete="off" value={ opts.value }>
-    <div if={ opts.ed && !app.device.isPhone } class="pos-tr fontSize-xl fontWeight-5 fontFamily-roboto c-white flex-centered w40 h100p">{ opts.ed }</div>
+    <input class="display-none" name="slider_input" type="range" value={ opts.value } min="{ opts.min }" max="{ opts.max }" step="{ opts.step }" readonly={ opts.readonly }>
+    <input class="input input-{ opts.size ? opts.size : 'm' }" onKeyup={ onKeySlider } name="slider_data" type="number" autocomplete="off" value={ opts.value } readonly={ opts.readonly }>
+    <div if={ opts.ed && !app.device.isPhone } class="pos-tr c-blue fontSize-20 fontWeight-5 flex-centered w40 h100p">{ opts.ed }</div>
 
 <script>
 

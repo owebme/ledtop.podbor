@@ -47,12 +47,12 @@
                     var item = $.parent.opts.item.get("products", {"article": e.currentTarget.getAttribute("data-id")})
                     $.selected = $.product.article;
                     $.parent.opts.item.set("product", item);
-                    $Products[$.parent.opts.item.get("_id")].update();
+                    $Product[$.parent.opts.item.get("_id")].update();
                 }
                 else {
                     $.selected = null;
                     $.parent.opts.item.set("product", $.product);
-                    $Products[$.parent.opts.item.get("_id")].update();
+                    $Product[$.parent.opts.item.get("_id")].update();
                 }
             }
         });
@@ -72,11 +72,12 @@
     $.onSelect = function(){
         $.selected = null;
         $.parent.opts.item.set("product", this.item);
-        $Products[$.parent.opts.item.get("_id")].update();
+        $Product[$.parent.opts.item.get("_id")].update();
         $.hide();
     };
 
     $.toggle = function(){
+        if (!$.active && $Config.get("showProducts")) return;
         $.active = !$.active;
         $.control();
     };
@@ -96,11 +97,11 @@
         $.root.setAttribute("data-active", $.active);
 
         if ($.active){
-            $Products["power-supply"].tags["connect-control"].hide();
+            $Product["power-supply"].tags["connect-control"].hide();
             $Config.set("showProducts", $.parent.opts.item.get("_id"));
         }
         else {
-            $Products["power-supply"].tags["connect-control"].show();
+            $Product["power-supply"].tags["connect-control"].show();
             $Config.set("showProducts", false);
         }
     };

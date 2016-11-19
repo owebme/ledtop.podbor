@@ -1,0 +1,40 @@
+<panel-control-color class="control" data-active={ active }>
+
+    <div onClick={ toggle } onUpdate="none" class="control__icon" data-color={ $Config.get('color') }>
+        <panel-control-color-item content={ $Config.get('color') }>{ item }</panel-control-color-item>
+    </div>
+    <div class="control__container flex-row-left-center">
+        <div class="control__container__title">цвет свечения</div>
+        <div onClick={ select } onUpdate="none" each={ item in items } class="control__color" data-active={ item == $Config.get('color') } data-color={ item }>
+            <panel-control-color-item content={ item }>{ item }</panel-control-color-item>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.items = ['blue', 'cool_white', 'day_white', 'green', 'ir850', 'orange', 'pink', 'red', 'violet', 'warm_white', 'white', 'yellow'];
+
+    $.toggle = function(){
+        $.update({
+            active: !$.active
+        })
+    };
+
+    $.select = function(){
+        $Config.set('color', this.item);
+        $.hide();
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</panel-control-color>

@@ -21,20 +21,23 @@
 
     $.tooltipScreen = null;
 
+    $Config = new Baobab({
+        tooltipScreen: false,
+        showProducts: false,
+        control: true,
+        humidity: "P67",
+        color: "uni",
+        length: "25"
+    },
+    { autoCommit: true });
+
     $.on("before-mount", function(){
 
-        $Products = {
+        $Product = {
             "ledribbon": $["ledribbon"]._tag,
             "power-supply": $["power-supply"]._tag,
             "ir-control": $["ir-control"]._tag
         };
-
-        $Config = new Baobab({
-            tooltipScreen: false,
-            showProducts: false,
-            control: true
-        },
-        { autoCommit: true });
 
         $Config.on("update", function(e){
             var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
@@ -42,19 +45,20 @@
 
             if (prop){
                 if (prop == "control"){
-                    $Products["ir-control"].update();
+                    $Product["ir-control"].update();
                 }
                 else if (prop == "showProducts" && !$Config.get("tooltipScreen")){
                     if (value){
                         $afterlag.run(function(){
+                            if ($Config.get("tooltipScreen")) return;
                             if (value == "ledribbon"){
-                                $.tooltipScreen = $Products["ir-control"].tags["product-tooltip-screen"];
+                                $.tooltipScreen = $Product["ir-control"].tags["product-tooltip-screen"];
                             }
                             else if (value == "power-supply"){
-                                $.tooltipScreen = $Products["ledribbon"].tags["product-tooltip-screen"];
+                                $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
                             }
                             else if (value == "ir-control"){
-                                $.tooltipScreen = $Products["ledribbon"].tags["product-tooltip-screen"];
+                                $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
                             }
                             $.tooltipScreen.show();
                         }, {
