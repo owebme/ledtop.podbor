@@ -15,13 +15,12 @@
             active: true
         })
         $afterlag.run(function(){
-            if (!$Config.get("tooltipScreen")){
-                $.hide();
-            }
+            $.hide();
         }, {
             delay: 3000,
             iterations: 5
         });
+        $Config.set("tooltipScreen", true);
     };
 
     $.hide = function(){
@@ -30,7 +29,6 @@
             $.update({
                 active: false
             })
-            $Config.set("tooltipScreen", true);
         }, {
             delay: 1000,
             iterations: 5

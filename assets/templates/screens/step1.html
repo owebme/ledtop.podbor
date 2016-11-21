@@ -5,7 +5,7 @@
             Выберите тип подстветки
         </div>
         <div class="row">
-            <div onClick={ select } class="col-md-8 cell anim-group1 anim-bt" data-duration="xl">
+            <div onClick={ select } onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" data-duration="xl">
                 <div class="column" data-column="1">
                     <div class="column__content">
                         <div class="column__content__text">Монохромная подстветка</div>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div onClick={ select } class="col-md-8 cell anim-group1 anim-scale-soft" delay-show="xs">
+            <div onClick={ select } onUpdate="none" class="col-md-8 cell anim-group1 anim-scale-soft" delay-show="xs">
                 <div class="column" data-column="2">
                     <div class="column__content">
                         <div class="column__content__text">Мультицветная</div>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div onClick={ select } class="col-md-8 cell anim-group1 anim-bt" delay-show="xs" data-duration="xl">
+            <div onClick={ select } onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" delay-show="xs" data-duration="xl">
                 <div class="column" data-column="3">
                     <div class="column__content">
                         <div class="column__content__text">Бегущий огонь</div>
@@ -83,7 +83,9 @@
         if (_.isFunction(callback)){
             _.onEndTransition($.tooltip, function(){
                 $.root.setAttribute("data-hidden", true);
-                callback();
+                $afterlag.run(function(){
+                    callback();
+                });
             });
         }
     };

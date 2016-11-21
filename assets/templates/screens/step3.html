@@ -1,4 +1,4 @@
-<screen-step3 class="section" data-active={ active } data-hidden="false">
+<screen-step3 class="section" data-active="false" data-hidden={ hidden } data-animate="true" is-animate="false">
 
     <section-panel></section-panel>
 
@@ -10,6 +10,9 @@
                 <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
             </div>
         </div>
+        <div name="buttonHelp" class="buttons-angle" data-pos="top-right">
+            <div onClick={ open.tutorial } onUpdate="none" class="button__help"></div>
+        </div>
     </div>
 
 <script>
@@ -17,21 +20,50 @@
     var $ = this,
     $scope = $$(this.root);
 
-    $.active = true;
+    $.active = false;
+    $.hidden = true;
 
     $.tooltipScreen = null;
 
-    $Config = new Baobab({
-        tooltipScreen: false,
-        showProducts: false,
-        control: true,
-        humidity: "P67",
-        color: "uni",
-        length: "25"
-    },
-    { autoCommit: true });
+    $.show = function(animate){
+        $.hidden = false;
+        $.update();
+
+        $afterlag.run(function(){
+            if (animate){
+                $.root.setAttribute("is-animate", true);
+
+                _.onEndTransition($.buttonHelp, function(){
+                    $.root.setAttribute("data-animate", false);
+                    $.root.setAttribute("data-active", true);
+                    if ($Config.get("tutorial")){
+                        $.open.tutorial();
+                    }
+                });
+            }
+            else {
+                $.root.setAttribute("data-animate", false);
+                $.root.setAttribute("data-active", true);
+            }
+        }, {
+            iterations: 5
+        });
+    };
+
+    $.open = {
+        tutorial: function(){
+            $Tutorial.show($scope, "podbor");
+            $Config.set('tutorial', false);
+        }
+    };
 
     $.on("before-mount", function(){
+
+        $Panel = $.tags["section-panel"];
+        $Panel.light = $Panel.tags["panel-control-light"];
+        $Panel.humidity = $Panel.tags["panel-control-humidity"];
+        $Panel.color = $Panel.tags["panel-control-color"];
+        $Panel.length = $Panel.tags["panel-control-length"];
 
         $Product = {
             "ledribbon": $["ledribbon"]._tag,
@@ -39,169 +71,107 @@
             "ir-control": $["ir-control"]._tag
         };
 
-        $Config.on("update", function(e){
-            var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
-                value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
+        $State.on("update", function(e){
+            var data = $.getPropValue(e),
+                prop = data.prop,
+                value = data.value;
 
             if (prop){
                 if (prop == "control"){
                     $Product["ir-control"].update();
                 }
-                else if (prop == "showProducts" && !$Config.get("tooltipScreen")){
-                    if (value){
-                        $afterlag.run(function(){
-                            if ($Config.get("tooltipScreen")) return;
-                            if (value == "ledribbon"){
-                                $.tooltipScreen = $Product["ir-control"].tags["product-tooltip-screen"];
-                            }
-                            else if (value == "power-supply"){
-                                $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
-                            }
-                            else if (value == "ir-control"){
-                                $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
-                            }
-                            $.tooltipScreen.show();
-                        }, {
-                            delay: 500,
-                            iterations: 5
-                        });
-                    }
-                    else {
-                        $.tooltipScreen.hide();
-                    }
+            }
+        });
+
+        $Config.on("update", function(e){
+            var data = $.getPropValue(e),
+                prop = data.prop,
+                value = data.value;
+
+            if (prop){
+                if (prop == "showProducts" && value && !$Config.get("tooltipScreen") && !$Tutorial.active){
+                    $afterlag.run(function(){
+                        if ($Config.get("tooltipScreen")) return;
+                        if (value == "ledribbon"){
+                            $.tooltipScreen = $Product["ir-control"].tags["product-tooltip-screen"];
+                        }
+                        else if (value == "power-supply"){
+                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                        }
+                        else if (value == "ir-control"){
+                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                        }
+                        $.tooltipScreen.show();
+                    }, {
+                        delay: 500,
+                        iterations: 5
+                    });
                 }
             }
         });
 
-        $Data = _.extend(new Baobab([
+        var getFirstProduct = function(name){
+            var item = $store[name].get()[0];
+            item.pack = "norm";
+            return item;
+        };
+
+        var store = {
+            ledribbon: {
+                econom: ['010523', '010523'],
+                lux: ['013393', '014676']
+            },
+            power: {
+                econom: ['017831', '012919', '008889', '010505'],
+                lux: ['010505', '015992', '011895', '018308']
+            },
+            control: {
+                econom: ['012987', '021098', '015422', '020170', '011439'],
+                lux: ['016678', '016476', '018609', '016927', '021025']
+            }
+        }
+
+        var getProducts = function(name){
+            var array = [];
+                packs = ['econom', 'norm', 'lux'];
+
+            for(var i=0; i < packs.length; i++){
+                var arr = [];
+                arr = _.copyArray($store[name].get()).map(function(item, j){
+                    item.pack = packs[i];
+                    if (packs[i] == "econom" || packs[i] == "lux"){
+                        item.article = store[name][packs[i]][j];
+                        item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
+                    }
+                    return item;
+                });
+                array = array.concat(arr);
+            }
+            return array;
+        };
+
+        var data = [
             {
                 _id: "ledribbon",
                 title: "Лента",
-                product: {
-                    pack: "norm",
-                    article: "014383",
-                    photo: "http://ledtop-shop.ru/files/catalog/014383.jpg",
-                    price: "168",
-                    desc: "Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир."
-                },
-                products: [
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "014383",
-                        photo: "http://ledtop-shop.ru/files/catalog/014383.jpg",
-                        price: "168",
-                        desc: "Отлично подойдет как декоративная подсветка внутри помещений, офисов и квартир."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "014380",
-                        photo: "http://ledtop-shop.ru/files/catalog/014380.jpg",
-                        price: "168",
-                        desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
-                    }
-                ]
+                product: getFirstProduct("ledribbon"),
+                products: getProducts("ledribbon")
             },
             {
                 _id: "power-supply",
                 title: "Блок питания",
-                product: {
-                    pack: "norm",
-                    article: "019122",
-                    photo: "http://ledtop-shop.ru/files/catalog/019122.jpg",
-                    price: "452",
-                    desc: "Блок питания для светодиодных лент, входное напряжение 100-264V АС, выходное напряжение 12V, мощность 36W, размеры 85x58x33 мм."
-                },
-                products: [
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "019122",
-                        photo: "http://ledtop-shop.ru/files/catalog/019122.jpg",
-                        price: "452",
-                        desc: "Блок питания для светодиодных лент, входное напряжение 100-264V АС, выходное напряжение 12V, мощность 36W, размеры 85x58x33 мм."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "014980",
-                        photo: "http://ledtop-shop.ru/files/catalog/014980.jpg",
-                        price: "713",
-                        desc: "Блок питание марки Haitaik — отличается высокой надежностью. Рекомендуется использовать в ответственных местах."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "018968",
-                        photo: "http://ledtop-shop.ru/files/catalog/018968.jpg",
-                        price: "638",
-                        desc: "Герметичный блок питания в пластиковом корпусе. Рекомендуется использовать в более запыленных и влажных условиях."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "019372",
-                        photo: "http://ledtop-shop.ru/files/catalog/019372.jpg",
-                        price: "612",
-                        desc: "Сверхтонкий блок для узких мест."
-                    }
-                ]
+                product: getFirstProduct("power"),
+                products: getProducts("power")
             },
             {
                 _id: "ir-control",
                 title: "Управление",
-                product: {
-                    pack: "norm",
-                    article: "012985",
-                    photo: "http://ledtop-shop.ru/files/catalog/012985.jpg",
-                    price: "1521",
-                    desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
-                },
-                products: [
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "012985",
-                        photo: "http://ledtop-shop.ru/files/catalog/012985.jpg",
-                        price: "1381",
-                        desc: "Здесь нужно предоставить на выбор цвета ленты из категории Norma. Выбранный артикул будет зависить от выбранного цвета."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "015668",
-                        photo: "http://ledtop-shop.ru/files/catalog/015668.jpg",
-                        price: "684",
-                        desc: "Стандартный диммер с улучшенным пультом и держателем для него."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "015669",
-                        photo: "http://ledtop-shop.ru/files/catalog/015669.jpg",
-                        price: "684",
-                        desc: "Бюджетный вариант с сенсорным пультом."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "021223",
-                        photo: "http://ledtop-shop.ru/files/catalog/021223.jpg",
-                        price: "684",
-                        desc: "Сенсорный диммер с компактными размерами."
-                    },
-                    {
-                        active: true,
-                        pack: "norm",
-                        article: "021626",
-                        photo: "http://ledtop-shop.ru/files/catalog/021626.jpg",
-                        price: "684",
-                        desc: "Мощный сенсорный диммер."
-                    }
-                ]
+                product: getFirstProduct("control"),
+                products: getProducts("control")
             }
-            ]),
+        ];
+
+        $Data = _.extend(new Baobab(data),
             {
                 getProduct: function(id){
                     return $Data.select({"_id": id});
@@ -210,18 +180,21 @@
                     return _.where($Data.select({"_id": id}).get("products"), {"pack": pack});
                 },
                 getProductsCount: function(id){
-                    return $Data.select({"_id": id}).get("products").length;
+                    var count = $Data.select({"_id": id}).get("products");
+                    return count ? count.length : 0;
                 }
             }
         );
     });
 
-    $.on("mount", function(){
+    $.getPropValue = function(e){
+        var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
+            value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
 
-    });
-
-    $.show = function(){
-        $.root.setAttribute("data-hidden", false);
+        return {
+            prop: prop,
+            value: value
+        }
     };
 
 </script>

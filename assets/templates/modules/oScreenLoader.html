@@ -1,0 +1,135 @@
+<oScreen-loader class="oScreen__loader">
+
+    <div class="oScreen__loader__progress" style="width:{ status }%" data-anim={ animate }></div>
+
+    <div class="oScreen__loader__spinner"></div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.status = 0;
+
+    $.animate = false;
+
+    $.progress = null;
+
+    $.show = function(options){
+        if (!options || $.active) return;
+
+        $.active = true;
+
+        $.start = options.start || $$.noop;
+        $.end = options.end || $$.noop;
+        $.callback = options.callback || $$.noop;
+        $.scope = $$(options.scope)[0];
+
+        $.reset();
+
+        $.parent.update({
+            loading: true
+        })
+
+        if (app.device.isMobile){
+            $.update({
+                animate: true
+            })
+        }
+
+        $.start();
+
+        _.onEndTransition($.scope, function(){
+            if (options.resources){
+                app.loader.resources(options.resources, $.onResourcesLoaded, function(){
+        			$.status += 25 / options.resources.length;
+        			$.updateLoading();
+        		});
+            }
+            else {
+                $.status += 25;
+                $.onResourcesLoaded();
+                $.updateLoading();
+            }
+            $afterlag.run(function(){
+                if (_.isFunction(options.tag)){
+                    $.html = options.tag();
+                    $.html.one("updated", function(){
+                        $afterlag.run(function(){
+                            $.onHtmlLoaded(options.content);
+                        });
+                    });
+                }
+                else {
+                    $.onHtmlLoaded(options.content);
+                }
+            });
+        });
+    };
+
+    $.init = function(){
+        if (!$.progress.resources || !$.progress.images || !$.progress.html) return;
+
+        $.status = 100;
+
+        $.updateLoading();
+
+        setTimeout($.hide, 175);
+    };
+
+    $.onImagesLoaded = function(){
+        $.progress.images = true;
+        $.init();
+    };
+
+    $.onImagesItemLoaded = function(ready, total){
+        $.status += 25 / total;
+        $.updateLoading();
+    };
+
+    $.onResourcesLoaded = function(){
+        $.progress.resources = true;
+        $.animate = true;
+        $.init();
+    };
+
+    $.onHtmlLoaded = function(html){
+        $.progress.html = true;
+        $.status += 50;
+        $.animate = false;
+        $.updateLoading();
+        app.loader.images($$(html), $.onImagesLoaded, $.onImagesItemLoaded);
+        $.init();
+    };
+
+    $.hide = function(){
+        $.parent.update({
+            loading: false,
+            active: true
+        })
+        $.end();
+        _.onEndTransition($.scope, function(){
+            $.callback();
+        });
+        $.reset();
+    };
+
+	$.reset = function(){
+        $.progress = {
+            resources: false,
+            images: false,
+            html: false
+        }
+		$.update({
+            status: 0
+        })
+	};
+
+	$.updateLoading = function(){
+        $.update();
+	};
+
+</script>
+
+</oScreen-loader>

@@ -4,25 +4,31 @@
         <div onClick={ hide } onUpdate="none" class="products__list__close">скрыть</div>
         <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'lux').length }">
             <div class="products__list__title">LUX</div>
-            <div class="products__list__items" data-items="lux">
-                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), 'lux') } data-id="{ item.article }"  class="products__list__item" data-active={ get.select(item) }>
-                    <img src="{ item.photo }" class="products__list__item__image">
+            <div class="rows products__list__items" data-items="lux">
+                <div class="row">
+                    <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), 'lux') } data-id="{ item.article }"  class="col-md-8 products__list__item" data-active={ get.select(item) }>
+                        <img src="{ item.photo }" class="products__list__item__image">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'norm').length }">
             <div class="products__list__title">Норма</div>
-            <div class="products__list__items" data-items="norm">
-                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "norm") } data-id="{ item.article }" class="products__list__item" data-active={ get.select(item) }>
-                    <img src="{ item.photo }" class="products__list__item__image">
+            <div class="rows products__list__items" data-items="norm">
+                <div class="row">
+                    <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "norm") } data-id="{ item.article }" class="col-md-8 products__list__item" data-active={ get.select(item) }>
+                        <img src="{ item.photo }" class="products__list__item__image">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="{ display-none : !$Data.getProductsList(parent.opts.item.get('_id'), 'econom').length }">
             <div class="products__list__title">Эконом</div>
-            <div class="products__list__items" data-items="econom">
-                <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "econom") } data-id="{ item.article }" class="products__list__item" data-active={ get.select(item) }>
-                    <img src="{ item.photo }" class="products__list__item__image">
+            <div class="rows products__list__items" data-items="econom">
+                <div class="row">
+                    <div onClick={ onSelect } onUpdate="none" each={ item, i in $Data.getProductsList(parent.opts.item.get('_id'), "econom") } data-id="{ item.article }" class="col-md-8 products__list__item" data-active={ get.select(item) }>
+                        <img src="{ item.photo }" class="products__list__item__image">
+                    </div>
                 </div>
             </div>
         </div>

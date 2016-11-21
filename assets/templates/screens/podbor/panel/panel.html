@@ -2,14 +2,11 @@
 
     <div class="panel__container">
 
-        <div class="control">
+        <div onClick={ open } onUpdate="none" class="control">
             <div class="button__ok"></div>
         </div>
 
-        <div class="control">
-            <div class="control__light__icon" data-light="rgb"></div>
-            <div class="control__icon" data-icon="light"></div>
-        </div>
+        <panel-control-light></panel-control-light>
 
         <panel-control-humidity></panel-control-humidity>
 
@@ -18,5 +15,15 @@
         <panel-control-length></panel-control-length>
 
     </div>
+
+<script>
+
+    var $ = this;
+
+    $.open = function(){
+
+    };
+
+</script>
 
 </section-panel>

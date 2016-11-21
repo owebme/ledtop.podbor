@@ -20,7 +20,7 @@
     </div>
     <div class="container pos-centered packs zIndex-10">
         <div class="row packs__container">
-            <div class="col-md-8 pack pack-econom anim-group1 anim-bt" data-duration="xl">
+            <div onClick={ select } onUpdate="none" class="col-md-8 pack pack-econom anim-group1 anim-bt" data-duration="xl">
                 <div class="pack__container" data-pack="econom">
                     <div class="pack__circle__big">
                         <div class="pack__circle__big__title">Эконом</div>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 pack pack-norm anim-group1 anim-bt" delay-show="s" data-duration="xl">
+            <div onClick={ select } onUpdate="none" class="col-md-8 pack pack-norm anim-group1 anim-bt" delay-show="s" data-duration="xl">
                 <div class="pack__container" data-pack="norm">
                     <div class="pack__circle__big">
                         <div class="pack__circle__big__title">Норма</div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <div name="lastPack" class="col-md-8 pack pack-lux anim-group1 anim-bt" delay-show="l" data-duration="xl">
+            <div onClick={ select } onUpdate="none" name="lastPack" class="col-md-8 pack pack-lux anim-group1 anim-bt" delay-show="l" data-duration="xl">
                 <div class="pack__container" data-pack="lux">
                     <div class="pack__circle__big">
                         <div class="pack__circle__big__title">Люкс</div>
@@ -152,7 +152,9 @@
     });
 
     $.show = function(){
+
         $.root.setAttribute("data-hidden", false);
+
         $afterlag.run(function(){
             $.update({
                 animate: {
@@ -178,6 +180,36 @@
         }, {
             iterations: 5
         });
+    };
+
+    $.select = function(){
+        $afterlag.run(function(){
+            $.hide(function(){
+                $Router.nav("podbor");
+                $Screens.podbor.show(true);
+            });
+        });
+    };
+
+    $.hide = function(callback){
+        $scope.off();
+
+        $.root.setAttribute("data-overlay", false);
+
+        $.update({
+            animate: {
+                in: false,
+                out: false,
+                pack: false
+            }
+        });
+
+        if (_.isFunction(callback)){
+            _.onEndTransition($.lastPack, function(){
+                $.root.setAttribute("data-hidden", true);
+                callback();
+            });
+        }
     };
 
 </script>

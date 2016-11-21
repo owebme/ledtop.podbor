@@ -15,7 +15,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="appLoading1">
+<body class="appLoading">
 
     <root-main id="app"></root-main>
 
@@ -24,17 +24,17 @@
     </div>
 
     <!--/ VENDORS /-->
-    <script src="/assets/js/libs/jquery.min.js"></script>
+    <!-- <script src="/assets/js/libs/jquery.min.js"></script>
     <script src="/assets/js/libs/modernizr.custom.js"></script>
     <script src="/assets/js/libs/fastclick.min.js"></script>
-    <script src="/assets/js/libs/device.js"></script>
     <script src="/assets/js/libs/riot/riot+compiler.update.js"></script>
     <script src="/assets/js/libs/baobab.js"></script>
     <script src="/assets/js/libs/underscore-min.js"></script>
     <script src="/assets/js/libs/rangeslider.js"></script>
-    <script src="/assets/js/libs/file-saver/FileSaver.min.js"></script>
-    <script src="/assets/js/libs/afterlag-js/dist/afterlag.min.js"></script>
-    <script src="/assets/js/libs/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="/assets/js/libs/afterlag-js/dist/afterlag.min.js"></script> -->
+
+    <script src="/assets/js/libs.js"></script>
+    <script src="/assets/js/libs/store+json2.min.js"></script>
 
     <!--/ Root /-->
     <script src="/assets/templates/root.html" type="riot/tag"></script>
@@ -52,11 +52,16 @@
     <script src="/assets/templates/screens/podbor/panel/panel-control-humidity.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/panel/panel-control-color.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/panel/panel-control-color-item.html" type="riot/tag"></script>
+    <script src="/assets/templates/screens/podbor/panel/panel-control-light.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/product-item.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/product-content.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/products-list.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/product-tooltip-screen.html" type="riot/tag"></script>
     <script src="/assets/templates/screens/podbor/connect-control.html" type="riot/tag"></script>
+
+    <!--/ Modules /-->
+    <script src="/assets/templates/modules/notify.html" type="riot/tag"></script>
+    <script src="/assets/templates/modules/tutorial.html" type="riot/tag"></script>
 
     <!--/ UI elements /-->
     <script src="/assets/templates/ui/input.html" type="riot/tag"></script>
@@ -70,20 +75,26 @@
     <script src="/assets/js/components/app.js"></script>
     <script src="/assets/js/components/common.js"></script>
     <script src="/assets/js/components/config.js"></script>
-    <script src="/assets/js/components/request.js"></script>
-    <script src="/assets/js/components/fetch.js"></script>
+    <!-- <script src="/assets/js/components/request.js"></script>
+    <script src="/assets/js/components/fetch.js"></script> -->
     <script src="/assets/js/components/modules.js"></script>
     <script src="/assets/js/components/utils.js"></script>
+    <script src="/assets/js/components/tutorial.js"></script>
 
-    <script src="/assets/js/plugins/chart.js"></script>
+    <script src="/assets/js/store/ledribbon.js"></script>
+    <script src="/assets/js/store/power.js"></script>
+    <script src="/assets/js/store/control.js"></script>
+
+    <!-- <script src="/assets/js/plugins/chart.js"></script>
     <script src="/assets/js/plugins/animate.js"></script>
     <script src="/assets/js/plugins/slider.js"></script>
     <script src="/assets/js/plugins/styles.js"></script>
     <script src="/assets/js/plugins/marquee.js"></script>
     <script src="/assets/js/plugins/screens.js"></script>
     <script src="/assets/js/plugins/scroll/scroll.Fix.js"></script>
-    <script src="/assets/js/plugins/scroll/scroll.Animate.js"></script>
+    <script src="/assets/js/plugins/scroll/scroll.Animate.js"></script> -->
 
+    <script src="/assets/js/components/router.js"></script>
     <script src="/assets/js/components/init.js"></script>
 
 </body>

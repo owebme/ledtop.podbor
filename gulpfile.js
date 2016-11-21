@@ -47,6 +47,34 @@ gulp.task('css', function() {
 	}));
 });
 
+gulp.task('css.largeScreen', function() {
+	return combiner(
+		gulp.src('assets/css/style.scss'),
+		sass(),
+		csso(),
+		autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}),
+        base64({
+            baseDir: './',
+            extensions: ['svg'],
+            maxImageSize: 16*1024, // bytes
+            debug: false
+        }),
+		px2vw({
+			width: 1440,
+			minPx: 2,
+			replace: true
+		}),
+		rename("style.largeScreen.css"),
+		gulp.dest('assets/css'),
+		browserSync.stream()
+	).on('error', notify.onError({
+		"sound": false,
+	}));
+});
+
 gulp.task('styleguide', function() {
 	return combiner(
 		gulp.src('assets/css/styleguide.scss'),
@@ -69,7 +97,63 @@ gulp.task('styleguide', function() {
 	}));
 });
 
-gulp.task('build', gulp.series('css', 'styleguide'));
+gulp.task('libs', function() {
+	gulp.src(['assets/js/libs/jquery.min.js',
+		'assets/js/libs/modernizr.custom.js',
+		'assets/js/libs/fastclick.min.js',
+		'assets/js/libs/riot/riot+compiler.update.js',
+		'assets/js/libs/baobab.js',
+		'assets/js/libs/underscore-min.js',
+		'assets/js/libs/rangeslider.js',
+		'assets/js/libs/afterlag-js/dist/afterlag.min.js'])
+		.pipe(concat('libs.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('./assets/js'));
+});
+
+gulp.task('app', function() {
+	gulp.src(['assets/js/components/app.js',
+		'assets/js/components/common.js',
+		'assets/js/components/config.js',
+		'assets/js/components/modules.js',
+		'assets/js/components/utils.js',
+	    'assets/js/components/tutorial.js',
+		'assets/js/components/router.js',
+		'assets/js/store/control.js',
+		'assets/js/store/ledribbon.js',
+		'assets/js/store/power.js'])
+		.pipe(concat('app.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('./assets/js'));
+});
+
+gulp.task('templates', function() {
+	gulp.src(['assets/templates/*.html',
+		'assets/templates/**/*.html'])
+		.pipe(riot())
+		.pipe(concat('templates.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('./assets/js'));
+});
+
+gulp.task('app.concat', function() {
+	gulp.src(['assets/js/libs.js',
+		'assets/js/templates.js',
+		'assets/js/app.js',
+		'assets/js/init.js'])
+		.pipe(concat('app.build.js'))
+		.pipe(gulp.dest('./assets/js'));
+});
+
+gulp.task('css.build', gulp.parallel('css', 'css.largeScreen', 'styleguide'));
+
+gulp.task('js.build', gulp.parallel('libs', 'app', 'templates'));
+
+gulp.task('app.build', gulp.parallel('app.concat'));
+
+gulp.task('build', gulp.series('css.build', 'js.build', 'app.build'));
+
+// gulp.task('build', gulp.series(gulp.parallel('css', 'css.largeScreen', 'styleguide', 'libs', 'app', 'templates'), 'app.build'));
 
 gulp.watch([
 	'assets/css/style.scss',

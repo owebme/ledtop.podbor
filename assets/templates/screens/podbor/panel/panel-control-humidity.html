@@ -1,12 +1,12 @@
 <panel-control-humidity class="control" data-active={ active }>
 
-    <div onClick={ toggle } onUpdate="none" class="control__value">{ $Config.get('humidity') }</div>
+    <div onClick={ toggle } onUpdate="none" class="control__value">{ $State.get('humidity') }</div>
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="humidity"></div>
     <div class="control__container flex-row-left-center">
         <div class="control__container__title">влагозащищенность</div>
         <div class="nowrap fontSize-0">
             <div onClick={ select } onUpdate="none" each={ item in items } class="pos-rel display-inlineBlock" data-balloon="{ item.tooltip }" data-balloon-pos="up">
-                <div class="btn { item.title == $Config.get('humidity') ? 'btn-primary' : 'btn-primary-hover' } btn-m w40 p0 mlr-xxs text-center">
+                <div class="btn { item.title == $State.get('humidity') ? 'btn-primary' : 'btn-primary-hover' } btn-m w40 p0 mlr-xxs text-center">
                     { item.title }
                 </div>
             </div>
@@ -45,7 +45,7 @@
     };
 
     $.select = function(){
-        $Config.set('humidity', this.item.title);
+        $State.set('humidity', this.item.title);
         $.hide();
     };
 

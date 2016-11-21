@@ -1,6 +1,10 @@
 <root-main>
 
-    <screens></screens>
+    <div class="screens"></div>
+
+    <section-tutorial></section-tutorial>
+
+    <section-notify></section-notify>
 
 <script>
 
@@ -9,24 +13,56 @@
     $root = this;
     $rootScope = $$(this.root);
 
-    this.on("mount", function(){
+    app.ver = "1.0";
 
+    var config = {
+        tooltipScreen: false,
+        showProducts: false,
+        tutorial: true
+    };
+
+    var state = {
+        control: true,
+        light: "rgb",
+        color: "green",
+        humidity: "P67",
+        length: "25"
+    };
+
+    var appVer = Store.get('appVer');
+
+    if (appVer && appVer == app.ver){
+        if (Store.get('config')){
+            _.extend(config, Store.get('config'));
+            config.showProducts = false;
+        }
+        if (Store.get('state')){
+            _.extend(state, Store.get('state'));
+        }
+    }
+    else {
+        Store.clear();
+        Store.set('appVer', app.ver);
+    }
+
+    $Config = new Baobab(config, { autoCommit: true });
+    $State = new Baobab(state, { autoCommit: true });
+
+    $State.on("update", function(e){
+        Store.set('state', $State.get());
     });
 
-    $afterlag = {
-        run: function(callback, options){
-            var opt = {
-                delay: 0,
-                iterations: 1
-            };
+    $Config.on("update", function(e){
+        Store.set('config', $Config);
+    });
 
-            if (options) _.extend(opt, options);
+    this.on("mount", function(){
 
-            var afterlag = new Afterlag(opt);
+        $Tutorial = $root.tags["section-tutorial"];
+        $Notify = $root.tags["section-notify"];
 
-            afterlag.run(callback);
-        }
-    };
+        app.router.init();
+    });
 
 </script>
 
