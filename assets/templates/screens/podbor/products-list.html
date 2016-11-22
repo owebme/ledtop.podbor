@@ -83,9 +83,16 @@
     };
 
     $.toggle = function(){
-        if (!$.active && $Config.get("showProducts")) return;
-        $.active = !$.active;
-        $.control();
+        if (!$.active && $Config.get("showProducts")){
+            $Notify.show({
+                color: "primary",
+                text: "Завершите предыдущий выбор"
+            })
+        }
+        else {
+            $.active = !$.active;
+            $.control();
+        }
     };
 
     $.show = function(){

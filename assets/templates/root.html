@@ -16,9 +16,13 @@
     app.ver = "1.0";
 
     var config = {
+        pack: "norm",
         tooltipScreen: false,
         showProducts: false,
-        tutorial: true
+        tutorial: true,
+        offers: {
+            manager: false
+        }
     };
 
     var state = {
@@ -29,15 +33,17 @@
         length: "25"
     };
 
+    if ($Router.params.get()){
+        _.extend(state, $Router.params.get());
+        state.control = state.control === "false" ? false : true;
+    }
+
     var appVer = Store.get('appVer');
 
     if (appVer && appVer == app.ver){
         if (Store.get('config')){
             _.extend(config, Store.get('config'));
             config.showProducts = false;
-        }
-        if (Store.get('state')){
-            _.extend(state, Store.get('state'));
         }
     }
     else {
@@ -48,13 +54,28 @@
     $Config = new Baobab(config, { autoCommit: true });
     $State = new Baobab(state, { autoCommit: true });
 
-    $State.on("update", function(e){
-        Store.set('state', $State.get());
-    });
-
     $Config.on("update", function(e){
         Store.set('config', $Config);
     });
+
+    if (app.config.changeStyles){
+        app.plugins.styles.init({
+            elem: "#styles",
+            default: "normal",
+            screens: [
+                {
+                    title: "normal",
+                    maxWidth: 1400,
+                    path: "/assets/css/style.css"
+                },
+                {
+                    title: "large",
+                    minWidth: 1400,
+                    path: "/assets/css/style.largeScreen.css"
+                }
+            ]
+        });
+    }
 
     this.on("mount", function(){
 

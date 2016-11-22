@@ -63,8 +63,9 @@ gulp.task('css.largeScreen', function() {
             debug: false
         }),
 		px2vw({
-			width: 1440,
+			width: 1400,
 			minPx: 2,
+			maxPx: 10000,
 			replace: true
 		}),
 		rename("style.largeScreen.css"),
@@ -105,7 +106,9 @@ gulp.task('libs', function() {
 		'assets/js/libs/baobab.js',
 		'assets/js/libs/underscore-min.js',
 		'assets/js/libs/rangeslider.js',
-		'assets/js/libs/afterlag-js/dist/afterlag.min.js'])
+		'assets/js/libs/afterlag-js/dist/afterlag.min.js',
+		'assets/js/libs/url.min.js',
+		'assets/js/libs/store.min.js'])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./assets/js'));
@@ -119,6 +122,7 @@ gulp.task('app', function() {
 		'assets/js/components/utils.js',
 	    'assets/js/components/tutorial.js',
 		'assets/js/components/router.js',
+		'assets/js/plugins/styles.js',
 		'assets/js/store/control.js',
 		'assets/js/store/ledribbon.js',
 		'assets/js/store/power.js'])
@@ -136,7 +140,7 @@ gulp.task('templates', function() {
 		.pipe(gulp.dest('./assets/js'));
 });
 
-gulp.task('app.concat', function() {
+gulp.task('app.build', function() {
 	gulp.src(['assets/js/libs.js',
 		'assets/js/templates.js',
 		'assets/js/app.js',
@@ -149,9 +153,7 @@ gulp.task('css.build', gulp.parallel('css', 'css.largeScreen', 'styleguide'));
 
 gulp.task('js.build', gulp.parallel('libs', 'app', 'templates'));
 
-gulp.task('app.build', gulp.parallel('app.concat'));
-
-gulp.task('build', gulp.series('css.build', 'js.build', 'app.build'));
+gulp.task('build', gulp.series('css.build', 'js.build'));
 
 // gulp.task('build', gulp.series(gulp.parallel('css', 'css.largeScreen', 'styleguide', 'libs', 'app', 'templates'), 'app.build'));
 

@@ -1,0 +1,34 @@
+<offer-manager class="oScreen zIndex-100" data-open={ $Config.get('offers', 'manager') } data-color="blue">
+
+    <div class="container">
+        <div class="row anim anim-scale-soft { animated : $Config.get('offers', 'manager') }" duration-hide="s">
+            <div class="col-md-8">
+                <div class="pt-s pl-l pr-m fontSize-20 lineHeight-xxxl">
+                    <div class="avatar" style="background-image:url(/assets/images/avatars/1.jpg)"></div>
+                    <div class="avatar__name">Ваш менеджер, Дарья</div>
+                    <div class="avatar__text">Мой телефон: <strong>8 (909) 900-12-20</strong></div>
+                    <div class="sign"><a target="_blank" class="link" href="http://ledtop-shop.ru">LEDTOP-Shop.ru</a> / приятного освещения!</div>
+                </div>
+            </div>
+            <div class="col-md-16">
+                <div class="pl-m pr-xl">
+                    <div class="message">
+                        <div class="message__corner"></div>
+                        Михаил, в продолжении нашего разговора я подобрала по вашим требования комплект. Если потребуется, здесь вы можете модифицировать мою конфигурацию и внести свои изменения.
+                        <p>Для дальнейшей консультации, я для Вас на связи!</p>
+                        <button onClick={ hide } class="btn btn-xl btn-white">Перейти к комплекту</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    this.hide = function(){
+        $Config.select('offers', 'manager').set(false);
+    };
+
+</script>
+
+</offer-manager>

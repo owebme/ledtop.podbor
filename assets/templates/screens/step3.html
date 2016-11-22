@@ -1,5 +1,7 @@
 <screen-step3 class="section" data-active="false" data-hidden={ hidden } data-animate="true" is-animate="false">
 
+    <offer-manager></offer-manager>
+
     <section-panel></section-panel>
 
     <div class="content">
@@ -27,6 +29,7 @@
 
     $.show = function(animate){
         $.hidden = false;
+        //$.reRender();
         $.update();
 
         $afterlag.run(function(){
@@ -39,14 +42,19 @@
                     if ($Config.get("tutorial")){
                         $.open.tutorial();
                     }
+                    $Router.params.set($State.get());
+                    $.active = true;
                 });
             }
             else {
                 $.root.setAttribute("data-animate", false);
                 $.root.setAttribute("data-active", true);
+                $Router.params.set($State.get());
+                $.active = true;
             }
         }, {
-            iterations: 5
+            iterations: 5,
+            timeout: 2000
         });
     };
 
@@ -71,6 +79,12 @@
             "ir-control": $["ir-control"]._tag
         };
 
+        $.setParams = function(){
+            $Router.params.set($State.get());
+        };
+
+        var setParams = _.debounce($.setParams, 100);
+
         $State.on("update", function(e){
             var data = $.getPropValue(e),
                 prop = data.prop,
@@ -81,6 +95,7 @@
                     $Product["ir-control"].update();
                 }
             }
+            if ($.active) setParams();
         });
 
         $Config.on("update", function(e){
@@ -110,64 +125,73 @@
             }
         });
 
-        var getFirstProduct = function(name){
-            var item = $store[name].get()[0];
-            item.pack = "norm";
-            return item;
-        };
+        $.reRender();
+    });
 
-        var store = {
-            ledribbon: {
-                econom: ['010523', '010523'],
-                lux: ['013393', '014676']
-            },
-            power: {
-                econom: ['017831', '012919', '008889', '010505'],
-                lux: ['010505', '015992', '011895', '018308']
-            },
-            control: {
-                econom: ['012987', '021098', '015422', '020170', '011439'],
-                lux: ['016678', '016476', '018609', '016927', '021025']
-            }
+    $.getFirstProduct = function(name){
+        var item = $store[name].get()[0];
+        // if ($Config.get('pack') != "norm"){
+        //     item.article = $.store[name][$Config.get('pack')][0];
+        //     item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
+        // }
+        // item.pack = $Config.get('pack');
+        item.pack = "norm";
+        return item;
+    };
+
+    $.getProducts = function(name){
+        var array = [];
+            packs = ['econom', 'norm', 'lux'];
+
+        for(var i=0; i < packs.length; i++){
+            var arr = [];
+            arr = _.copyArray($store[name].get()).map(function(item, j){
+                item.pack = packs[i];
+                if (packs[i] == "econom" || packs[i] == "lux"){
+                    item.article = $.store[name][packs[i]][j];
+                    item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
+                }
+                return item;
+            });
+            array = array.concat(arr);
         }
+        return array;
+    };
 
-        var getProducts = function(name){
-            var array = [];
-                packs = ['econom', 'norm', 'lux'];
+    $.store = {
+        ledribbon: {
+            econom: ['010523', '020692'],
+            lux: ['013393', '014676']
+        },
+        power: {
+            econom: ['017831', '012919', '008889', '010505'],
+            lux: ['017855', '015992', '011895', '018308']
+        },
+        control: {
+            econom: ['012987', '021098', '015422', '020170', '011439'],
+            lux: ['016678', '016476', '018609', '016927', '021025']
+        }
+    };
 
-            for(var i=0; i < packs.length; i++){
-                var arr = [];
-                arr = _.copyArray($store[name].get()).map(function(item, j){
-                    item.pack = packs[i];
-                    if (packs[i] == "econom" || packs[i] == "lux"){
-                        item.article = store[name][packs[i]][j];
-                        item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
-                    }
-                    return item;
-                });
-                array = array.concat(arr);
-            }
-            return array;
-        };
-
+    $.reRender = function(){
         var data = [
             {
                 _id: "ledribbon",
                 title: "Лента",
-                product: getFirstProduct("ledribbon"),
-                products: getProducts("ledribbon")
+                product: $.getFirstProduct("ledribbon"),
+                products: $.getProducts("ledribbon")
             },
             {
                 _id: "power-supply",
                 title: "Блок питания",
-                product: getFirstProduct("power"),
-                products: getProducts("power")
+                product: $.getFirstProduct("power"),
+                products: $.getProducts("power")
             },
             {
                 _id: "ir-control",
                 title: "Управление",
-                product: getFirstProduct("control"),
-                products: getProducts("control")
+                product: $.getFirstProduct("control"),
+                products: $.getProducts("control")
             }
         ];
 
@@ -185,7 +209,7 @@
                 }
             }
         );
-    });
+    };
 
     $.getPropValue = function(e){
         var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
