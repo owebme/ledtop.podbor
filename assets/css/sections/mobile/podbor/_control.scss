@@ -1,0 +1,44 @@
+section-control-mobile.section__control {
+    @extend .border-none;
+
+    .back {
+        @extend .btn-active;
+
+        &:after {
+            @extend .content-empty;
+            @extend .display-block;
+            @include ui-icon("back_circle", 35px, 47px);
+            @extend .mb--xs;
+        }
+    }
+    .control__wrapper {
+        @extend .xs-pb0;
+    }
+    .control__container {
+        box-shadow:0 8.66px 35px 0 rgba(31,35,37,.25);
+    }
+    .control__light__icon {
+        margin-left:1px;
+    }
+    .control__value {
+        width:46px;
+        height:46px;
+
+        &:after {
+            width:54px;
+            height:54px;
+            @extend .borderWidth-2;
+            @extend .borderStyle-solid;
+            @extend .opacity-80;
+            box-shadow:0 12px 20px -10px rgba($blue, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($blue, 0.2);
+        }
+    }
+}
+
+@media screen and (max-height: 525px) {
+    section-control-mobile.section__control {
+        .control {
+            margin-bottom:32px;
+        }
+    }
+}

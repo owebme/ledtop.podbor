@@ -1,0 +1,5 @@
+(function(){
+
+    riot.mount("*");
+
+})();

@@ -1,0 +1,19 @@
+screen-podbor {
+    .content {
+        @extend .pos-centered-v;
+        left:120px;
+        @extend .h95v;
+        width:calc(100% - 120px);
+        max-width:1400px;
+        @extend .text-center;
+        @extend .plr-xs;
+
+        .buttons-angle {
+            top:calc(20px - 5vh);
+        }
+        .title {
+            @extend .fontSize-28;
+            @extend .fontWeight-3;
+        }        
+    }
+}

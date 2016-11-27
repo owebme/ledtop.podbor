@@ -1,0 +1,105 @@
+.notify {
+    @include accelerate();
+    @extend .opacity-0;
+    @extend .c-white;
+    @extend .borderRadius-l;
+    @extend .pointerEvents-none;
+    @extend .zIndex-101;
+    padding:28px 25px 30px 80px;
+    transition:transform .4s $cubic40, opacity .4s $cubic40;
+
+    &:before {
+        @extend .content-empty;
+        @extend .pos-tl;
+        @include ui-icon("info_white", 32px, 32px);
+        transform:translate3d(25px, 20px, 0);
+    }
+    &-xl {
+        font-size:22px;
+        line-height:28px;
+    }
+    &-l {
+        font-size:20px;
+        line-height:26px;
+    }
+    &-m {
+        font-size:19px;
+        line-height:25px;
+    }
+    &-s {
+        font-size:18px;
+        line-height:22px;
+    }
+    &-xs {
+        font-size:17px;
+        line-height:20px;
+    }
+    &-wrapper {
+        @extend .display-none;
+        @extend .pos-fixed;
+        @extend .visibility-hidden;
+        @extend .zIndex-101;
+        transition:visibility 0s .4s;
+
+        &[data-pos="top-center"]{
+            @extend .t-m;
+            @extend .l50;
+            transform:translateX(-50%);
+
+            .notify {
+                transform:translate3d(0, -40px, 0);
+            }
+        }
+        &[data-pos="top-left"]{
+            @extend .t-m;
+            @extend .l-m;
+
+            .notify {
+                transform:translate3d(0, -40px, 0);
+            }
+        }
+        &[data-pos="top-right"]{
+            @extend .t-m;
+            @extend .r-m;
+
+            .notify {
+                transform:translate3d(0, -40px, 0);
+            }
+        }
+        &[data-pos="bottom-center"]{
+            @extend .b-m;
+            @extend .l50;
+            transform:translateX(-50%);
+
+            .notify {
+                transform:translate3d(0, 40px, 0);
+            }
+        }
+        &[data-pos="bottom-left"]{
+            @extend .b-m;
+            @extend .l-m;
+
+            .notify {
+                transform:translate3d(0, 40px, 0);
+            }
+        }
+        &[data-pos="bottom-right"]{
+            @extend .b-m;
+            @extend .r-m;
+
+            .notify {
+                transform:translate3d(0, 40px, 0);
+            }
+        }
+        &[data-active="true"]{
+            @extend .pointerEvents-all;
+            @extend .visibility-visible;
+            transition:visibility 0s;
+
+            .notify {
+                @extend .opacity-100;
+                @extend .transform-default;
+            }
+        }
+    }
+}

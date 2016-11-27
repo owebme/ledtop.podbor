@@ -1,0 +1,77 @@
+.buttons-angle {
+    @extend .inline;
+
+    div[class^="button"]{
+        @extend .pos-rel;
+        @extend .btn-hover;
+        @extend .btn-active;
+        @extend .cursor-pointer;
+        margin:0 0 0 15px;
+    }
+    &-tr, &[data-pos="top-right"] {
+        @extend .pos-tr;
+        transform:translate3d(-17px, 15px, 0);
+
+        .d-phone & {
+            transform:translate3d(-10px, 12px, 0);
+        }
+    }
+    &-tl, &[data-pos="top-left"] {
+        @extend .pos-tl;
+        transform:translate3d(17px, 15px, 0);
+
+        .d-phone & {
+            transform:translate3d(10px, 12px, 0);
+        }
+    }
+    &-bl, &[data-pos="bottom-left"] {
+        @extend .pos-bl;
+        transform:translate3d(17px, -15px, 0);
+
+        .d-phone & {
+            transform:translate3d(10px, -12px, 0);
+        }
+    }
+    &-br, &[data-pos="bottom-right"] {
+        @extend .pos-br;
+        transform:translate3d(-17px, -15px, 0);
+
+        .d-phone & {
+            transform:translate3d(-10px, -12px, 0);
+        }
+    }
+    &.zIndex-0 {
+        @extend .zIndex-0;
+    }
+}
+.button {
+    &__close {
+        @extend .pos-tr;
+        @extend .cursor-pointer;
+        @extend .btn-active;
+        @extend .zIndex-2;
+        width:26px;
+        height:36px;
+        @include ui-icon(back_circle);
+        margin:15px 17px 0 0;
+
+        .oScreen__scroll & {
+            @extend .pos-fixed;
+        }
+        &.small {
+            width:32px;
+            height:32px;
+        }
+        .d-phone & {
+            margin:15px 10px 0 0;
+        }
+    }
+    &__help {
+        width:32px;
+        height:32px;
+        @include ui-icon(help);
+        @extend .borderRadius-circle;
+        border:1px solid $blue;
+        transform:translate3d(0, -3px, 0);
+    }
+}

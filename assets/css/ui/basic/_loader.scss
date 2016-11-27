@@ -1,0 +1,62 @@
+.loader {
+    @include abs(fixed);
+    @extend .opacity-0;
+    @extend .visibility-hidden;
+    @extend .bg-blackLight;
+    @extend .zIndex-102;
+    will-change:opacity;
+
+    &-spinner {
+        @include accelerate(true);
+    	@include abs_50(80, 80);
+        will-change:transform;
+    	clip:rect(0, 80px, 80px, 40px);
+
+        &:after {
+    		@extend .content-empty;
+    		@include accelerate(true);
+            @extend .pos-abs;
+            @extend .borderRadius-circle;
+            @extend .w80;
+            @extend .h80;
+    		box-shadow:inset #fff 0 0 0 2px;
+            will-change:transform;
+    		clip:rect(0, 80px, 80px, 40px);
+    	}
+    }
+    &[data-fade="true"]{
+        transition:opacity 0.55s $cubic2501, visibility 0s 0.55s;
+    }
+    &[data-show="true"]{
+        @extend .opacity-100;
+        @extend .visibility-visible;
+        transition:opacity 0.2s ease-out, visibility 0s;
+    }
+    &[data-fade="true"],
+    &[data-show="true"]{
+        .loader-spinner {
+            animation:loader-animate1 1.1s linear infinite;
+
+            &:after {
+                animation:loader-animate2 1.1s ease-in-out infinite;
+            }
+        }
+    }
+}
+
+@keyframes loader-animate1 {
+	0% {
+		transform:rotate(0);
+	}
+	100% {
+		transform:rotate(220deg);
+	}
+}
+@keyframes loader-animate2 {
+	0% {
+		transform:rotate(-140deg);
+	}
+	100% {
+		transform:rotate(140deg);
+	}
+}

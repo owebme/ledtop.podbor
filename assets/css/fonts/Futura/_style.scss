@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'Futura';
+  src: url('/assets/css/fonts/Futura/FuturaPTBook.otf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura';
+  src: url('/assets/css/fonts/Futura/FuturaPTDemi.eot'); /* IE9 Compat Modes */
+  src: url('/assets/css/fonts/Futura/FuturaPTDemi.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/assets/css/fonts/Futura/FuturaPTDemi.woff2') format('woff2'), /* Modern Browsers */
+    url('/assets/css/fonts/Futura/FuturaPTDemi.woff') format('woff'), /* Modern Browsers */
+    url('/assets/css/fonts/Futura/FuturaPTDemi.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/assets/css/fonts/Futura/FuturaPTDemi.svg') format('svg'); /* Legacy iOS */
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura';
+  src: url('/assets/css/fonts/Futura/FuturaPTHeavy.eot'); /* IE9 Compat Modes */
+  src: url('/assets/css/fonts/Futura/FuturaPTHeavy.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/assets/css/fonts/Futura/FuturaPTHeavy.woff2') format('woff2'), /* Modern Browsers */
+    url('/assets/css/fonts/Futura/FuturaPTHeavy.woff') format('woff'), /* Modern Browsers */
+    url('/assets/css/fonts/Futura/FuturaPTHeavy.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/assets/css/fonts/Futura/FuturaPTHeavy.svg') format('svg'); /* Legacy iOS */
+  font-weight: 800;
+  font-style: normal;
+}

@@ -1,9 +1,9 @@
-admin
-cgi-bin
-css
-js
-parser
-node_modules
-temp
+/admin
+/cgi-bin
+/css
+/js
+/parser
+/node_modules
+/temp
 *.doc
 *.xls

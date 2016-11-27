@@ -1,0 +1,15 @@
+screen-begin-mobile {
+    @extend .bg-blackLight;
+    @extend .c-white;
+    @extend .fontWeight-3;
+    @extend .fontSize-32;
+    @extend .lineHeight-48;
+
+    .text {
+        &__wrapper {
+            @extend .pos-centered-v;
+            @extend .w100p;
+            padding:0 25px;
+        }
+    }
+}

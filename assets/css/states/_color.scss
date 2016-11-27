@@ -1,0 +1,249 @@
+.color {
+    @each $title, $color in (blue: $blue, cool_white: darken(#E0FFFF,12%), day_white: darken(#fff6d5,12%), green: $green, ir850: #ccc, orange: $orange, pink: #ec008c, red: $red, violet: #90F, warm_white: #fcfca0, white: #fff, yellow: #FF3, uni: linear-gradient(to right, #fcfca0, #E0FFFF), warm_cool: linear-gradient(135deg, #fff6d5, #fcfca0, #FF3, #E0FFFF, #ccffff, #f5f5f5)){
+        &-#{$title} {
+            background:$color;
+        }
+    }
+}
+@each $title, $color in (white: $white, blue: $blue, blueLight: $blueLight, blueDark: $blueDark, red: $red, redDark: $redDark, crimson: $crimson, crimsonDark: $crimsonDark, orange: $orange, orangeDark: $orangeDark, yellow: $yellow, yellowDark: $yellowDark, violet: $violet, green: $green, greenDark: $greenDark, lime: $lime, breeze: $breeze, emerald: $emerald, emeraldDark: $emeraldDark, black: $black, blackLight: $blackLight, blackDark: $blackDark, gray: $gray, grayDark: $grayDark, grayLight: $grayLight, grayLighten: $grayLighten, smoke: $smoke, smokeLight: $smokeLight, smokeDark: $smokeDark, snow: $snow, snowLight: $snowLight, snowDark: $snowDark, snowGray: $snowGray){
+    .bg-#{$title} {
+        background-color:$color;
+    }
+    .bg-#{$title}-transparent {
+        background-color:rgba($color,.1);
+    }
+    .c-#{$title} {
+        color:$color;
+    }
+    .fill-#{$title} {
+        fill:$color;
+    }
+    .borderColor-#{$title} {
+        border-color:$color;
+    }
+    .borderColor-#{$title}-transparent {
+        border-color:rgba($color,.1);
+    }
+    svg[fill-color="#{$title}"]{
+        path, rect, polygon, circle {
+            fill:$color;
+        }
+    }
+}
+@each $title, $color, $hover in (dark, $black, $blackDark), (light, $gray, $black), (white, rgba($white,.44), $white){
+    .link-#{$title} {
+        color:$color;
+
+        &:hover {
+            color:$hover;
+        }
+        &.link-underline {
+            @extend .pos-rel;
+
+            &:after {
+                @extend .content-empty;
+                @extend .pos-bl;
+                @extend .h1px;
+                @extend .opacity-60;
+                @extend .w100p;
+                transform:translateY(4px);
+                background-color:rgba($color,.4);
+                transition:opacity .2s, background-color .08s;
+            }
+            &:hover:after {
+                @extend .opacity-100;
+            }
+        }
+    }
+}
+@each $title, $color in (primary: $blue, info: $blueLight, success: $green, danger: $red, warning: $orange, dark: $black){
+    .btn-#{$title} {
+        color:$white;
+        background-color:$color;
+
+        .btn-svg-color {
+            fill:$white;
+        }
+        &:hover {
+            background-color:darken($color,9%);
+        }
+    }
+    .btn-#{$title}-hover {
+        color:$color;
+        background-color:transparent;
+        box-shadow:inset 0 0 0 1px $color;
+
+        .btn-svg-color {
+            fill:$color;
+        }
+        &:hover {
+            color:#fff;
+            background-color:$color;
+            box-shadow:none;
+
+            .btn-svg-color {
+                fill:#fff;
+            }
+        }
+    }
+    .btn-default-hover-#{$title} {
+        color:$white;
+        box-shadow:inset 0 0 0 1px $blue;
+        background-color:$blue;
+
+        &:hover {
+            background-color:$color;
+            box-shadow:none;
+        }
+    }
+    .link-#{$title},
+    .link-default-hover-#{$title} {
+		color:$color;
+	    opacity:0.85;
+	    @extend .link;
+
+	    &:hover {
+	        opacity:1;
+            color:darken($color,3%);
+	    }
+        &.link-underline {
+            @extend .pos-rel;
+            @extend .opacity-100;
+
+            &:after {
+                @extend .content-empty;
+                @extend .pos-bl;
+                @extend .h1px;
+                @extend .opacity-60;
+                @extend .w100p;
+                transform:translateY(4px);
+                background-color:rgba($color,.4);
+                transition:opacity .2s, background-color .08s;
+            }
+            &:hover:after {
+                @extend .opacity-100;
+            }
+        }
+    }
+    .link-gray-hover-#{$title} {
+        color:$gray;
+
+        &:hover {
+            color:$color;
+        }
+    }
+    .link-default-hover-#{$title} {
+        color:$blue;
+
+        &:hover {
+            color:$color;
+        }
+        &.link-underline {
+            &:after {
+                background-color:rgba($blue,.4);
+            }
+            &:hover:after {
+                background-color:rgba($color,.4);
+            }
+        }
+    }
+    .notify[data-color=#{$title}] {
+        background-color:$color;
+        box-shadow:0 12px 20px -10px rgba($color,.28), 0 4px 20px 0px rgba($color,.12), 0 7px 8px -5px rgba($color,.2);
+    }
+    .arrow-pointer[data-color=#{$title}]:before {
+        border-color:$color;
+    }
+}
+.btn-default {
+    @extend .btn-primary-hover;
+
+    &-hover-white {
+        @extend .btn-primary;
+
+        &:hover {
+            color:$blue;
+            background-color:$white;
+            box-shadow:none;
+        }
+    }
+}
+.btn-white {
+    color:$black;
+    box-shadow:none;
+    background-color:$white;
+
+    .btn-svg-color {
+        fill:$black;
+    }
+    &:hover {
+        color:$blue;
+        background-color:$snow;
+    }
+    &.c-blue {
+        color:$blue;
+    }
+}
+.btn-white-hover,
+.btn-white-hover-primary {
+    color:$white;
+    box-shadow:inset 0 0 0 1px rgba($white,.3);
+    background-color:transparent;
+
+    .btn-svg-color {
+        fill:$white;
+    }
+    &:hover {
+        color:$black;
+        box-shadow:none;
+        background-color:$white;
+
+        .btn-svg-color {
+            fill:$blue;
+        }
+        &.c-blue {
+            color:$blue;
+        }
+    }
+    &.btn-larger,
+    &.btn-xxl,
+    &.btn-xl.btn-upper,
+    &.btn-strong {
+        box-shadow:inset 0 0 0 2px rgba($white,.3);
+    }
+}
+.btn-white-hover-primary,
+.btn-white-hover-success,
+.btn-white-hover-black {
+    color:$black;
+    box-shadow:none !important;
+    background-color:$white;
+
+    &.c-blue {
+        color:$blue;
+    }
+    &:hover {
+        color:$white;
+    }
+}
+.btn-white-hover-primary:hover {
+    background-color:$blue;
+}
+.btn-white-hover-success:hover {
+    background-color:$green;
+}
+.btn-white-hover-black:hover {
+    background-color:$black;
+}
+.arrow-pointer[data-color="white"]:before {
+    border-color:$white;
+}
+.bg-overlay {
+    background-color:rgba(40,47,51,.76);
+}
+.bg-radial-blue {
+    background:radial-gradient(rgba($blue,.0), $blue);
+}
+.bg-radial-black {
+    background:radial-gradient(rgba($black,.0), $black);
+}

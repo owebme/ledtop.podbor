@@ -1,0 +1,82 @@
+offer-manager {
+    @extend .c-white;
+
+    .container {
+        @extend .pos-centered;
+    }
+    .avatar {
+        @extend .pos-rel;
+        width:120px;
+        height:120px;
+        @extend .mlr-auto;
+        @extend .mb-m;
+        @extend .bg-cover;
+        @extend .borderRadius-circle;
+
+        &__name {
+            @extend .mb-xxs;
+        }
+        &:before {
+            @extend .content-empty;
+            @extend .pos-centered;
+            width:136px;
+            height:136px;
+            @extend .bg-white;
+            @extend .opacity-20;
+            @extend .borderRadius-circle;
+            @extend .zIndex--1;
+        }
+    }
+    .message {
+        @extend .pos-rel;
+        @extend .text-left;
+        @extend .fontSize-21;
+        @extend .lineHeight-xxxl;
+        @extend .whiteSpace-preLine;
+        @extend .p-l;
+        @extend .borderRadius-m;
+        border:5px solid rgba($white,.4);
+
+        &__corner {
+            @extend .pos-abs;
+            @extend .t-l;
+            @extend .r100;
+            @extend .w5;
+            @extend .h100;
+            background-color:rgba($blue,.95);
+
+            &:before {
+                @extend .content-empty;
+                @extend .pos-tr;
+                @extend .h5;
+                @extend .w80;
+                @extend .bg-white;
+                @extend .opacity-40;
+            }
+            &:after {
+                @extend .content-empty;
+                @extend .pos-tl;
+                @extend .w5;
+                height:125px;
+                @extend .bg-white;
+                @extend .opacity-40;
+                transform:translate3d(-30px, -5px, 0) rotate(-45deg);
+            }
+        }
+    }
+    p {
+        @extend .mt-xs;
+        @extend .mb-m;
+    }
+    .btn {
+        @extend .pos-abs;
+        @extend .b--l;
+        @extend .r-l;
+        @extend .borderRadius-l;
+        outline:6px solid rgba($blue,.95);
+    }
+    .link {
+        @extend .c-breeze;
+        border-bottom:1px solid rgba($breeze,.5);
+    }
+}

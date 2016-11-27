@@ -1,0 +1,58 @@
+.text-center {
+    text-align:center;
+}
+.text-left {
+    text-align:left;
+}
+.text-right {
+    text-align:right;
+}
+.text-lowercase {
+    text-transform:lowercase;
+}
+.text-uppercase {
+    text-transform:uppercase;
+}
+.text-capitalize {
+    text-transform:capitalize;
+}
+.text-ellipsis {
+    text-overflow:ellipsis;
+}
+.textDecor-underline {
+    text-decoration:underline;
+}
+.textDecor-none {
+    text-decoration:none;
+}
+.nowrap {
+    white-space:nowrap;
+}
+.whiteSpace-normal {
+    white-space:normal;
+}
+.whiteSpace-preLine {
+    white-space:pre-line;
+}
+.textShadow {
+    text-shadow:0 2px 1px rgba(#000,.6);
+}
+.textShadow-light {
+    text-shadow:0 2px 1px rgba(#000,.2);
+}
+.text-truncate {
+    @extend .overflow-hidden;
+    @extend .text-ellipsis;
+    @extend .nowrap;
+}
+.textAnliased-auto {
+    -webkit-font-smoothing:auto;
+}
+.inline {
+    font-size:0;
+    @extend .clear;
+
+    > div {
+        @extend .display-inlineBlock;
+    }
+}

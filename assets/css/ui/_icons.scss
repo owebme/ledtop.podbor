@@ -1,0 +1,520 @@
+@each $icon in (
+    loading, loading_white, close, close_white, close_strong, close_strong_white,
+    minus, minus_white, plus, plus_white, plus_thin, plus_thin_white,
+    pencil, pencil_white, menu, menu_white, more_h, more_h_white, more_v,
+    more_v_white, back, back_white, back_circle, help, close_fill, close_strong, close_fill_gray,
+    info_white, check, check_black, check_white, edit, edit_white, repeat, settings_white,
+    light, light_white, light_blue, humidity, humidity_blue, length, length_blue, unbox_white,
+    led_mono, led_mono_white, led_rgb, led_lightrun_blue, led_lightrun_white, okey_white,
+    sendEmail, order, stars_v, callback
+){
+    .ui-icon-#{$icon} {
+        background:url('/assets/images/ui/ui-#{$icon}.svg') no-repeat 0 0 / cover;
+    }
+}
+@mixin ui-icon($icon, $width: false, $height: false) {
+    @if $width {
+        width:#{$width};
+    }
+    @if $height {
+        height:#{$height};
+    }
+    @extend .ui-icon-#{$icon};
+}
+.icon {
+    @extend .display-inlineBlock;
+    @extend .vAlign-middle;
+
+    path {
+        transition:fill 0.2s $cubic215;
+    }
+    &-globe {
+        &.icon-xs {
+            width:22px;
+            height:22px;
+        }
+        &.icon-s {
+            width:28px;
+            height:28px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-l {
+            width:60px;
+            height:60px;
+        }
+        &.icon-xl {
+            width:80px;
+            height:80px;
+        }
+    }
+    &-control {
+        &.icon-s {
+            width:50px;
+            height:50px;
+            transform:translateY(6px);
+        }
+        &.icon-m {
+            width:62px;
+            height:62px;
+            margin-top:-11px;
+            margin-bottom:-11px;
+            transform:translateY(6px);
+        }
+        &.icon-l {
+            width:94px;
+            height:94px;
+            margin-top:-17px;
+            margin-bottom:-17px;
+            transform:translateY(9px);
+        }
+        &.icon-xl {
+            width:132px;
+            height:132px;
+            margin-top:-26px;
+            margin-bottom:-26px;
+            transform:translateY(14px);
+        }
+    }
+    &-play {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+        }
+        &.icon-s {
+            width:34px;
+            height:34px;
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:70px;
+            height:70px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
+        &.icon-xl {
+            width:100px;
+            height:100px;
+            margin-top:-10px;
+            margin-bottom:-10px;
+        }
+    }
+    &-chart {
+        &.icon-xs {
+            width:22px;
+            height:22px;
+        }
+        &.icon-s {
+            width:28px;
+            height:28px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-l {
+            width:60px;
+            height:60px;
+        }
+        &.icon-xl {
+            width:80px;
+            height:80px;
+        }
+    }
+    &-devices {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+            transform:translateY(5px);
+        }
+        &.icon-s {
+            width:33px;
+            height:33px;
+            transform:translateY(5px);
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+            transform:translateY(5px);
+        }
+        &.icon-l {
+            width:72px;
+            height:72px;
+            margin-top:-6px;
+            margin-bottom:-6px;
+            transform:translateY(7px);
+        }
+        &.icon-xl {
+            width:102px;
+            height:102px;
+            margin-top:-11px;
+            margin-bottom:-11px;
+            transform:translateY(11px);
+        }
+    }
+    &-feedback {
+        &.icon-xs {
+            width:24px;
+            height:24px;
+        }
+        &.icon-s {
+            width:30px;
+            height:30px;
+        }
+        &.icon-m {
+            width:37px;
+            height:37px;
+            transform:translateY(-2px);
+        }
+        &.icon-l {
+            width:50px;
+            height:50px;
+            transform:translateY(-2px);
+        }
+        &.icon-xl {
+            width:80px;
+            height:80px;
+        }
+        &.icon-large {
+            width:128px;
+            height:128px;
+        }
+    }
+    &-pdf {
+        &.icon-xs {
+            width:40px;
+            height:40px;
+        }
+        &.icon-s {
+            width:52px;
+            height:52px;
+            margin-top:-4px;
+            margin-bottom:-4px;
+            transform:translateY(7px);
+        }
+        &.icon-m {
+            width:60px;
+            height:60px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+            transform:translateY(8px);
+        }
+        &.icon-l {
+            width:86px;
+            height:86px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+            transform:translateY(10px);
+        }
+        &.icon-xl {
+            width:142px;
+            height:142px;
+            margin-top:-31px;
+            margin-bottom:-31px;
+            transform:translateY(27px);
+        }
+        &.icon-large {
+            width:190px;
+            height:190px;
+            margin-top:-31px;
+            margin-bottom:-31px;
+            transform:translateY(17px);
+        }
+    }
+    &-print {
+        &.icon-xs {
+            width:22px;
+            height:22px;
+        }
+        &.icon-s {
+            width:28px;
+            height:28px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-xl {
+            width:86px;
+            height:86px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+            transform:translateY(6px);
+        }
+    }
+    &-eye {
+        &.icon-xs {
+            width:24px;
+            height:24px;
+        }
+        &.icon-s {
+            width:32px;
+            height:32px;
+            transform:translateY(1px);
+        }
+        &.icon-m {
+            width:44px;
+            height:44px;
+        }
+        &.icon-l {
+            width:68px;
+            height:68px;
+            transform:translateY(2px);
+        }
+        &.icon-xl {
+            width:86px;
+            height:86px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+            transform:translateY(6px);
+        }
+    }
+    &-glass {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+        }
+        &.icon-s {
+            width:34px;
+            height:34px;
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:60px;
+            height:60px;
+        }
+        &.icon-xl {
+            width:100px;
+            height:100px;
+            margin-top:-10px;
+            margin-bottom:-10px;
+            transform:translateY(-2px);
+        }
+    }
+    &-colors {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+        }
+        &.icon-s {
+            width:34px;
+            height:34px;
+            transform:translateY(4px);
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:70px;
+            height:70px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
+        &.icon-xl {
+            width:114px;
+            height:114px;
+            margin-top:-17px;
+            margin-bottom:-17px;
+            transform:translateY(12px);
+        }
+    }
+    &-design {
+        &.icon-xs {
+            width:22px;
+            height:22px;
+        }
+        &.icon-s {
+            width:28px;
+            height:28px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-l {
+            width:54px;
+            height:54px;
+        }
+        &.icon-xl {
+            width:86px;
+            height:86px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+            transform:translateY(6px);
+        }
+    }
+    &-crown {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+        }
+        &.icon-s {
+            width:42px;
+            height:42px;
+            transform:translateY(4px);
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:70px;
+            height:70px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+            transform:translateY(6px);
+        }
+        &.icon-xl {
+            width:124px;
+            height:124px;
+            margin-top:-22px;
+            margin-bottom:-22px;
+            transform:translateY(10px);
+        }
+    }
+    &-link {
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:70px;
+            height:70px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
+        &.icon-xl {
+            width:124px;
+            height:124px;
+            margin-top:-22px;
+            margin-bottom:-22px;
+            transform:translateY(15px);
+        }
+    }
+    &-test {
+        &.icon-xs {
+            width:26px;
+            height:26px;
+        }
+        &.icon-s {
+            width:32px;
+            height:32px;
+            transform:translateY(1px);
+        }
+        &.icon-m {
+            width:46px;
+            height:46px;
+            margin-top:-3px;
+            margin-bottom:-3px;
+        }
+        &.icon-l {
+            width:70px;
+            height:70px;
+            margin-top:-5px;
+            margin-bottom:-5px;
+        }
+        &.icon-xl {
+            width:100px;
+            height:100px;
+            margin-top:-10px;
+            margin-bottom:-10px;
+            transform:translateY(-2px);
+        }
+    }
+    &-share {
+        &.icon-xs {
+            width:22px;
+            height:22px;
+        }
+        &.icon-s {
+            width:28px;
+            height:28px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-l {
+            width:72px;
+            height:72px;
+            margin-top:-6px;
+            margin-bottom:-6px;
+            transform:translateY(7px);
+        }
+        &.icon-xl {
+            width:80px;
+            height:80px;
+        }
+    }
+    &-camera {
+        &.icon-xs {
+            width:24px;
+            height:24px;
+        }
+        &.icon-s {
+            width:31px;
+            height:31px;
+        }
+        &.icon-m {
+            width:40px;
+            height:40px;
+        }
+        &.icon-l {
+            width:56px;
+            height:56px;
+        }
+        &.icon-xl {
+            width:80px;
+            height:80px;
+        }
+    }
+    &-fb {
+        &.icon-m {
+            width:70px;
+            height:70px;
+            margin:-9px -10px -10px;
+        }
+    }
+    &-dk {
+        &.icon-m {
+            width:74px;
+            height:74px;
+            margin:-13px -12px -11px;
+        }
+    }
+    &-vk,
+    &-tw {
+        &.icon-m {
+            width:80px;
+            height:80px;
+            margin:-15px;
+        }
+    }
+    &-gl {
+        &.icon-m {
+            width:34px;
+            height:34px;
+        }
+    }
+}

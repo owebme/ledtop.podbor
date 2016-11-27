@@ -1,0 +1,74 @@
+screen-podbor {
+    &[data-animate="true"]{
+        .panel {
+            @include accelerate();
+            @extend .opacity-01;
+            transform:translate3d(-120px, 0, 0);
+            will-change:opacity, transform;
+            transition:opacity 0.6s $cubic215, transform 0.6s $cubic215;
+        }
+        .control {
+            @include accelerate();
+            @extend .opacity-01;
+            transform:translate3d(0, 0, 0) scale3d(0, 0, 0);
+            will-change:opacity, transform;
+            transition:opacity 0.42s $cubic215, transform 0.42s $cubic215;
+
+            &:nth-child(1) {
+                transition-delay:0.8s;
+            }
+            &:nth-child(2) {
+                transition-delay:1s;
+            }
+            &:nth-child(3) {
+                transition-delay:1.2s;
+            }
+            &:nth-child(4) {
+                transition-delay:1.4s;
+            }
+            &:nth-child(5) {
+                transition-delay:1.6s;
+            }
+        }
+        .product {
+            @include accelerate();
+            @extend .opacity-01;
+            transition:opacity 0.7s $cubic25b;
+
+            &:nth-child(1) {
+                transition-delay:2s;
+            }
+            &:nth-child(2) {
+                transition-delay:2.6s;
+            }
+            &:nth-child(3) {
+                transition-delay:3.2s;
+            }
+        }
+        .buttons-angle {
+            @include accelerate();
+            @extend .opacity-01;
+            transform:translate3d(-17px, 15px, 0) scale3d(0, 0, 0);
+            will-change:opacity, transform;
+            transition:opacity 0.4s $cubic215, transform 0.4s $cubic215;
+            transition-delay:3.7s;
+        }
+        &[is-animate="true"]{
+            .panel {
+                @extend .opacity-100;
+                @extend .transform-default;
+            }
+            .buttons-angle {
+                @extend .opacity-100;
+                transform:translate3d(-17px, 15px, 0) scale3d(1, 1, 1);
+            }
+            .control {
+                @extend .opacity-100;
+                transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
+            }
+            .product {
+                @extend .opacity-100;
+            }
+        }
+    }
+}

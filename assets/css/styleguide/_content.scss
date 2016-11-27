@@ -1,0 +1,50 @@
+.content {
+    display:block;
+    padding:102px 80px 80px 100px;
+    color:$black;
+    max-width:100%;
+}
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, strong {
+    @extend .c-blue;
+}
+
+@media screen and (min-width: $w1200) {
+    .content {
+        max-width:1000px;
+    }
+}
+@media screen and (min-width: $w768) and (max-width: $w1024) {
+    .content {
+        padding-left:80px;
+        padding-right:60px;
+    }
+}
+@media screen and (min-width: $w768) and (max-width: $w991) {
+    .content {
+        padding-left:60px;
+        padding-right:40px;
+    }
+}
+@media screen and (max-width: $w991) {
+    h2 {
+        text-align:center;
+    }
+    .content {
+        padding:190px 40px 60px 40px;
+    }
+}
+@media screen and (max-width: $w767) {
+    .content {
+        overflow:auto;
+    }
+}
+@media screen and (max-width: $w400) {
+    .content {
+        padding:190px 25px 60px 25px;
+    }
+}
+@media screen and (max-width: $w320) {
+    .content {
+        padding:184px 20px 60px 20px;
+    }
+}

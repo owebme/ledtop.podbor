@@ -1,0 +1,23 @@
+.section__control {
+    input[name="slider_data"]{
+        width:180px;
+
+        .d-phone & {
+            width:164px;
+        }
+    }
+    .control__button {
+        @extend .flex-centered;
+        @extend .h40;
+        width:42px;
+        @extend .borderRadius-m;
+        @extend .bg-blue;
+        @extend .ml-xs;
+        @extend .cursor-pointer;
+
+        &:before {
+            @extend .content-empty;
+            @include ui-icon(check_white, 24px, 24px);
+        }
+    }
+}

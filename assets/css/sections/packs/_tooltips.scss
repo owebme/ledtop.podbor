@@ -1,0 +1,92 @@
+screen-step2 {
+    .tooltips {
+        @include abs();
+        @extend .visibility-hidden;
+        @extend .pointerEvents-none;
+        @extend .opacity-0;
+        will-change:opacity;
+        transition:visibility 0s 0.5s, opacity 0.5s $cubic28;    
+    }
+    .tooltip {
+        @include accelerate(true);
+        @extend .pos-abs;
+        @extend .zIndex-2;
+
+        &:before {
+            @extend .content-empty;
+            @extend .pos-abs;
+            @extend .h1px;
+            @extend .w100;
+            @extend .bg-white;
+            @extend .opacity-50;
+        }
+        &[data-tooltip="power-supply"]{
+            .tooltip__icon:after {
+                width:48px;
+                height:48px;
+                background-image:url(/assets/images/power_supply_mini_white.svg);
+            }
+        }
+        &[data-tooltip="led"]{
+            .tooltip__icon:after {
+                width:62px;
+                height:62px;
+                background-image:url(/assets/images/led_white.svg);
+                @extend .mt-s;
+            }
+        }
+        &[data-tooltip="ledribbon"]{
+            .tooltip__icon:after {
+                width:128px;
+                height:128px;
+                background-image:url(/assets/images/ledribbon_white.svg);
+                @extend .mt-m;
+            }
+        }
+        &[data-tooltip="humidity"]{
+            .tooltip__icon:after {
+                width:36px;
+                height:46px;
+                background-image:url(/assets/images/humidity_white.svg);
+            }
+        }
+        &[data-tooltip="ir-control"]{
+            .tooltip__icon:after {
+                width:64px;
+                height:64px;
+                background-image:url(/assets/images/ir_white.svg);
+                @extend .mb-xxs;
+            }
+        }
+        &__icon {
+            @include accelerate();
+            @extend .flex-centered;
+            @extend .w80;
+            @extend .h80;
+            @extend .bg-black;
+            @extend .overflow-hidden;
+            @extend .borderRadius-circle;
+            @extend .willChange-transform;
+            transition:transform 0.7s $cubic075;
+            transform:translate3d(0, 0, 0) scale(0);
+
+            &:after {
+                @extend .content-empty;
+                @extend .display-block;
+                @extend .bg-cover;
+            }
+        }
+        &__text {
+            @include accelerate();
+            @extend .pos-abs;
+            @extend .t100;
+            @extend .c-white;
+            @extend .fontSize-16;
+            @extend .mt-m;
+            width:200px;
+            @extend .willChange-transform;
+            transition:transform 0.7s $cubic075;
+            transform:translate3d(0, 20px, 0);
+        }
+    }
+}

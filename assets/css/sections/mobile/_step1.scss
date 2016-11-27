@@ -1,0 +1,97 @@
+screen-step1-mobile {
+    @extend .c-white;
+    @extend .fontWeight-3;
+
+    .header {
+        @extend .flex-centered;
+        @extend .vAlign-middle;
+        @extend .h10v;
+        @extend .fontSize-22;
+        @extend .opacity-80;
+    }
+    .tooltip {
+        padding-bottom:1px;
+        border-bottom:1px solid rgba($grayLighten,.35);
+    }
+    .row {
+        @extend .h30v;
+
+        &[data-light="mono"]{
+            .foto:before {
+                background-image:url(/assets/images/foto1.jpg);
+            }
+            .icon:after {
+                @include ui-icon(led_mono_white, 52px, 52px);
+            }
+        }
+        &[data-light="rgb"]{
+            .foto:before {
+                background-image:url(/assets/images/foto2.jpg);
+            }
+            .icon:after {
+                @include ui-icon(led_rgb, 58px, 58px);
+            }
+        }
+        &[data-light="lightrun"]{
+            .foto:before {
+                background-image:url(/assets/images/foto3.jpg);
+            }
+            .icon:after {
+                @include ui-icon(led_lightrun_white, 54px, 54px);
+            }
+        }
+    }
+    div[class^="col-"]{
+        @extend .h30v;
+    }
+    .foto {
+        @include abs();
+        border-radius:0 46% 0 0;
+        @extend .overflow-hidden;
+
+        &:before {
+            @extend .pos-abs;
+            @extend .t5;
+            @extend .l0;
+            @extend .w100p;
+            @extend .h90p;
+            @extend .content-empty;
+            @extend .bg-cover;
+        }
+        &:after {
+            @extend .content-empty;
+            @extend .pos-abs;
+            @extend .t50;
+            @extend .r0;
+            @extend .h100p;
+            @extend .w50p;
+            @extend .bg-blackLight;
+            transform:rotate(60deg);
+        }
+    }
+    .icon {
+        @extend .pos-br;
+        @extend .zIndex-1;
+        transform:translate3d(-10px, -15px, 0);
+
+        &:before {
+            @extend .content-empty;
+            @include abs();
+            @extend .borderRadius-circle;
+            @extend .bg-black;
+            @extend .opacity-40;
+        }
+        &:after {
+            @extend .pos-rel;
+            @extend .content-empty;
+            @extend .display-block;
+        }
+    }
+    .title {
+        @extend .fontSize-28;
+        @extend .flex-centered;
+        @extend .h100p;
+        @extend .pl-xxs;
+        @extend .pb-m;
+    }
+}

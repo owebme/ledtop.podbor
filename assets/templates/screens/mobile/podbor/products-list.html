@@ -11,7 +11,10 @@
     $.show = function(product){
         $.root.setAttribute("data-open", true);
         $Screen.trigger("hidden", true);
-        //$.tags["products-list"].
+
+        $.opts.item = $Data.getProduct(product);
+
+        $.tags["products-list"].update();
     };
 
     $.hide = function(){

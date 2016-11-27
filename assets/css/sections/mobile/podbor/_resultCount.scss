@@ -1,0 +1,38 @@
+section-result-count {
+    @include accelerate();
+    @extend .display-block;
+    @extend .pos-abs;
+    @extend .t50;
+    @extend .r--xl;
+    @extend .flex-column-centered;
+    width:70vw;
+    height:70vw;
+    @extend .c-white;
+    @extend .bg-blue;
+    border-radius:42% 62% 50% 62%;
+    @extend .fontSize-16;
+    @extend .pr-l;
+    @extend .text-uppercase;
+    @extend .visibility-visible;
+    @extend .pointerEvents-none;
+    transform-origin:100% 50%;
+    @extend .opacity-01;
+    will-change:opacity;
+    transform:translate3d(0, -50%, 0) scale3d(0, 0, 0);
+    transition:transform 0.3s $cubic28, opacity 0.3s $cubic28, visibility 0.3s 0s;
+    @extend .zIndex-7;
+
+    .count {
+        @extend .fontSize-48;
+        @extend .fontWeight-5;
+        @extend .ptb-s;
+    }
+}
+screen-podbor-mobile[data-overlay="true"]{
+    section-result-count {
+        @extend .visibility-visible;
+        @extend .opacity-100;
+        transform:translate3d(0, -50%, 0) scale3d(1, 1, 1);
+        transition:transform 0.5s $bounceSoft 0.3s, opacity 0.3s $cubic28 0.3s, visibility 0s;
+    }
+}

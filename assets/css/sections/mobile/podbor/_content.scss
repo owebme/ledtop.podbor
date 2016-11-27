@@ -1,0 +1,17 @@
+screen-podbor-mobile {
+    background-color:#171719;
+
+    .content {
+        @include abs();
+        padding-top:60px;
+        @extend .bg-white;
+    }
+}
+
+@media screen and (max-height: 525px) {
+    screen-podbor-mobile {
+        .content {
+            padding-top:50px;
+        }
+    }
+}

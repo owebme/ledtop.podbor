@@ -1,0 +1,110 @@
+section-navbar-mobile {
+    @extend .display-block;
+    @extend .pos-tl;
+    @extend .w100p;
+    @extend .h60;
+    @extend .zIndex-1;
+    @extend .bg-white;
+    box-shadow:0 1px 2px 0 rgba(31,45,61,.15);
+
+    .cell-left,
+    .cell-right {
+        @extend .h60;
+    }
+    .cell-left {
+        @extend .flex-row-left-center;
+        @extend .pl-s;
+    }
+    .cell-right {
+        @extend .flex-row-right-center;
+        @extend .pl0;
+        @extend .pr-s;
+    }
+    .pack__name {
+        @extend .pos-rel;
+        @extend .pl-s;
+        padding-right:25px;
+        @extend .fontSize-20;
+        @extend .fontWeight-5;
+        @extend .maxW-100p;
+        @extend .text-truncate;
+        @extend .letterSpacing--s;
+
+        &:after {
+            @extend .content-empty;
+            @extend .display-block;
+            @extend .pos-abs;
+            @extend .t50;
+            @extend .r0;
+            @extend .borderRadius-m;
+            @extend .pointerEvents-none;
+            border-style:solid;
+            border-top-color:$blue;
+            border-right-color:transparent;
+            border-left-color:transparent;
+            border-bottom:none;
+            border-top-width:9px;
+            border-right-width:9px;
+            border-left-width:9px;
+            @extend .mt--xxs;
+        }
+    }
+    .btn__control {
+        @extend .flex-centered;
+        width:44px;
+        height:44px;
+        @extend .bg-blue;
+        border-radius:8px;
+
+        &:after {
+            @extend .content-empty;
+            @extend .display-block;
+            @include ui-icon("settings_white", 40px, 40px);
+        }
+    }
+    .btn__ok {
+        @include ui-icon("order", 50px, 50px);
+        transform:translateY(-2px);
+        // @extend .flex-centered;
+        // @extend .bg-cover;
+        // width:44px;
+        // height:44px;
+        // @extend .bg-blue;
+        // border-radius:8px;
+
+        // &:after {
+        //     content:"OK";
+        //     @extend .c-white;
+        //     @extend .fontSize-20;
+        //     @extend .fontWeight-5;
+        // }
+    }
+    .btn__menu {
+        @include ui-icon("menu", 30px, 30px);
+        @extend .ml-xs;
+        margin-top:1px;
+    }
+}
+@media screen and (max-height: 525px) {
+    screen-podbor-mobile section-navbar-mobile {
+        height:50px;
+
+        .cell-left,
+        .cell-right {
+            height:50px;
+        }
+        .btn__control,
+        .btn__ok {
+            width:40px;
+            height:40px;
+        }
+        .btn__control:after {
+            width:36px;
+            height:36px;
+        }
+        .btn__menu {
+            width:28px;
+            height:28px;
+        }
+    }
+}

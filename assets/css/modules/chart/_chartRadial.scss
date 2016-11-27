@@ -1,0 +1,39 @@
+.chart__radial {
+    &__graph {
+        @extend .pos-rel;
+        @extend .display-inlineBlock;
+        @extend .borderRadius-circle;
+        width:200px;
+        height:200px;
+
+        &1 {
+            @extend .pos-centered;
+            width:200px;
+            height:200px;
+        }
+        &2 {
+            @extend .pos-centered;
+            width:150px;
+            height:150px;
+        }
+        &3 {
+            @extend .pos-centered;
+            width:100px;
+            height:100px;
+        }
+    }
+    &__labels {
+        @extend .text-left;
+    }
+    &__label {
+        @extend .fontSize-xl;
+
+        &__color {
+            @extend .display-inlineBlock;
+            @extend .vAlign-middle;
+            @extend .borderRadius-circle;
+            @extend .w15;
+            @extend .h15;
+        }
+    }
+}

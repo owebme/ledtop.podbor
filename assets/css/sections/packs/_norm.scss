@@ -1,0 +1,71 @@
+screen-step2 {
+    .pack__container[data-pack="norm"] {
+        .pack__circle__big {
+            @extend .fontSize-36;
+        }
+        .tooltip {
+            &[data-tooltip="power-supply"]{
+                @extend .t0;
+                @extend .r100;
+                transform:translate3d(-110px, -60px, 0);
+
+                &:before {
+                    @extend .t100;
+                    @extend .l100;
+                    transform:translate3d(20px, 0, 0) rotate(30deg);
+                }
+                .tooltip__text {
+                    @extend .l0;
+                    @extend .ml--m;
+                }
+            }
+            &[data-tooltip="ledribbon"]{
+                @extend .b0;
+                @extend .r100;
+                transform:translate3d(-110px, 40px, 0);
+
+                &:before {
+                    @extend .t10;
+                    @extend .l100;
+                    transform:translate3d(20px, 0, 0) rotate(-30deg);
+                }
+                .tooltip__text {
+                    @extend .l0;
+                    @extend .ml--m;
+                }
+            }
+            &[data-tooltip="humidity"]{
+                @extend .t0;
+                @extend .l100;
+                transform:translate3d(110px, -60px, 0);
+
+                &:before {
+                    @extend .t100;
+                    @extend .r100;
+                    transform:translate3d(-20px, 0, 0) rotate(-30deg);
+                }
+                .tooltip__text {
+                    @extend .r0;
+                    @extend .text-right;
+                    @extend .ml-m;
+                }
+            }
+            &[data-tooltip="ir-control"]{
+                @extend .b0;
+                @extend .l100;
+                transform:translate3d(110px, 40px, 0);
+
+                &:before {
+                    @extend .t10;
+                    @extend .r100;
+                    transform:translate3d(-20px, 0, 0) rotate(30deg);
+                }
+                .tooltip__text {
+                    @extend .r0;
+                    @extend .text-right;
+                    @extend .ml-m;
+                }
+            }
+        }
+    }
+}
