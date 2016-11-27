@@ -1,0 +1,63 @@
+<section-menu-mobile class="section__menu section-hidden bg-white zIndex-2" data-pos="right" data-notfully="true" data-open={ active }>
+
+    <div onClick={ hide } onUpdate="none" class="button__close"></div>
+
+    <div class="section__menu__title">Меню</div>
+
+    <div onClick={ open.profile } onUpdate="none" class="section__menu__item">
+        <div class="section__menu__item__icon" data-icon="email"></div>
+        <div class="section__menu__item__title">Отпр. рассчет себе</div>
+    </div>
+    <div onClick={ open.changePlan } onUpdate="none" class="section__menu__item">
+        <div class="section__menu__item__icon" data-icon="order"></div>
+        <div class="section__menu__item__title">Сделать предзаказ</div>
+    </div>
+    <div onClick={ open.changePlan } onUpdate="none" class="section__menu__item">
+        <div class="section__menu__item__icon" data-icon="callback"></div>
+        <div class="section__menu__item__title">Заказать звонок</div>
+    </div>
+    <div onClick={ open.changePlan } onUpdate="none" class="section__menu__item">
+        <div class="section__menu__item__icon" data-icon="question"></div>
+        <div class="section__menu__item__title">Задать вопрос</div>
+    </div>
+    <div onClick={ open.changePlan } onUpdate="none" class="section__menu__item">
+        <div class="section__menu__item__icon" data-icon="votes"></div>
+        <div class="section__menu__item__title">Оценить сервис</div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.show = function(){
+
+        $Screen.trigger("hidden", true);
+
+        $.update({
+            active: true
+        })
+    };
+
+    $.open = {
+        profile: function(){
+
+        },
+        changePlan: function(){
+            $Sections.payment.section.show("premium");
+        }
+    };
+
+    $.hide = function(){
+
+        $Screen.trigger("hidden", false);
+
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</section-menu-mobile>

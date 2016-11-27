@@ -1,0 +1,27 @@
+<control-wrapper class="control__wrapper">
+
+    <div if={ app.device.isPhone } onClick={ parent.hide } onUpdate="none" class="control back"></div>
+
+    <div if={ !app.device.isPhone } onClick={ open } onUpdate="none" class="control">
+        <div class="button__ok"></div>
+    </div>
+
+    <control-light></control-light>
+
+    <control-humidity></control-humidity>
+
+    <control-color></control-color>
+
+    <control-length></control-length>
+
+<script>
+
+    var $ = this;
+
+    $.open = function(){
+
+    };
+
+</script>
+
+</control-wrapper>

@@ -6,7 +6,7 @@
 
     <screen-step2></screen-step2>
 
-    <screen-step3></screen-step3>
+    <screen-podbor></screen-podbor>
 
 <script>
 
@@ -14,11 +14,10 @@
 
     $.on("before-mount", function(){
         $Screens = {
-            progress: $.tags["screen-progress"],
             begin: $.tags["screen-begin"],
             step1: $.tags["screen-step1"],
             step2: $.tags["screen-step2"],
-            podbor: $.tags["screen-step3"]
+            podbor: $.tags["screen-podbor"]
         };
         $Screen = $Screens.podbor;
     });

@@ -1,0 +1,89 @@
+<screen-step1-mobile class="section" data-active={ active }>
+
+    <div class="rows pos-abs-full">
+        <div class="header">
+            <div name="tooltip" class="tooltip anim-group2 anim-tb">Выберите тип подсветки</div>
+        </div>
+        <div onClick={ select } class="row anim anim-group1 anim-lr-soft" data-light="mono" onUpdate="none" duration-hide="m" duration-show="l">
+            <div class="col-xs-10">
+                <div class="foto">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="col-xs-14">
+                <div class="title anim-group2 anim-bt" delay-show="xs">Монохромная</div>
+            </div>
+        </div>
+        <div onClick={ select } class="row anim anim-group1 anim-lr-soft" delay-show="xs" data-light="rgb" onUpdate="none" duration-hide="m" duration-show="l">
+            <div class="col-xs-10">
+                <div class="foto">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="col-xs-14">
+                <div class="title anim-group2 anim-bt" delay-show="s">Мультицветная</div>
+            </div>
+        </div>
+        <div onClick={ select } class="row anim anim-group1 anim-lr-soft" delay-show="s" data-light="lightrun" onUpdate="none" duration-hide="m" duration-show="l">
+            <div class="col-xs-10">
+                <div class="foto">
+                    <div class="icon"></div>
+                </div>
+            </div>
+            <div class="col-xs-14">
+                <div class="title anim-group2 anim-bt" delay-show="m">Бегущий огонь</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = false;
+
+    $.on("mount", function(){
+        $.animate = new app.plugins.animate($.root, {
+            showAfter: 1
+        });
+    });
+
+    $.show = function(){
+        $afterlag.m(function(){
+            $.animate.show();
+        });
+        _.onEndTransition($.tooltip, function(){
+            $.update({
+                active: true
+            });
+        });
+    };
+
+    $.select = function(e){
+        $.hide(function(){
+            $Screens.step2.show();
+        });
+        $State.set('light', e.currentTarget.getAttribute("data-light"));
+    };
+
+    $.hide = function(callback){
+        $.animate.hide();
+        $.update({
+            active: false
+        })
+        if (_.isFunction(callback)){
+            _.onEndTransition($.tooltip, function(){
+                $.root.setAttribute("data-visible", false);
+                $afterlag.run(function(){
+                    callback();
+                }, {
+                    timeout: 500
+                });
+            });
+        }
+    };
+
+</script>
+
+</screen-step1-mobile>

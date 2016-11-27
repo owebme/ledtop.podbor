@@ -1,0 +1,15 @@
+<product-item-mobile class="col-xs-24 product" data-pack={ opts.item.get('product').pack } data-product={ opts.item.get("_id") } data-hidden={ opts.item.get("_id") === "ir-control" && !$State.get('control') }>
+
+    <product-content-mobile></product-content-mobile>
+
+    <connect-control></connect-control>
+
+<script>
+
+    this.on("before-mount", function(){
+        //console.dir(this.opts.item.get());
+    });
+
+</script>
+
+</product-item-mobile>

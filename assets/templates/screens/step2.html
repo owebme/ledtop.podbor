@@ -1,4 +1,4 @@
-<screen-step2 class="section { showAnim-group1 : animate.pack }" data-active={ active } data-overlay="false" data-tooltip="false" data-hidden="true">
+<screen-step2 class="section { showAnim-group1 : animate.pack }" data-active={ active } data-overlay="false" data-tooltip="false" data-visible="false">
 
     <div class="section__overlay"></div>
 
@@ -153,7 +153,7 @@
 
     $.show = function(){
 
-        $.root.setAttribute("data-hidden", false);
+        $.root.setAttribute("data-visible", true);
 
         $afterlag.run(function(){
             $.update({
@@ -210,7 +210,7 @@
 
         if (_.isFunction(callback)){
             _.onEndTransition($.lastPack, function(){
-                $.root.setAttribute("data-hidden", true);
+                $.root.setAttribute("data-visible", false);
                 callback();
             });
         }

@@ -1,0 +1,227 @@
+<screen-podbor class="section" data-active="false" data-visible={ !hidden } data-animate="true" is-animate="false">
+
+    <offer-manager></offer-manager>
+
+    <section-control></section-control>
+
+    <div class="content">
+        <div class="rows">
+            <div class="row">
+                <product-item name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item>
+                <product-item name="power-supply" item={ $Data.getProduct('power-supply') }></product-item>
+                <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
+            </div>
+        </div>
+        <div name="buttonHelp" class="buttons-angle" data-pos="top-right">
+            <div onClick={ open.tutorial } onUpdate="none" class="button__help"></div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = false;
+    $.hidden = true;
+
+    $.tooltipScreen = null;
+
+    $.show = function(animate){
+        $.hidden = false;
+        //$.reRender();
+        $.update();
+
+        $afterlag.run(function(){
+            if (animate){
+                $.root.setAttribute("is-animate", true);
+
+                _.onEndTransition($.buttonHelp, function(){
+                    $.root.setAttribute("data-animate", false);
+                    $.root.setAttribute("data-active", true);
+                    if ($Config.get("tutorial")){
+                        $.open.tutorial();
+                    }
+                    $Router.params.set($State.get());
+                    $.active = true;
+                });
+            }
+            else {
+                $.root.setAttribute("data-animate", false);
+                $.root.setAttribute("data-active", true);
+                $Router.params.set($State.get());
+                $.active = true;
+            }
+        }, {
+            iterations: 5,
+            timeout: 2000
+        });
+    };
+
+    $.open = {
+        tutorial: function(){
+            $Tutorial.show($scope, "podbor");
+            $Config.set('tutorial', false);
+        }
+    };
+
+    $.on("before-mount", function(){
+
+        $Control = $.tags["section-control"];
+        $Control.wrapper = $Control.tags["control-wrapper"];
+        $Control.light = $Control.wrapper.tags["control-light"];
+        $Control.humidity = $Control.wrapper.tags["control-humidity"];
+        $Control.color = $Control.wrapper.tags["control-color"];
+        $Control.length = $Control.wrapper.tags["control-length"];
+
+        $Product = {
+            "ledribbon": $["ledribbon"]._tag,
+            "power-supply": $["power-supply"]._tag,
+            "ir-control": $["ir-control"]._tag
+        };
+
+        $.setParams = function(){
+            $Router.params.set($State.get());
+        };
+
+        var setParams = _.debounce($.setParams, 100);
+
+        $State.on("update", function(e){
+            var data = $.getPropValue(e),
+                prop = data.prop,
+                value = data.value;
+
+            if (prop){
+                if (prop == "control"){
+                    $Product["ir-control"].update();
+                }
+            }
+            if ($.active) setParams();
+        });
+
+        $Config.on("update", function(e){
+            var data = $.getPropValue(e),
+                prop = data.prop,
+                value = data.value;
+
+            if (prop){
+                if (prop == "showProducts" && value && !$Config.get("tooltipScreen") && !$Tutorial.active){
+                    $afterlag.run(function(){
+                        if ($Config.get("tooltipScreen")) return;
+                        if (value == "ledribbon"){
+                            $.tooltipScreen = $Product["ir-control"].tags["product-tooltip-screen"];
+                        }
+                        else if (value == "power-supply"){
+                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                        }
+                        else if (value == "ir-control"){
+                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                        }
+                        $.tooltipScreen.show();
+                    }, {
+                        delay: 500,
+                        iterations: 5
+                    });
+                }
+            }
+        });
+
+        $.reRender();
+    });
+
+    $.getFirstProduct = function(name){
+        var item = $store[name].get()[0];
+        // if ($Config.get('pack') != "norm"){
+        //     item.article = $.store[name][$Config.get('pack')][0];
+        //     item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
+        // }
+        // item.pack = $Config.get('pack');
+        item.pack = "norm";
+        return item;
+    };
+
+    $.getProducts = function(name){
+        var array = [];
+            packs = ['econom', 'norm', 'lux'];
+
+        for(var i=0; i < packs.length; i++){
+            var arr = [];
+            arr = _.copyArray($store[name].get()).map(function(item, j){
+                item.pack = packs[i];
+                if (packs[i] == "econom" || packs[i] == "lux"){
+                    item.article = $.store[name][packs[i]][j];
+                    item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
+                }
+                return item;
+            });
+            array = array.concat(arr);
+        }
+        return array;
+    };
+
+    $.store = {
+        ledribbon: {
+            econom: ['010523', '020692'],
+            lux: ['013393', '014676']
+        },
+        power: {
+            econom: ['017831', '012919', '008889', '010505'],
+            lux: ['017855', '015992', '011895', '018308']
+        },
+        control: {
+            econom: ['012987', '021098', '015422', '020170', '011439'],
+            lux: ['016678', '016476', '018609', '016927', '021025']
+        }
+    };
+
+    $.reRender = function(){
+        var data = [
+            {
+                _id: "ledribbon",
+                title: "Лента",
+                product: $.getFirstProduct("ledribbon"),
+                products: $.getProducts("ledribbon")
+            },
+            {
+                _id: "power-supply",
+                title: "Блок питания",
+                product: $.getFirstProduct("power"),
+                products: $.getProducts("power")
+            },
+            {
+                _id: "ir-control",
+                title: "Управление",
+                product: $.getFirstProduct("control"),
+                products: $.getProducts("control")
+            }
+        ];
+
+        $Data = _.extend(new Baobab(data),
+            {
+                getProduct: function(id){
+                    return $Data.select({"_id": id});
+                },
+                getProductsList: function(id, pack){
+                    return _.where($Data.select({"_id": id}).get("products"), {"pack": pack});
+                },
+                getProductsCount: function(id){
+                    var count = $Data.select({"_id": id}).get("products");
+                    return count ? count.length : 0;
+                }
+            }
+        );
+    };
+
+    $.getPropValue = function(e){
+        var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
+            value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
+
+        return {
+            prop: prop,
+            value: value
+        }
+    };
+
+</script>
+
+</screen-podbor>

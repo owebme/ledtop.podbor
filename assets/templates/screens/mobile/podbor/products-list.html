@@ -1,0 +1,24 @@
+<section-products-list-mobile class="pos-abs-full section-hidden overflowY-auto bg-white zIndex-2" data-pos="right" data-open="false">
+
+    <div onClick={ hide } onUpdate="none" class="button__close"></div>
+
+    <products-list></products-list>
+
+<script>
+
+    var $ = this;
+
+    $.show = function(product){
+        $.root.setAttribute("data-open", true);
+        $Screen.trigger("hidden", true);
+        //$.tags["products-list"].
+    };
+
+    $.hide = function(){
+        $.root.setAttribute("data-open", false);
+        $Screen.trigger("hidden", false);
+    };
+
+</script>
+
+</section-products-list-mobile>

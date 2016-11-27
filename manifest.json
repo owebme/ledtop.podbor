@@ -18,7 +18,7 @@
     "sizes": "120x120",
     "type": "image/png"
   }],
-  "start_url": "/styleguide.html",
+  "start_url": "/podbor.html",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#333",

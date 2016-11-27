@@ -1,0 +1,59 @@
+<screen-begin-mobile class="section">
+
+    <div class="text__wrapper">
+        <div name="text1" class="anim-text anim-text-bt { anim-textIn : animate.text1.in, anim-textOut : animate.text1.out }" delay-hide="s">
+            Мы вам поможем подобрать готовый комплект для вашей подсветки
+        </div>
+    </div>
+    <div class="text__wrapper">
+        <div name="text2" class="anim-text anim-text-bt { anim-textIn : animate.text2.in, anim-textOut : animate.text2.out }" delay-hide="m">
+            Уделите несколько минут внимания, и выбранный комплект будет радовать вас долгие годы
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.animate = {
+        text1: {
+            in: false,
+            out: false
+        },
+        text2: {
+            in: false,
+            out: false
+        }
+    };
+
+    $.show = function(){
+        $afterlag.m(function(){
+            $.animate.text1.in = true;
+            $.update();
+            _.onEndAnimation($.text1, function(){
+                $.animate.text1.in = false;
+                $.animate.text1.out = true;
+                $.update();
+                _.onEndAnimation($.text1, function(){
+                    $.animate.text1.out = false;
+                    $.animate.text2.in = true;
+                    $.update();
+                    _.onEndAnimation($.text2, function(){
+                        $.animate.text2.in = false;
+                        $.animate.text2.out = true;
+                        $.update();
+                        _.onEndAnimation($.text2, function(){
+                            $.animate.text2.out = false;
+                            $.update();
+                            $Screens.step1.show();
+                        });
+                    });
+                });
+            });
+        });
+    };
+
+</script>
+
+</screen-begin-mobile>

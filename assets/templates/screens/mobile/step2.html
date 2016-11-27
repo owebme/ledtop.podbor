@@ -1,0 +1,101 @@
+<screen-step2-mobile class="section" data-active={ active }>
+
+    <div class="rows pos-abs-full">
+        <div class="header">
+            <div name="tooltip" class="tooltip anim-group2 anim-tb" data-duration="xl">Выберите класс компонентов</div>
+        </div>
+        <div onClick={ select } class="row anim-group1 anim-lr-soft" data-duration="l" data-pack="lux" onUpdate="none">
+            <div class="col-xs-8 anim-group2 anim-lr-soft">
+                <div class="name">
+                    <div class="count">24</div>
+                    комплектов <div class="price">от 12,500 ₽</div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="line"></div>
+            </div>
+            <div class="col-xs-8">
+                <div class="title">Люкс</div>
+            </div>
+        </div>
+        <div onClick={ select } class="row anim-group1 anim-lr-soft" data-duration="l" delay-show="xs" data-pack="norm" onUpdate="none">
+            <div class="col-xs-8 anim-group2 anim-lr-soft" delay-show="xs">
+                <div class="name">
+                    <div class="count">31</div>
+                    комплектов <div class="price">от 8,500 ₽</div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="line"></div>
+            </div>
+            <div class="col-xs-8">
+                <div class="title">Норма</div>
+            </div>
+        </div>
+        <div onClick={ select } class="row anim-group1 anim-lr-soft" data-duration="l" delay-show="s" data-pack="econom" onUpdate="none">
+            <div class="col-xs-8 anim-group2 anim-lr-soft" delay-show="s">
+                <div class="name">
+                    <div class="count">28</div>
+                    комплектов <div class="price">от 6,500 ₽</div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="line"></div>
+            </div>
+            <div class="col-xs-8">
+                <div class="title">Эконом</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$(this.root);
+
+    $.active = false;
+
+    $.on("mount", function(){
+        $.animate = new app.plugins.animate($.root, {
+            showAfter: 1
+        });
+    });
+
+    $.show = function(){
+        $afterlag.run(function(){
+            $.animate.show();
+        });
+        _.onEndTransition($.tooltip, function(){
+            $.update({
+                active: true
+            });
+        });
+    };
+
+    $.select = function(e){
+        $.hide(function(){
+            $Screens.step2.show();
+        });
+        $State.set('light', e.currentTarget.getAttribute("data-light"));
+    };
+
+    $.hide = function(callback){
+        $.animate.hide();
+        $.update({
+            active: false
+        })
+        if (_.isFunction(callback)){
+            _.onEndTransition($.tooltip, function(){
+                $.root.setAttribute("data-visible", false);
+                $afterlag.run(function(){
+                    callback();
+                }, {
+                    timeout: 500
+                });
+            });
+        }
+    };
+
+</script>
+
+</screen-step2-mobile>

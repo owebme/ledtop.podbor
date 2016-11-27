@@ -1,0 +1,34 @@
+<screens-mobile class="screens section">
+
+    <screen-begin-mobile></screen-begin-mobile>
+
+    <screen-step1-mobile></screen-step1-mobile>
+
+    <screen-step2-mobile></screen-step2-mobile>
+
+    <screen-podbor-mobile></screen-podbor-mobile>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        $Screens = {
+            self: $,
+            begin: $.tags["screen-begin-mobile"],
+            step1: $.tags["screen-step1-mobile"],
+            step2: $.tags["screen-step2-mobile"],
+            podbor: $.tags["screen-podbor-mobile"]
+        };
+        $Screen = $Screens.podbor;
+    });
+
+    $.on("steps-hidden", function(){
+        $Screens.begin.root.setAttribute("data-visible", false);
+        $Screens.step1.root.setAttribute("data-visible", false);
+        $Screens.step2.root.setAttribute("data-visible", false);
+    });
+
+</script>
+
+</screens-mobile>

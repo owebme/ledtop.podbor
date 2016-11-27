@@ -81,7 +81,7 @@
         })
         if (_.isFunction(callback)){
             _.onEndTransition($.tooltip, function(){
-                $.root.setAttribute("data-hidden", true);
+                $.root.setAttribute("data-visible", false);
                 $afterlag.run(function(){
                     callback();
                 }, {

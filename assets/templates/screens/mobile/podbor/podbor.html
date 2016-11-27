@@ -1,21 +1,31 @@
-<screen-step3 class="section" data-active="false" data-hidden={ hidden } data-animate="true" is-animate="false">
+<screen-podbor-mobile class="section" data-active="false" data-overlay="false" data-visible={ !hidden } data-animate="true" is-animate="false" data-hidden="false">
 
-    <offer-manager></offer-manager>
+    <!-- <offer-manager></offer-manager> -->
 
-    <section-panel></section-panel>
+    <section-control-mobile></section-control-mobile>
 
-    <div class="content">
-        <div class="rows">
-            <div class="row">
-                <product-item name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item>
-                <product-item name="power-supply" item={ $Data.getProduct('power-supply') }></product-item>
-                <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
+    <section-menu-mobile></section-menu-mobile>
+
+    <div class="section__content">
+
+        <section-navbar-mobile></section-navbar-mobile>
+
+        <div class="content">
+            <div class="rows">
+                <div class="row">
+                    <product-item-mobile name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item-mobile>
+                    <product-item-mobile name="power-supply" item={ $Data.getProduct('power-supply') }></product-item-mobile>
+                    <product-item-mobile name="ir-control" item={ $Data.getProduct('ir-control') }></product-item-mobile>
+                </div>
             </div>
         </div>
-        <div name="buttonHelp" class="buttons-angle" data-pos="top-right">
-            <div onClick={ open.tutorial } onUpdate="none" class="button__help"></div>
-        </div>
     </div>
+
+    <section-products-list-mobile></section-products-list-mobile>
+
+    <section-result-count></section-result-count>
+
+    <div class="section__overlay"></div>
 
 <script>
 
@@ -28,34 +38,14 @@
     $.tooltipScreen = null;
 
     $.show = function(animate){
+        $Screens.self.trigger("steps-hidden");
         $.hidden = false;
-        //$.reRender();
+
         $.update();
 
-        $afterlag.run(function(){
-            if (animate){
-                $.root.setAttribute("is-animate", true);
-
-                _.onEndTransition($.buttonHelp, function(){
-                    $.root.setAttribute("data-animate", false);
-                    $.root.setAttribute("data-active", true);
-                    if ($Config.get("tutorial")){
-                        $.open.tutorial();
-                    }
-                    $Router.params.set($State.get());
-                    $.active = true;
-                });
-            }
-            else {
-                $.root.setAttribute("data-animate", false);
-                $.root.setAttribute("data-active", true);
-                $Router.params.set($State.get());
-                $.active = true;
-            }
-        }, {
-            iterations: 5,
-            timeout: 2000
-        });
+        $.root.setAttribute("data-animate", false);
+        $.root.setAttribute("data-active", true);
+        $Router.params.set($State.get());
     };
 
     $.open = {
@@ -65,13 +55,30 @@
         }
     };
 
+    $.on("overlay", function(active){
+        $.root.setAttribute("data-overlay", active);
+    });
+
+    $.on("hidden", function(active){
+        $.root.setAttribute("data-hidden", active);
+    });
+
     $.on("before-mount", function(){
 
-        $Panel = $.tags["section-panel"];
-        $Panel.light = $Panel.tags["panel-control-light"];
-        $Panel.humidity = $Panel.tags["panel-control-humidity"];
-        $Panel.color = $Panel.tags["panel-control-color"];
-        $Panel.length = $Panel.tags["panel-control-length"];
+        $Navbar = $.tags["section-navbar-mobile"];
+        $Menu = $.tags["section-menu-mobile"];
+
+        $.sections = {
+            resultCount: $.tags["section-result-count"],
+            productsList: $.tags["section-products-list-mobile"]
+        };
+
+        $Control = $.tags["section-control-mobile"];
+        $Control.wrapper = $Control.tags["control-wrapper"];
+        $Control.light = $Control.wrapper.tags["control-light"];
+        $Control.humidity = $Control.wrapper.tags["control-humidity"];
+        $Control.color = $Control.wrapper.tags["control-color"];
+        $Control.length = $Control.wrapper.tags["control-length"];
 
         $Product = {
             "ledribbon": $["ledribbon"]._tag,
@@ -98,43 +105,11 @@
             if ($.active) setParams();
         });
 
-        $Config.on("update", function(e){
-            var data = $.getPropValue(e),
-                prop = data.prop,
-                value = data.value;
-
-            if (prop){
-                if (prop == "showProducts" && value && !$Config.get("tooltipScreen") && !$Tutorial.active){
-                    $afterlag.run(function(){
-                        if ($Config.get("tooltipScreen")) return;
-                        if (value == "ledribbon"){
-                            $.tooltipScreen = $Product["ir-control"].tags["product-tooltip-screen"];
-                        }
-                        else if (value == "power-supply"){
-                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
-                        }
-                        else if (value == "ir-control"){
-                            $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
-                        }
-                        $.tooltipScreen.show();
-                    }, {
-                        delay: 500,
-                        iterations: 5
-                    });
-                }
-            }
-        });
-
         $.reRender();
     });
 
     $.getFirstProduct = function(name){
         var item = $store[name].get()[0];
-        // if ($Config.get('pack') != "norm"){
-        //     item.article = $.store[name][$Config.get('pack')][0];
-        //     item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
-        // }
-        // item.pack = $Config.get('pack');
         item.pack = "norm";
         return item;
     };
@@ -223,4 +198,4 @@
 
 </script>
 
-</screen-step3>
+</screen-podbor-mobile>

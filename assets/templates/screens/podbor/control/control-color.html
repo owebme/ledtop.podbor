@@ -1,12 +1,12 @@
-<panel-control-color class="control" data-active={ active }>
+<control-color class="control" data-active={ active }>
 
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-color={ $State.get('color') }>
-        <panel-control-color-item content={ $State.get('color') }>{ item }</panel-control-color-item>
+        <control-color-item content={ $State.get('color') }>{ item }</control-color-item>
     </div>
     <div class="control__container flex-row-left-center">
         <div class="control__container__title">цвет свечения</div>
         <div onClick={ select } onUpdate="none" each={ item in items } class="control__color" data-active={ item == $State.get('color') } data-color={ item }>
-            <panel-control-color-item content={ item }>{ item }</panel-control-color-item>
+            <control-color-item content={ item }>{ item }</control-color-item>
         </div>
     </div>
 
@@ -37,4 +37,4 @@
 
 </script>
 
-</panel-control-color>
+</control-color>
