@@ -1,0 +1,19 @@
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+	@extend .fontFamily-myriad;
+	@extend .fontWeight-3;
+}
+h1, .h1 {
+	@extend .fontSize-xxxxxl;
+}
+h2, .h2 {
+	@extend .fontSize-xxxxl;
+}
+h3, .h3 {
+	@extend .fontSize-xxxl;
+}
+h4, .h4 {
+	@extend .fontSize-xxl;
+}
+sup, sub {
+	font-size:75%;
+}

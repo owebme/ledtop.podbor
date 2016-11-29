@@ -1,0 +1,99 @@
+.table {
+    @extend .w100p;
+    @extend .c-gray;
+
+    &-header {
+        border-bottom:solid $smokeLight;
+
+        &-item {
+            @extend .text-center;
+            @extend .vAlign-middle;
+
+            &:first-child {
+                @extend .pl0;
+                @extend .text-left;
+            }
+            &[data-active="true"] {
+                border-bottom:solid $blue;
+            }
+        }
+    }
+    &-row {
+        &:hover {
+            .table-cell {
+                @extend .c-blue;
+            }
+        }
+    }
+    &-cell {
+        @extend .vAlign-middle;
+        @extend .transition-default;
+        border-bottom:1px solid $smokeLight;
+
+        &:first-child {
+            @extend .pl0;
+        }
+    }
+    &-xl {
+        .table-header {
+            border-bottom-width:5px;
+
+            &-item {
+                font-size:28px;
+                @extend .h70;
+
+                &[data-active="true"] {
+                    border-bottom-width:5px;
+                }
+            }
+        }
+        .table-cell {
+            @extend .h70;
+            @extend .plr-xss;
+            font-size:20px;
+            line-height:24px;
+        }
+    }
+    &-l {
+        .table-header {
+            border-bottom-width:4px;
+
+            &-item {
+                font-size:24px;
+                @extend .h60;
+                @extend .plr-xs;
+
+                &[data-active="true"] {
+                    border-bottom-width:4px;
+                }
+            }
+        }
+        .table-cell {
+            @extend .h60;
+            @extend .plr-xs;
+            font-size:18px;
+            line-height:22px;
+        }
+    }
+    &-m {
+        .table-header {
+            border-bottom-width:3px;
+
+            &-item {
+                font-size:22px;
+                @extend .h50;
+                @extend .plr-xs;
+
+                &[data-active="true"] {
+                    border-bottom-width:3px;
+                }
+            }
+        }
+        .table-cell {
+            @extend .h50;
+            @extend .plr-xs;
+            font-size:16px;
+            line-height:20px;
+        }
+    }
+}

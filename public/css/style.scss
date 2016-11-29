@@ -1,0 +1,70 @@
+// base
+@import '../../assets/css/base/normalize';
+@import '../../assets/css/base/reset';
+@import '../../assets/css/base/base';
+@import 'base/app';
+@import 'base/fonts';
+@import '../../assets/css/base/keyframes';
+@import '../../assets/css/base/mixins';
+@import '../../assets/css/base/responsive';
+@import 'base/main';
+
+// UI elements
+@import 'ui/icons';
+@import '../../assets/css/ui/basic/button';
+@import '../../assets/css/ui/basic/input';
+@import '../../assets/css/ui/basic/textarea';
+@import '../../assets/css/ui/basic/balloon';
+@import '../../assets/css/ui/basic/balloonError';
+@import '../../assets/css/ui/basic/loader';
+@import '../../assets/css/ui/basic/notify';
+@import 'ui/typography';
+@import 'ui/animations';
+@import 'ui/button';
+@import 'ui/rangeslider';
+@import 'ui/switcher';
+@import 'ui/spinner';
+
+// modules
+
+@import '../../assets/css/modules/oScreen';
+@import '../../assets/css/modules/tutorial';
+@import '../../assets/css/modules/incompatible';
+
+// Sections
+@import '../../assets/css/sections/sections';
+
+// Screens
+@import 'sections/screens';
+@import 'sections/step1';
+@import 'sections/step2';
+@import 'sections/packs/tooltips';
+@import 'sections/packs/econom';
+@import 'sections/packs/norm';
+@import 'sections/packs/lux';
+@import 'sections/podbor/animate';
+@import 'sections/podbor/control/control';
+@import 'sections/podbor/control/items';
+@import 'sections/podbor/menu';
+@import 'sections/podbor/packs/packSelect';
+@import 'sections/podbor/packs/packSelectList';
+@import 'sections/podbor/content';
+@import 'sections/podbor/product';
+@import 'sections/podbor/products';
+@import 'sections/podbor/totalPrice';
+@import 'sections/podbor/order';
+@import 'sections/podbor/offerManager';
+
+// Screens Mobile
+@import 'sections/mobile/begin';
+@import 'sections/mobile/step1';
+@import 'sections/mobile/step2';
+@import 'sections/mobile/podbor/control';
+@import 'sections/mobile/podbor/navbar';
+@import 'sections/mobile/podbor/content';
+@import 'sections/mobile/podbor/product';
+@import 'sections/mobile/podbor/products';
+@import 'sections/mobile/podbor/resultCount';
+
+// states
+@import '../../assets/css/base/states';

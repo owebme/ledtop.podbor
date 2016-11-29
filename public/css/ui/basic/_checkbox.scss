@@ -1,0 +1,95 @@
+.checkbox {
+    @include accelerate();
+    @extend .pos-rel;
+    @extend .display-inlineBlock;
+    @extend .userSelect-none;
+    @extend .text-left;
+    @extend .c-gray;
+    @extend .nowrap;
+    @extend .cursor-pointer;
+    padding-left:45px;
+    line-height:30px;
+
+    .checkbox-control {
+        @include accelerate();
+        width:30px;
+        height:30px;
+
+        &:after {
+            @include accelerate();
+            width:22px;
+            height:22px;
+        }
+    }
+    &.small {
+        padding-left:30px;
+        line-height:20px;
+
+        .checkbox-control {
+            width:20px;
+            height:20px;
+
+            &:after {
+                width:14px;
+                height:14px;
+            }
+        }
+    }
+    &:hover {
+        .checkbox-control {
+            background-color:$smoke;
+        }
+    }
+    &-control {
+        @extend .flex-centered;
+        @extend .pos-tl;
+        @extend .bg-white;
+        @extend .borderRadius-circle;
+        box-shadow:inset 0 0 0 2px $smoke;
+        will-change:box-shadow, transform;
+        transition:box-shadow .5s $cubic089, transform .5s $cubic089;
+
+        &:after {
+            content:"";
+            @extend .display-inlineBlock;
+            @extend .opacity-0;
+            transform:scale3d(0.5, 0, 1);
+            will-change:opacity, transform;
+            transition:opacity .5s $cubic089, transform .5s $cubic089;
+            @include ui-icon(check_white);
+        }
+    }
+    input {
+        @extend .pos-abs;
+        @extend .opacity-0;
+        z-index:-1;
+    }
+    input:checked ~ {
+        .checkbox-control {
+            box-shadow:inset 0 0 0 15px $green;
+
+            &:after {
+                @extend .opacity-100;
+                transform:scale3d(1, 1, 1);
+                transition:opacity .35s $cubic089 .2s, transform .35s $cubic089 .2s;
+            }
+        }
+    }
+    &[data-color="blue"] {
+        input:checked ~ {
+            .checkbox-control {
+                box-shadow:inset 0 0 0 15px $blue;
+            }
+        }
+    }
+    &[data-color="white"] {
+        .checkbox-control:after {
+            @include ui-icon(check);
+        }
+        input:checked ~ {
+            .checkbox-control {
+                box-shadow:inset 0 0 0 15px $white;
+            }
+        }
+    }
+}

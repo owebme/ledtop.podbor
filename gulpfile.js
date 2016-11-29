@@ -25,9 +25,9 @@ browserSync.init({
 	}
 });
 
-gulp.task('css', function() {
+gulp.task('public.css', function() {
 	return combiner(
-		gulp.src('assets/css/style.scss'),
+		gulp.src('public/css/style.scss'),
 		sass(),
 		csso(),
 		autoprefixer({
@@ -40,16 +40,16 @@ gulp.task('css', function() {
             maxImageSize: 16*1024, // bytes
             debug: false
         }),
-		gulp.dest('assets/css'),
+		gulp.dest('public/css'),
 		browserSync.stream()
 	).on('error', notify.onError({
 		"sound": false,
 	}));
 });
 
-gulp.task('css.largeScreen', function() {
+gulp.task('public.css.largeScreen', function() {
 	return combiner(
-		gulp.src('assets/css/style.scss'),
+		gulp.src('public/css/style.scss'),
 		sass(),
 		csso(),
 		autoprefixer({
@@ -69,7 +69,7 @@ gulp.task('css.largeScreen', function() {
 			replace: true
 		}),
 		rename("style.largeScreen.css"),
-		gulp.dest('assets/css'),
+		gulp.dest('public/css'),
 		browserSync.stream()
 	).on('error', notify.onError({
 		"sound": false,
@@ -98,7 +98,7 @@ gulp.task('styleguide', function() {
 	}));
 });
 
-gulp.task('libs', function() {
+gulp.task('public.libs', function() {
 	gulp.src(['assets/js/libs/jquery.min.js',
 		'assets/js/libs/modernizr.custom.js',
 		'assets/js/libs/fastclick.min.js',
@@ -111,74 +111,81 @@ gulp.task('libs', function() {
 		'assets/js/libs/store.min.js'])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js'));
+		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('app', function() {
-	gulp.src(['assets/js/components/app.js',
-		'assets/js/components/common.js',
-		'assets/js/components/config.js',
-		'assets/js/components/modules.js',
-		'assets/js/components/utils.js',
-	    'assets/js/components/tutorial.js',
-		'assets/js/components/router.js',
-		'assets/js/components/compatible.js',
+gulp.task('public.app', function() {
+	gulp.src(['assets/js/components/commons/app.js',
+		'assets/js/components/commons/common.js',
+		'assets/js/components/commons/afterlag.js',
+		'assets/js/components/commons/compatible.js',
+		'assets/js/components/commons/modules.js',
+		'assets/js/components/commons/utils.js',
+		'public/js/components/config.js',
+	    'public/js/components/tutorial.js',
+		'public/js/components/router.js',
 		'assets/js/plugins/animate.js',
 		'assets/js/plugins/styles.js',
-		'assets/js/store/control.js',
-		'assets/js/store/ledribbon.js',
-		'assets/js/store/power.js'])
+		'public/js/store/control.js',
+		'public/js/store/ledribbon.js',
+		'public/js/store/power.js'])
 		.pipe(concat('app.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js'));
+		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('templates', function() {
-	gulp.src(['assets/templates/*.html',
-		'assets/templates/**/*.html'])
+gulp.task('public.templates', function() {
+	gulp.src(['assets/templates/ui/*.html',
+		'assets/templates/ui/**/*.html',
+		'assets/templates/modules/notify.html',
+		'assets/templates/modules/tutorial.html',
+		'public/templates/*.html',
+		'public/templates/**/*.html'])
 		.pipe(riot())
 		.pipe(concat('templates.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./assets/js'));
+		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('app.build', function() {
-	gulp.src(['assets/js/libs.js',
-		'assets/js/templates.js',
-		'assets/js/app.js',
-		'assets/js/init.js'])
+gulp.task('public.app.build', function() {
+	gulp.src(['public/js/libs.js',
+		'public/js/templates.js',
+		'public/js/app.js',
+		'public/js/init.js'])
 		.pipe(concat('app.build.js'))
-		.pipe(gulp.dest('./assets/js'));
+		.pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('css.build', gulp.parallel('css', 'css.largeScreen', 'styleguide'));
+gulp.task('public.css.build', gulp.parallel('public.css', 'public.css.largeScreen', 'styleguide'));
 
-gulp.task('js.build', gulp.parallel('libs', 'app', 'templates'));
+gulp.task('public.js.build', gulp.parallel('public.libs', 'public.app', 'public.templates'));
 
-gulp.task('build', gulp.series('css.build', 'js.build'));
+gulp.task('build', gulp.parallel('public.css.build', 'public.app.build'));
+
+gulp.task('dev.public', gulp.series(
+	gulp.parallel('public.css', 'public.js.build')
+));
 
 // gulp.task('build', gulp.series(gulp.parallel('css', 'css.largeScreen', 'styleguide', 'libs', 'app', 'templates'), 'app.build'));
 
 gulp.watch([
-	'assets/css/style.scss',
-	'assets/css/**/*.scss'
-], gulp.series('css'));
+	'public/css/style.scss',
+	'public/css/**/*.scss'
+], gulp.series('public.css'));
 
 // gulp.watch([
-// 	'assets/css/styleguide.scss',
-// 	'assets/css/**/*.scss'
+// 	'public/css/styleguide.scss',
+// 	'public/css/**/*.scss'
 // ], gulp.series('styleguide'));
 
 gulp.watch([
-	'assets/js/*.js',
-	'assets/js/**/*.js',
-	// 'assets/styleguide/*.html',
-	// 'assets/styleguide/**/*.html',
-	'assets/templates/*.html',
-	'assets/templates/**/*.html'
-]).on('change', reload);
-
-gulp.watch([
-	// 'styleguide.html',
+	'public/js/*.js',
+	'public/js/**/*.js',
+	// 'public/styleguide/*.html',
+	// 'public/styleguide/**/*.html',
+	'assets/templates/ui/*.html',
+	'assets/templates/ui/**/*.html',
+	'public/templates/*.html',
+	'public/templates/**/*.html',
 	'podbor.html'
 ]).on('change', reload);

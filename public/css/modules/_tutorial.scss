@@ -1,0 +1,92 @@
+.tutorial {
+    @include accelerate(true);
+    @include abs(fixed);
+    @extend .display-block;
+    @extend .opacity-0;
+    @extend .overflow-hidden;
+    @extend .visibility-hidden;
+    @extend .pointerEvents-none;
+    @extend .zIndex-10;
+    transition:opacity 0.4s $cubic40, visibility 0s 0.4s;
+
+    &[data-open="true"]{
+        @extend .opacity-100;
+        @extend .visibility-visible;
+        transition:opacity 0.4s $cubic2501, visibility 0s;
+
+        &:not([active-zone="true"]){
+            @extend .pointerEvents-all;
+        }
+    }
+    &__shape {
+        @include accelerate();
+        @extend .pos-abs;
+        box-sizing:content-box;
+        border:10000px solid rgba(#fcfcfc,.8);
+        margin-left:-10000px;
+        margin-top:-10000px;
+        width:0;
+        height:0;
+        will-change:transform, height, box-shadow, border-radius;
+        transition:transform .6s ease .3s, height .6s ease .3s, box-shadow .6s ease .3s, border-radius .3s ease;
+        // border-radius:50%;
+    }
+    &__message {
+        @include accelerate(true);
+        @extend .pos-abs;
+        @extend .p-l;
+        @extend .bg-white;
+        @extend .borderWidth-1;
+        @extend .borderStyle-solid;
+        @extend .borderColor-smoke;
+        @extend .borderRadius-m;
+        @extend .c-grayDark;
+        @extend .opacity-0;
+        @extend .pointerEvents-all;
+        box-shadow:0 20px 25px rgba(31,35,37,.15);
+        will-change:opacity;
+        transition:opacity .3s ease;
+        width:440px;
+
+        &[data-active="true"]{
+            @extend .opacity-100;
+            transition:opacity .5s ease 0.65s;
+        }
+        &[data-position="right"]{
+            top:0;
+            left:0;
+            transform:translate3d(20px, -20px, 0);
+        }
+        &[data-position="left"]{
+            top:0;
+            right:0;
+            transform:translate3d(-40px, -20px, 0);
+        }
+        &[data-position="up"]{
+            bottom:0;
+            left:0;
+            transform:translate3d(20px, -30px, 0);
+        }
+        &[data-position="down"]{
+            top:0;
+            left:0;
+            transform:translate3d(20px, 20px, 0);
+        }
+        &__wrapper {
+            @include accelerate(true);
+            @extend .pos-abs;
+            transition:all .0s 0.3s;
+        }
+        &__title {
+            @extend .c-blue;
+            @extend .fontSize-24;
+            @extend .mb-s;
+        }
+        &__text {
+            @extend .fontSize-l;
+            @extend .lineHeight-l;
+            @extend .mb-l;
+            white-space:pre-line;
+        }
+    }
+}

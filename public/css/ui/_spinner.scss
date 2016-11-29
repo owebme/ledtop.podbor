@@ -1,0 +1,17 @@
+.spinner {
+    @extend .display-block;
+
+    &:after {
+        @extend .content-empty;
+        @extend .display-block;
+        @include ui-icon(loading, 48px, 48px);
+    }
+    &-anim {
+        @extend .spinner;
+
+        &:after {
+            @extend .willChange-transform;
+            @include animation(spinner, linear, 1s, 0s, infinite);
+        }
+    }
+}

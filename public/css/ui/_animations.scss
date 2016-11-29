@@ -1,0 +1,90 @@
+.anim-text {
+    @include accelerate(true);
+    @extend .visibility-hidden;
+    transform-style:preserve-3d;
+    animation-fill-mode:forwards;
+    animation-duration:1s;
+
+    &.anim-textIn {
+        animation-timing-function:$cubic40;
+        animation-duration:1s;
+    }
+    &.anim-textOut {
+        animation-timing-function:$cubic645;
+        animation-duration:.7s;
+    }
+    &-bt {
+        &.anim-textIn {
+            .d-no-mobile & {
+                animation-name:anim-text-bt-in;
+            }
+            .d-mobile & {
+                animation-name:anim-text-bt-in-mobile;
+            }
+        }
+        &.anim-textOut {
+            .d-no-mobile & {
+                animation-name:anim-text-bt-out;
+            }
+            .d-mobile & {
+                animation-name:anim-text-bt-out-mobile;
+            }
+        }
+    }
+    &.anim-textIn,
+    &.anim-textOut {
+        @extend .visibility-visible;
+    }
+    @each $title, $time in (none: 0s, xs: .5s, s: 1s, m: 1.5s, l: 2s, xl: 3s){
+        &.anim-textIn {
+            &[delay-show="#{$title}"] {
+                animation-delay:$time;
+            }
+        }
+        &.anim-textOut {
+            &[delay-hide="#{$title}"] {
+                animation-delay:$time;
+            }
+        }
+    }
+}
+@keyframes anim-text-bt-in {
+	0% {
+        opacity:0.01;
+        transform:translate3d(0, 101%, 0) perspective(1000px);
+    }
+    100% {
+        opacity:1;
+        transform:translate3d(0, 0, 0) perspective(1000px);
+    }
+}
+@keyframes anim-text-bt-out {
+	0% {
+        opacity:1;
+        transform:translate3d(0, 0, 0) perspective(1000px);
+    }
+    100% {
+        opacity:0;
+        transform:translate3d(0, -110%, 0) perspective(1000px);
+    }
+}
+@keyframes anim-text-bt-in-mobile {
+    0% {
+        opacity:0.01;
+        transform:translate3d(0, 51%, 0) perspective(400px);
+    }
+    100% {
+        opacity:1;
+        transform:translate3d(0, 0, 0) perspective(400px);
+    }
+}
+@keyframes anim-text-bt-out-mobile {
+	0% {
+        opacity:1;
+        transform:translate3d(0, 0, 0) perspective(400px);
+    }
+    100% {
+        opacity:0;
+        transform:translate3d(0, -51%, 0) perspective(400px);
+    }
+}

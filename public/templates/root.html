@@ -1,0 +1,90 @@
+<root-main>
+
+    <div class="screens"></div>
+
+    <section-tutorial></section-tutorial>
+
+    <section-notify></section-notify>
+
+<script>
+
+    $$ = window.jQuery || window.Zepto;
+
+    $root = this;
+    $rootScope = $$(this.root);
+
+    app.ver = "1.0";
+
+    var config = {
+        pack: "norm",
+        tooltipScreen: false,
+        showProducts: false,
+        tutorial: true,
+        offers: {
+            manager: false
+        }
+    };
+
+    var state = {
+        control: true,
+        light: "rgb",
+        color: "green",
+        humidity: "P67",
+        length: "25"
+    };
+
+    if ($Router.params.get()){
+        _.extend(state, $Router.params.get());
+        state.control = state.control === "false" ? false : true;
+    }
+
+    var appVer = Store.get('appVer');
+
+    if (appVer && appVer == app.ver){
+        if (Store.get('config')){
+            _.extend(config, Store.get('config'));
+            config.showProducts = false;
+        }
+    }
+    else {
+        Store.clear();
+        Store.set('appVer', app.ver);
+    }
+
+    $Config = new Baobab(config, { autoCommit: true });
+    $State = new Baobab(state, { autoCommit: true });
+
+    $Config.on("update", function(e){
+        Store.set('config', $Config);
+    });
+
+    if (app.config.changeStyles){
+        app.plugins.styles.init({
+            elem: "#styles",
+            default: "normal",
+            screens: [
+                {
+                    title: "normal",
+                    maxWidth: 1400,
+                    path: "/assets/css/style.css"
+                },
+                {
+                    title: "large",
+                    minWidth: 1400,
+                    path: "/assets/css/style.largeScreen.css"
+                }
+            ]
+        });
+    }
+
+    this.on("mount", function(){
+
+        $Tutorial = $root.tags["section-tutorial"];
+        $Notify = $root.tags["section-notify"];
+
+        app.router.init();
+    });
+
+</script>
+
+</root-main>
