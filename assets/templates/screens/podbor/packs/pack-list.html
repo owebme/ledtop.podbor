@@ -1,0 +1,103 @@
+<section-pack-list class="oScreen zIndex-10 { showAnim-group1 : active }" data-open={ active } data-color="dark">
+
+    <div class="pos-rel anim-group1 anim-fadeIn zIndex-2" duration-show="l" duration-hide="xs" delay-show="m">
+        <div onClick={ hide } onUpdate="none" class="button__close opacity-50" data-pos="top-right" data-color="gray"></div>
+    </div>
+
+    <div class="pack__select__list__header anim-group1 anim-tb-soft" duration-show="l" duration-hide="none" delay-show="xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="pack__select__list__title">Эконом</div>
+                </div>
+                <div class="col-md-8">
+                    <div class="pack__select__list__title">Норма</div>
+                </div>
+                <div class="col-md-8">
+                    <div class="pack__select__list__title">ЛЮКС</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pack__select__list__content anim-group1 anim-bt-soft" duration-show="m" duration-hide="none" delay-show="xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 pack__select__list" data-pack="econom">
+                    <div class="pack__select__list__items">
+                        <div onClick={ select } onUpdate="none" each={ item in items1 } class="pack__select__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
+                            <div class="pack__select__list__item" data-active={ pack == item._id }>
+                                { item.title }
+                                <div class="pack__select__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 pack__select__list" data-pack="norm">
+                    <div class="pack__select__list__items">
+                        <div onClick={ select } onUpdate="none" each={ item in items2 } class="pack__select__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
+                            <div class="pack__select__list__item" data-active={ pack == item._id }>
+                                { item.title }
+                                <div class="pack__select__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 pack__select__list" data-pack="lux">
+                    <div class="pack__select__list__items">
+                        <div onClick={ select } onUpdate="none" each={ item in items3 } class="pack__select__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
+                            <div class="pack__select__list__item" data-active={ pack == item._id }>
+                                { item.title }
+                                <div class="pack__select__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.pack = "1";
+
+    $.on("before-mount", function(){
+        var id = 1;
+
+        for(var i=1; i < 4; i++){
+            $["items" + i] = [];
+            for(var j=1; j < _.random(3, 6); j++){
+                var item = {
+                    _id: id,
+                    title: "Одноцветная подсветка #" + j,
+                    price: _.random(5000, 15000),
+                    tooltip: "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+                }
+                $["items" + i].push(item);
+                id++;
+            }
+        }
+    });
+
+    $.show = function(){
+        $.update({
+            active: true
+        })
+    };
+
+    $.select = function(){
+        $.pack = this.item._id;
+        $.hide();
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</section-pack-list>

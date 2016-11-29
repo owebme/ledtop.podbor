@@ -1,0 +1,61 @@
+screen-podbor-mobile {
+    .products__list {
+        &__container {
+            @extend .ptb-s;
+            @extend .plr-xs;
+        }
+        &__close {
+            @extend .l-s;
+            @extend .fontSize-20;
+            @extend .fontWeight-normal;
+            transform:translateY(-7px);
+
+            &:before {
+                @include ui-icon("close_strong", 36px, 36px);
+            }
+        }
+        &__title {
+            @extend .fontSize-22;
+
+            i {
+                width:24px;
+                height:24px;
+                transform:translateY(-3px);
+
+                &:last-child {
+                    @extend .mr-xs;
+                }
+            }
+        }
+        &__item {
+            &[data-active="true"]{
+                &:before {
+                    width:24px;
+                    height:24px;
+                    transform:translate3d(-22px, 5px, 0);
+                }
+                &:after {
+                    margin:3px;
+                    width:18px;
+                    height:18px;
+                    transform:translate3d(-22px, 5px, 0);
+                }
+            }
+        }
+        &[data-product="ledribbon"] {
+            .products__list__item__image {
+                max-width:85px;
+            }
+        }
+        &[data-product="power-supply"] {
+            .products__list__item__image {
+                max-width:90px;
+            }
+        }
+        &[data-product="ir-control"] {
+            .products__list__item__image {
+                max-width:78px;
+            }
+        }
+    }
+}

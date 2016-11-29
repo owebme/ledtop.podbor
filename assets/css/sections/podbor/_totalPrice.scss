@@ -1,0 +1,31 @@
+screen-podbor {
+    .total {
+        @extend .pos-abs;
+        @extend .b0;
+        @extend .l0;
+        @extend .pt-xs;
+        @extend .pb-m;
+        width:calc(100% + 1px);
+        @extend .c-white;
+        @extend .bg-blue;
+        @include flex("column", "center", "center");
+
+        &__title {
+            @extend .fontSize-28;
+            @extend .fontWeight-5;
+            @extend .mb--xxs;
+            transform:scale3d(1.1, 1, 1);
+        }
+        &__price {
+            @extend .fontFamily-helvetica;
+            @extend .fontSize-18;
+            @extend .fontWeight-5;
+
+            &__rub {
+                @extend .display-inlineBlock;
+                @extend .fontFamily-myriad;
+                transform:scale3d(1.2, 1.1, 1);
+            }
+        }
+    }
+}

@@ -151,7 +151,7 @@
 		@extend .display-block;
 		@extend .overflowY-auto;
 		@extend .section-hidden;
-		padding:110px 20px 70px;
+		padding:21vh 20px 15vh;
 
 		&:after {
 			@extend .content-empty;
@@ -178,7 +178,7 @@
 		&__item {
 			@extend .pos-rel;
 			@include flex("row", "flex-start", "center");
-			padding:26px 10px 26px 58px;
+			padding:24px 10px 24px 58px;
 			border-bottom:1px solid rgba($grayLighten,.6);
 
 			&__icon {
@@ -208,6 +208,11 @@
 						@include ui-icon("callback", 36px, 44px);
 					}
 				}
+				&[data-icon="payment"]{
+					&:after {
+						@include ui-icon("pay_mobile", 44px, 44px);
+					}
+				}
 				&[data-icon="question"]{
 					&:after {
 						@include ui-icon("help", 34px, 34px);
@@ -221,12 +226,13 @@
 			}
 			&__title {
 				@extend .pl-s;
-				@extend .fontSize-22;
-				@extend .fontWeight-5;
+				@extend .c-blackDark;
+				@extend .fontFamily-helvetica;
+				font-size:20.5px;
 				@extend .text-truncate;
 				@extend .maxW-100p;
 				@extend .c-blackLight;
-				@extend .letterSpacing--s;
+				@extend .letterSpacing--xs;
 			}
 		}
 	}

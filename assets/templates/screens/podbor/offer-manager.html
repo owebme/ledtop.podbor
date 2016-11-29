@@ -1,9 +1,9 @@
-<offer-manager class="oScreen zIndex-100" data-open={ $Config.get('offers', 'manager') } data-color="blue">
+<offer-manager class="oScreen zIndex-100 { showAnim : $Config.get('offers', 'manager') }" data-open={ $Config.get('offers', 'manager') } data-color="blue">
 
     <div class="container">
-        <div class="row anim anim-scale-soft { animated : $Config.get('offers', 'manager') }" duration-hide="s">
+        <div class="row pos-rel anim anim-scale-soft zIndex-1" duration-hide="s">
             <div class="col-md-8">
-                <div class="pt-s pl-l pr-m fontSize-20 lineHeight-xxxl">
+                <div class="pt-s pl-l pr-m lineHeight-xxl">
                     <div class="avatar" style="background-image:url(/assets/images/avatars/1.jpg)"></div>
                     <div class="avatar__name">Ваш менеджер, Дарья</div>
                     <div class="avatar__text">Мой телефон: <strong>8 (909) 900-12-20</strong></div>
@@ -17,6 +17,49 @@
                         Михаил, в продолжении нашего разговора я подобрала по вашим требования комплект. Если потребуется, здесь вы можете модифицировать мою конфигурацию и внести свои изменения.
                         <p>Для дальнейшей консультации, я для Вас на связи!</p>
                         <button onClick={ hide } class="btn btn-xl btn-white">Перейти к комплекту</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row anim anim-scale-soft" duration-hide="s">
+            <div class="order__products">
+                <div class="col-md-offset-2 col-md-4 flex-centered">
+                    <div class="order__product">
+                        <div class="order__product__image__wrapper">
+                            <img class="order__product__image" src="http://ledtop-shop.ru/files/catalog/014383.jpg">
+                        </div>
+                        <div class="order__product__length">15м</div>
+                        <div class="order__product__price">840 ₽</div>
+                    </div>
+                </div>
+                <div class="col-md-1 flex-centered">
+                    <div class="order__product__plus"></div>
+                </div>
+                <div class="col-md-4 flex-centered">
+                    <div class="order__product">
+                        <div class="order__product__image__wrapper">
+                            <img class="order__product__image" src="http://ledtop-shop.ru/files/catalog/019122.jpg">
+                        </div>
+                        <div class="order__product__price">452 ₽</div>
+                    </div>
+                </div>
+                <div class="col-md-1 flex-centered">
+                    <div class="order__product__plus"></div>
+                </div>
+                <div class="col-md-4 flex-centered">
+                    <div class="order__product">
+                        <div class="order__product__image__wrapper">
+                            <img class="order__product__image" src="http://ledtop-shop.ru/files/catalog/012985.jpg">
+                        </div>
+                        <div class="order__product__price">457 ₽</div>
+                    </div>
+                </div>
+                <div class="col-md-1 flex-centered">
+                    <div class="order__product__equal"></div>
+                </div>
+                <div class="col-md-5">
+                    <div class="order__products__total__price">
+                        12,489 ₽
                     </div>
                 </div>
             </div>

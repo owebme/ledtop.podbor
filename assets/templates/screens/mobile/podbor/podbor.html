@@ -1,4 +1,4 @@
-<screen-podbor-mobile class="section" data-active="false" data-overlay="false" data-visible={ !hidden } data-animate="true" is-animate="false" data-hidden="false">
+<screen-podbor-mobile class="section" data-active="false" data-overlay="false" data-visible="false" data-animate="true" is-animate="false" data-hidden="false">
 
     <!-- <offer-manager></offer-manager> -->
 
@@ -23,6 +23,8 @@
 
     <section-products-list-mobile></section-products-list-mobile>
 
+    <section-product-mobile></section-product-mobile>
+
     <section-result-count></section-result-count>
 
     <div class="section__overlay"></div>
@@ -33,13 +35,12 @@
     $scope = $$(this.root);
 
     $.active = false;
-    $.hidden = true;
 
     $.tooltipScreen = null;
 
     $.show = function(animate){
         $Screens.self.trigger("steps-hidden");
-        $.hidden = false;
+        $.root.setAttribute("data-visible", true);
 
         $.update();
 
@@ -68,11 +69,6 @@
         $Navbar = $.tags["section-navbar-mobile"];
         $Menu = $.tags["section-menu-mobile"];
 
-        $.sections = {
-            resultCount: $.tags["section-result-count"],
-            productsList: $.tags["section-products-list-mobile"]
-        };
-
         $Control = $.tags["section-control-mobile"];
         $Control.wrapper = $Control.tags["control-wrapper"];
         $Control.light = $Control.wrapper.tags["control-light"];
@@ -86,11 +82,16 @@
             "ir-control": $["ir-control"]._tag
         };
 
+        $.sections = {
+            resultCount: $.tags["section-result-count"],
+            productsList: $.tags["section-products-list-mobile"]
+        };    
+
         $.setParams = function(){
             $Router.params.set($State.get());
         };
 
-        var setParams = _.debounce($.setParams, 100);
+        var setParams = _.debounce($.setParams, app.device.isMobile ? 500 : 100);
 
         $State.on("update", function(e){
             var data = $.getPropValue(e),
@@ -146,6 +147,12 @@
             econom: ['012987', '021098', '015422', '020170', '011439'],
             lux: ['016678', '016476', '018609', '016927', '021025']
         }
+    };
+
+    $.getTitleById = function(pack){
+             if (pack == "econom") return 'Эконом';
+        else if (pack == "norm") return 'Норма';
+        else if (pack == "lux") return 'LUX';
     };
 
     $.reRender = function(){

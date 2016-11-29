@@ -24,6 +24,7 @@
     var $ = this;
 
     $.active = false;
+    $.ready = false;
     $.steps = new Baobab([]).root;
     $.borderColor = "#0084ff";
 
@@ -37,9 +38,16 @@
         $.message.active = true;
 
         _.onEndTransition($["shape"], function(){
+
             $.cordsMsg();
+
             $.update();
+
             $.msgElem.setAttribute("data-active", true);
+
+            _.onEndTransition($.msgElem, function(){
+                $.ready = true;
+            });
         });
     });
 
@@ -95,6 +103,8 @@
             app.$dom.window.on("resize.tutorial", function(){
                 reRender();
             });
+
+            $.navigate.init();
         }
         else {
             console.log("Not found tutorial: " + tutorial);
@@ -102,6 +112,18 @@
     };
 
     $.nextStep = function(){
+        $.changeStep("right");
+    };
+
+    $.prevStep = function(){
+        if ($.num > 1){
+            $.changeStep("left");
+        }
+    };
+
+    $.changeStep = function(arrow){
+        $.ready = false;
+
         if (!$.cursor) $.trigger("messageShow");
         else $.trigger("messageHide");
 
@@ -110,12 +132,12 @@
                 $.step.actions.toggle($.target);
             }
         }
-        if (!$.cursor || !$.cursor.right()) {
+        if (!$.cursor || !$.cursor[arrow]()) {
             $.cursor = $.steps.down();
         }
         else {
             $.actions($.step, $.target, true);
-            $.cursor = $.cursor.right();
+            $.cursor = $.cursor[arrow]();
         }
 
         $.step = $.cursor.get().call();
@@ -133,13 +155,17 @@
 
             $.trigger("messageShow");
 
-            if (!$.cursor.right()) $.endShow = true;
+            if (!$.cursor[arrow]() && arrow == "right") $.endShow = true;
             else $.endShow = false;
 
             $.update();
 
-            if ($.endShow) $.num = 1;
-            else $.num++;
+            if ($.start || $.steps.get().length == $.num && arrow == "right") $.num = 1;
+            else {
+                if (arrow == "right") $.num++;
+                if (arrow == "left") $.num--;
+                // console.log(arrow, $.num);
+            }
 
             $.actions($.step, $.target);
 
@@ -227,6 +253,20 @@
         }
     };
 
+    $.navigate = {
+        init: function(){
+            app.$dom.document.on("keydown.tutorial", function(e){
+                if ($.ready){
+                    if (e.which == KEY.RIGHT && !$.endShow) $.nextStep();
+                    else if (e.which == KEY.LEFT) $.prevStep();
+                }
+            });
+        },
+        destroy: function(){
+            app.$dom.document.off("keydown.tutorial");
+        }
+    };
+
     $.hide = function(){
         $.active = false;
 
@@ -237,6 +277,9 @@
         $.afterlag(function(){
             $.actions($.step, $.target, true);
         });
+
+        $.navigate.destroy();
+
         app.$dom.window.off("resize.tutorial");
     };
 

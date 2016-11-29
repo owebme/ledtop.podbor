@@ -93,6 +93,8 @@
 	if (navigator.userAgent.match(/(iPad|iPhone|iPod touch)/i)) {
 		$dom.html.addClass('d-ios');
 		device.isIOS = true;
+		var expr = navigator.userAgent.match(/.*CPU.*OS (\d)_(\d)/i);
+		device.verOS = expr && expr[1] ? expr[1] + (expr[2] ? "." + expr[2] : "") : false;
 	}
 	else {
 		$dom.html.addClass('d-no-ios');
@@ -100,6 +102,12 @@
 	if (navigator.userAgent.match(/.*CPU.*OS 7_\d/i)) {
 		$dom.html.addClass('d-ios7');
 		device.isIOS7 = true;
+	};
+	if (navigator.userAgent.match(/Android/i)) {
+		$dom.html.addClass('d-android');
+		device.isAndroid = true;
+		var expr = navigator.userAgent.match(/Android (\d)\.(\d)/i);
+		device.verOS = expr && expr[1] ? expr[1] + (expr[2] ? "." + expr[2] : "") : false;
 	};
 
 	/* --- iPad (for fix wrong window height) --- */

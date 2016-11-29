@@ -169,7 +169,10 @@ screen-podbor-mobile {
         }
         &[data-pack="lux"]{
             .product__label {
+                @extend .fontSize-18;
                 @extend .bg-blackLight;
+                @extend .fontWeight-normal;
+                padding-top:3px;
             }
         }
         &[data-product="ledribbon"],

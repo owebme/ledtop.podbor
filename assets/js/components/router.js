@@ -17,7 +17,7 @@
                     Router.mount('podbor');
                 }
                 else {
-                    Router.mount('podbor');
+                    Router.mount('begin');
                 }
             });
 
@@ -49,28 +49,37 @@
 
         mount: function(screen){
             if (!Router.start){
-                var $loader = $dom.body.find("#loader"),
-                    section = riot.mount(".screens", "screens" + (app.device.isPhone ? "-mobile" : ""))[0];
-
-                section.one("updated", function(){
-                    $afterlag.run(function(){
-                        $dom.body.removeClass("appLoading");
-                        _.onEndTransition($loader[0], function(){
-                            $loader.remove();
-                        });
-                    }, {
-                        iterations: screen == "podbor" ? 10 : 2,
-                        timeout: screen == "podbor" ? 2000 : 500
-                    });
-                    $afterlag.run(function(){
-                        $Screens[screen].show();
-                    }, {
-                        iterations: 3,
-                        timeout: 1000
-                    });
-                    Router.start = true;
-                });
+                if (app.compatible){
+                    app.compatible.init(Router.render, screen);
+                }
+                else {
+                    Router.render(screen);
+                }
             }
+        },
+
+        render: function(screen){
+            var $loader = $dom.body.find("#loader"),
+                section = riot.mount(".screens", "screens" + (app.device.isPhone ? "-mobile" : ""))[0];
+
+            section.one("updated", function(){
+                $afterlag.run(function(){
+                    $dom.body.removeClass("appLoading");
+                    _.onEndTransition($loader[0], function(){
+                        $loader.remove();
+                    });
+                }, {
+                    iterations: screen == "podbor" ? 10 : 2,
+                    timeout: screen == "podbor" ? 2000 : 500
+                });
+                $afterlag.run(function(){
+                    $Screens[screen].show();
+                }, {
+                    iterations: 3,
+                    timeout: 1000
+                });
+                Router.start = true;
+            });
         }
     };
 

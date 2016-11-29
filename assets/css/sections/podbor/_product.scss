@@ -304,6 +304,10 @@ screen-podbor {
         &:active {
             transform:translate3d(0, -50%, 0) scale(0.95);
         }
+        &[data-hidden="true"]{
+            @extend .opacity-0;
+            @extend .pointerEvents-none;
+        }
     }
     .product[data-product="ledribbon"],
     .product[data-product="ir-control"] {

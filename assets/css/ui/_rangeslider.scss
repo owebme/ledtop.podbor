@@ -12,6 +12,12 @@
         border-radius:0 0 3px 3px;
         transform:translateY(-2px);
 
+        .d-phone & {
+            width:24px;
+            height:24px;
+            transform:translateY(2px);
+            border-radius:0 0 6px 6px;
+        }
         &:before {
             @extend .content-empty;
             @extend .pos-centered-h;
@@ -20,6 +26,10 @@
             height:40px;
             @extend .bg-blue;
             @extend .opacity-10;
+
+            .d-phone & {
+                height:43px;
+            }
         }
         &:after {
             @extend .content-empty;
@@ -31,6 +41,13 @@
             border-bottom:12px solid $blue;
             border-right:9px solid transparent;
             border-left:9px solid transparent;
+
+            .d-phone & {
+                top:-15px;
+                border-bottom-width:15px;
+                border-right-width:12px;
+                border-left-width:12px;
+            }
         }
     }
 }

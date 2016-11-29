@@ -6,13 +6,14 @@
 }
 .section__control {
     @extend .display-block;
-    @extend .pos-tl;
+    @extend .pos-rel;
     width:120px;
     @extend .h100p;
     @extend .bg-white;
     @extend .userSelect-none;
     @extend .zIndex-10;
-    border-right:1px solid #D3DCE6;
+    // border-right:1px solid #D3DCE6;
+    box-shadow:0 1px 2px 0 rgba(31,45,61,.3);
 
     .button__ok {
         @extend .flex-centered;
@@ -92,6 +93,8 @@
             }
         }
         &[data-active="true"]{
+            @extend .zIndex-1;
+
             .control__container {
                 @extend .visibility-visible;
                 @extend .pointerEvents-all;
@@ -257,6 +260,17 @@
                 @include ui-icon(led_lightrun_blue, 36px, 36px);
                 transform:translateY(1px);
             }
+        }
+    }
+}
+
+@media screen and (max-height: 670px) {
+    .d-no-phone {
+        .control__wrapper {
+            padding-bottom:60px;
+        }
+        .control {
+            margin-bottom:35px !important;
         }
     }
 }

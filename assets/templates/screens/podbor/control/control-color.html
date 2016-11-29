@@ -3,7 +3,7 @@
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-color={ $State.get('color') }>
         <control-color-item content={ $State.get('color') }>{ item }</control-color-item>
     </div>
-    <div class="control__container flex-row-left-center">
+    <div class="control__container { flex-row-left-center : !app.device.isPhone }">
         <div class="control__container__title">цвет свечения</div>
         <div onClick={ select } onUpdate="none" each={ item in items } class="control__color" data-active={ item == $State.get('color') } data-color={ item }>
             <control-color-item content={ item }>{ item }</control-color-item>

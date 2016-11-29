@@ -37,6 +37,7 @@
 @import 'modules/oScreen';
 // @import 'modules/screens';
 @import 'modules/tutorial';
+@import 'modules/incompatible';
 // @import 'modules/shareButton';
 
 // Sections
@@ -53,9 +54,14 @@
 @import 'sections/podbor/animate';
 @import 'sections/podbor/control/control';
 @import 'sections/podbor/control/items';
+@import 'sections/podbor/menu';
+@import 'sections/podbor/packs/packSelect';
+@import 'sections/podbor/packs/packSelectList';
 @import 'sections/podbor/content';
 @import 'sections/podbor/product';
 @import 'sections/podbor/products';
+@import 'sections/podbor/totalPrice';
+@import 'sections/podbor/order';
 @import 'sections/podbor/offerManager';
 
 // Screens Mobile
@@ -66,6 +72,7 @@
 @import 'sections/mobile/podbor/navbar';
 @import 'sections/mobile/podbor/content';
 @import 'sections/mobile/podbor/product';
+@import 'sections/mobile/podbor/products';
 @import 'sections/mobile/podbor/resultCount';
 
 // states

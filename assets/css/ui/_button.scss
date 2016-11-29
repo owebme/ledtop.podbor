@@ -48,13 +48,21 @@
     &__close {
         @extend .pos-tr;
         @extend .cursor-pointer;
+        @extend .btn-hover;
         @extend .btn-active;
         @extend .zIndex-2;
-        width:26px;
-        height:36px;
-        @include ui-icon(back_circle);
-        margin:15px 17px 0 0;
+        width:24px;
+        height:24px;
+        @include ui-icon(close);
+        margin:25px 22px 0 0;
 
+        &[data-color="white"]{
+            @include ui-icon(close_white);
+        }
+        &[data-color="gray"]{
+            margin:15px 17px 0 0;
+            @include ui-icon(close_fill_gray, 38px, 38px);
+        }
         .oScreen__scroll & {
             @extend .pos-fixed;
         }
@@ -63,7 +71,7 @@
             height:32px;
         }
         .d-phone & {
-            margin:15px 10px 0 0;
+            margin:17px 10px 0 0;
         }
     }
     &__help {

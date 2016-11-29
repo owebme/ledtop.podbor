@@ -6,6 +6,16 @@
         function(){
             return {
                 figure: "square",
+                target: "section-pack-select",
+                position: "down",
+                padding: 20,
+                title: "Выбор готовых наборов",
+                text: 'Вы можете выбрать готовые наборы компонентов. Все наборы прошли тщательный отбор и сохраняют отличный баланс между ценой и предложением.'
+            }
+        },
+        function(){
+            return {
+                figure: "square",
                 target: "product-item[data-product='ledribbon']",
                 position: "right",
                 padding: 10,
@@ -127,12 +137,67 @@
         },
         function(){
             return {
+                figure: "square",
+                target: ".section__control .total",
+                position: "right",
+                padding: 20,
+                title: "Итоговая цена",
+                text: "Итоговая цена за весь выбранный комплект."
+            }
+        },
+        function(){
+            return {
                 figure: "circle",
                 target: ".control .button__ok",
                 position: "right",
                 padding: 15,
                 title: 'Кнопка "Все ОК!"',
                 text: "После того, как вы закончите свой выбор, нажмите на эту кнопку, чтобы отправить предзаказ и связаться с нашим менеджером для дальнейшей консультации.\n Приятного Вам освещения!"
+            }
+        },
+        function(){
+            return {
+                figure: "circle",
+                target: "section-menu .menu__item[data-item='email']",
+                position: "left",
+                title: "Отправить расчет",
+                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            }
+        },
+        function(){
+            return {
+                figure: "circle",
+                target: "section-menu .menu__item[data-item='order']",
+                position: "left",
+                title: "Отправить предзаказ",
+                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            }
+        },
+        function(){
+            return {
+                figure: "circle",
+                target: "section-menu .menu__item[data-item='payment']",
+                position: "left",
+                title: "Оплатить заказ",
+                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            }
+        },
+        function(){
+            return {
+                figure: "circle",
+                target: "section-menu .menu__item[data-item='callback']",
+                position: "left",
+                title: "Заказать звонок",
+                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+            }
+        },
+        function(){
+            return {
+                figure: "circle",
+                target: "section-menu .menu__item[data-item='votes']",
+                position: "left",
+                title: "Оценить сервис",
+                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
             }
         }
     ];

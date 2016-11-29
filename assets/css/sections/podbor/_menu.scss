@@ -1,0 +1,39 @@
+screen-podbor {
+    .menu {
+        @extend .display-block;
+        @extend .pos-rel;
+        @extend .w80;
+        @extend .h100p;
+        @extend .zIndex-1;
+        box-shadow:0 1px 2px 0 rgba(31,45,61,.2);
+        // border-left:1px solid #D3DCE6;
+
+        &__wrapper {
+            @extend .w100p;
+            @extend .pos-centered-v;
+            @extend .pb-l;
+        }
+        &__item {
+            @extend .pos-rel;
+            @extend .flex-centered;
+            @extend .w100p;
+            @extend .h80;
+            transition:background-color 0.08s;
+            @extend .cursor-pointer;
+
+            .icon {
+                @extend .btn-active;
+            }
+            &__help {
+                @extend .pos-tr;
+            }
+            &:hover {
+                @extend .bg-blue;
+
+                path, rect, polygon, circle {
+                    @extend .fill-white;
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 <product-content-mobile class="display-block">
 
     <div class="title">{ parent.opts.item.get().title }</div>
-    <div class="product__label">{ parent.opts.item.get('product').pack }</div>
+    <div class="product__label">{ $Screen.getTitleById(parent.opts.item.get('product').pack) }</div>
     <div class="rows product__item">
         <div class="col-xs-12 product__item__text">
             <p>{ parent.opts.item.get('product').desc }</p>

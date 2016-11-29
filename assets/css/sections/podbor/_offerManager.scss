@@ -2,6 +2,7 @@ offer-manager {
     @extend .c-white;
 
     .container {
+        @extend .pt-l;
         @extend .pos-centered;
     }
     .avatar {
@@ -12,19 +13,11 @@ offer-manager {
         @extend .mb-m;
         @extend .bg-cover;
         @extend .borderRadius-circle;
+        box-shadow:0 0 0 8px rgba($white,.2);
 
         &__name {
+            @extend .fontSize-20;
             @extend .mb-xxs;
-        }
-        &:before {
-            @extend .content-empty;
-            @extend .pos-centered;
-            width:136px;
-            height:136px;
-            @extend .bg-white;
-            @extend .opacity-20;
-            @extend .borderRadius-circle;
-            @extend .zIndex--1;
         }
     }
     .message {
@@ -70,7 +63,7 @@ offer-manager {
     }
     .btn {
         @extend .pos-abs;
-        @extend .b--l;
+        bottom:-30px;
         @extend .r-l;
         @extend .borderRadius-l;
         outline:6px solid rgba($blue,.95);

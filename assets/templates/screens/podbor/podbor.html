@@ -1,21 +1,29 @@
-<screen-podbor class="section" data-active="false" data-visible={ !hidden } data-animate="true" is-animate="false">
+<screen-podbor class="section" data-active="false" data-visible="false" data-animate="true" is-animate="false">
 
     <offer-manager></offer-manager>
 
-    <section-control></section-control>
+    <div class="wrapper">
 
-    <div class="content">
-        <div class="rows">
-            <div class="row">
-                <product-item name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item>
-                <product-item name="power-supply" item={ $Data.getProduct('power-supply') }></product-item>
-                <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
+        <section-control></section-control>
+
+        <section-pack-select></section-pack-select>
+
+        <div class="content">
+
+            <div class="rows">
+                <div class="row">
+                    <product-item name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item>
+                    <product-item name="power-supply" item={ $Data.getProduct('power-supply') }></product-item>
+                    <product-item name="ir-control" item={ $Data.getProduct('ir-control') }></product-item>
+                </div>
             </div>
         </div>
-        <div name="buttonHelp" class="buttons-angle" data-pos="top-right">
-            <div onClick={ open.tutorial } onUpdate="none" class="button__help"></div>
-        </div>
+
+        <section-menu></section-menu>
+
     </div>
+
+    <section-pack-list></section-pack-list>
 
 <script>
 
@@ -23,12 +31,13 @@
     $scope = $$(this.root);
 
     $.active = false;
-    $.hidden = true;
 
     $.tooltipScreen = null;
 
     $.show = function(animate){
-        $.hidden = false;
+        $Screens.self.trigger("steps-hidden");
+        $.root.setAttribute("data-visible", true);
+
         //$.reRender();
         $.update();
 
@@ -36,7 +45,7 @@
             if (animate){
                 $.root.setAttribute("is-animate", true);
 
-                _.onEndTransition($.buttonHelp, function(){
+                _.onEndTransition($.menu, function(){
                     $.root.setAttribute("data-animate", false);
                     $.root.setAttribute("data-active", true);
                     if ($Config.get("tutorial")){
@@ -67,6 +76,8 @@
 
     $.on("before-mount", function(){
 
+        $Menu = $.tags["section-menu"];
+
         $Control = $.tags["section-control"];
         $Control.wrapper = $Control.tags["control-wrapper"];
         $Control.light = $Control.wrapper.tags["control-light"];
@@ -78,6 +89,10 @@
             "ledribbon": $["ledribbon"]._tag,
             "power-supply": $["power-supply"]._tag,
             "ir-control": $["ir-control"]._tag
+        };
+
+        $.sections = {
+            packList: $.tags["section-pack-list"]
         };
 
         $.setParams = function(){
@@ -174,6 +189,12 @@
         }
     };
 
+    $.getTitleById = function(pack){
+             if (pack == "econom") return 'Эконом';
+        else if (pack == "norm") return 'Норма';
+        else if (pack == "lux") return 'LUX';
+    };
+
     $.reRender = function(){
         var data = [
             {
@@ -184,7 +205,7 @@
             },
             {
                 _id: "power-supply",
-                title: "Блок питания",
+                title: "Питание",
                 product: $.getFirstProduct("power"),
                 products: $.getProducts("power")
             },

@@ -122,6 +122,8 @@ gulp.task('app', function() {
 		'assets/js/components/utils.js',
 	    'assets/js/components/tutorial.js',
 		'assets/js/components/router.js',
+		'assets/js/components/compatible.js',
+		'assets/js/plugins/animate.js',
 		'assets/js/plugins/styles.js',
 		'assets/js/store/control.js',
 		'assets/js/store/ledribbon.js',

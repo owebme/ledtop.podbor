@@ -14,12 +14,19 @@
 
     $.on("before-mount", function(){
         $Screens = {
+            self: $,            
             begin: $.tags["screen-begin"],
             step1: $.tags["screen-step1"],
             step2: $.tags["screen-step2"],
             podbor: $.tags["screen-podbor"]
         };
         $Screen = $Screens.podbor;
+    });
+
+    $.on("steps-hidden", function(){
+        $Screens.begin.root.setAttribute("data-visible", false);
+        $Screens.step1.root.setAttribute("data-visible", false);
+        $Screens.step2.root.setAttribute("data-visible", false);
     });
 
 </script>

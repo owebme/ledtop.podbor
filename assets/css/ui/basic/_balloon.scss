@@ -140,8 +140,7 @@
 [data-balloon-fontSize="large"]:after,
 [data-balloon-fontSize="medium"]:after,
 [data-balloon-fontSize="small"]:after {
-    padding:0.85em 1.25em 1.15em;
-    font-family:$myriad;
+    padding:0.85em 1.25em 0.95em;
 }
 [data-balloon-fontSize="large"]:after {
   font-size:18px;
@@ -150,7 +149,7 @@
 }
 [data-balloon-fontSize="medium"]:after {
   font-size:17px;
-  line-height:20px;
+  line-height:22px;
   border-radius:14px;
 }
 [data-balloon-fontSize="small"]:after {
