@@ -1,0 +1,8 @@
+{
+  "watch" : [
+      "/SERVER.js",
+      "/views/*.*",
+      "/assets/API/*.*",
+      "/assets/API/**/*.*"
+  ]
+}

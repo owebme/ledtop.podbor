@@ -1,13 +1,3 @@
 #app {
 	@extend .display-block;
-	@extend .pos-abs-full;
-}
-#loader {
-	@extend .loader;
-	@extend .loader[data-fade="true"];
-}
-.appLoading {
-	#loader {
-		@extend .loader[data-show="true"];
-	}
 }

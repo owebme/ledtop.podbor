@@ -88,7 +88,7 @@
 	    }
 	  }
 	  return newObj;
-    };	
+    };
 
 	utils.sortArray = function(arr, field, direction){
 		var data = _.sortBy(arr, function(item){
@@ -349,6 +349,15 @@
 
 		return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+seconds;
 	};
+
+	utils.bbUpdate = function(obj, callback){
+		obj.on("update", function(e){
+	        var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
+	            value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
+
+	        callback(prop, value, e);
+		});
+    };
 
 	if (window._) _.extend(_, utils);
 	else window._ = utils;

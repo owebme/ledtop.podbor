@@ -1,86 +1,27 @@
-<root-main>
+<root-main id="app">
 
-    <div class="screens"></div>
+    <section-nav></section-nav>
 
-    <section-tutorial></section-tutorial>
+    <section-content id="content"></section-content>
 
+    <!-- <section-panel></section-panel> -->
+
+    <section-loader></section-loader>
     <section-notify></section-notify>
 
 <script>
 
-    $$ = window.jQuery || window.Zepto;
-
     $root = this;
-    $rootScope = $$(this.root);
-
-    app.ver = "1.0";
-
-    var config = {
-        pack: "norm",
-        tooltipScreen: false,
-        showProducts: false,
-        tutorial: true,
-        offers: {
-            manager: false
-        }
-    };
-
-    var state = {
-        control: true,
-        light: "rgb",
-        color: "green",
-        humidity: "P67",
-        length: "25"
-    };
-
-    if ($Router.params.get()){
-        _.extend(state, $Router.params.get());
-        state.control = state.control === "false" ? false : true;
-    }
-
-    var appVer = Store.get('appVer');
-
-    if (appVer && appVer == app.ver){
-        if (Store.get('config')){
-            _.extend(config, Store.get('config'));
-            config.showProducts = false;
-        }
-    }
-    else {
-        Store.clear();
-        Store.set('appVer', app.ver);
-    }
-
-    $Config = new Baobab(config, { autoCommit: true });
-    $State = new Baobab(state, { autoCommit: true });
-
-    $Config.on("update", function(e){
-        Store.set('config', $Config);
-    });
-
-    if (app.config.changeStyles){
-        app.plugins.styles.init({
-            elem: "#styles",
-            default: "normal",
-            screens: [
-                {
-                    title: "normal",
-                    maxWidth: 1400,
-                    path: "/assets/css/style.css"
-                },
-                {
-                    title: "large",
-                    minWidth: 1400,
-                    path: "/assets/css/style.largeScreen.css"
-                }
-            ]
-        });
-    }
 
     this.on("mount", function(){
 
-        $Tutorial = $root.tags["section-tutorial"];
+        app.$dom.root = $$($root.root);
+        app.$dom.content = app.$dom.root.find("#content");
+
+        $Nav = $root.tags["section-nav"];
+        $Loader = $root.tags["section-loader"];
         $Notify = $root.tags["section-notify"];
+        // $Panel = $root.tags["section-panel"];
 
         app.router.init();
     });

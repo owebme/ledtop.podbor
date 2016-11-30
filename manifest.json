@@ -1,6 +1,6 @@
 {
-  "name": "Ledtop.Styleguide",
-  "short_name": "Ledtop",
+  "name": "Ledtop.Подсветка",
+  "short_name": "Подсветка",
   "icons": [{
     "src": "http://fantasy.co/build/images/favicons/32.png",
     "sizes": "32x32",
@@ -18,7 +18,7 @@
     "sizes": "120x120",
     "type": "image/png"
   }],
-  "start_url": "/podbor.html",
+  "start_url": "/podbor/#podbor",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#333",

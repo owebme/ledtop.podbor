@@ -4,42 +4,50 @@
 
     app.router = {
 
-        base: "#",
+        base: "#/",
 
         start: false,
 
+        section: null,
+
         init: function(){
 
-            if (window.route) riot.route = window.route;
-
             riot.route('/', function(){
-                if (!_.isEmpty(Router.params.get())){
-                    Router.mount('podbor');
-                }
-                else {
-                    Router.mount('begin');
-                }
+                Router.routes.products();
             });
 
-            riot.route('podbor', function(){
-                Router.mount('podbor');
+            riot.route('/packages', function(){
+                Router.routes.packages();
             });
 
-            riot.route('offerManager', function(){
-                $Config.select('offers', 'manager').set(true);
-                Router.mount('podbor');
+            riot.route('/offers', function(){
+                Router.routes.offers();
+            });
+
+            riot.route('/managers', function(){
+                Router.routes.managers();
             });
 
             riot.route.base(this.base);
             riot.route.start(true);
         },
 
-        params: {
-            get: function(){
-                return Url.parseQuery();
+        routes: {
+            products: function(){
+                Router.section = "products";
+                Router.mount('section-products');
             },
-            set: function(params){
-                Url.updateSearchParam(params);
+            packages: function(){
+                Router.section = "packages";
+                Router.mount('section-packages');
+            },
+            offers: function(){
+                Router.section = "offers";
+                Router.mount('section-offers');
+            },
+            managers: function(){
+                Router.section = "managers";
+                Router.mount('section-managers');
             }
         },
 
@@ -47,39 +55,30 @@
             riot.route(url);
         },
 
-        mount: function(screen){
-            if (!Router.start){
-                if (app.compatible){
-                    app.compatible.init(Router.render, screen);
-                }
-                else {
-                    Router.render(screen);
-                }
-            }
-        },
-
-        render: function(screen){
-            var $loader = $dom.body.find("#loader"),
-                section = riot.mount(".screens", "screens" + (app.device.isPhone ? "-mobile" : ""))[0];
-
-            section.one("updated", function(){
-                $afterlag.run(function(){
-                    $dom.body.removeClass("appLoading");
-                    _.onEndTransition($loader[0], function(){
-                        $loader.remove();
+        mount: function(tag){
+            if (Router.start){
+                $Loader.show().then(function(){
+                    var section = riot.mount("section-content", tag)[0];
+                    section.one("updated", function(){
+                        $Loader.hide();
                     });
-                }, {
-                    iterations: screen == "podbor" ? 10 : 2,
-                    timeout: screen == "podbor" ? 2000 : 500
                 });
-                $afterlag.run(function(){
-                    $Screens[screen].show();
-                }, {
-                    iterations: 3,
-                    timeout: 1000
+            }
+            else {
+                app.$dom.body.addClass("appLoading");
+                var section = riot.mount("section-content", tag)[0];
+                section.one("updated", function(){
+                    Router.start = true;
+                    $afterlag.run(function(){
+                        app.$dom.body
+                        .removeClass("appLoading")
+                        .addClass("isLoading");
+                    }, {
+                        timeout: 1000
+                    });
                 });
-                Router.start = true;
-            });
+            }
+            $Nav.update();
         }
     };
 

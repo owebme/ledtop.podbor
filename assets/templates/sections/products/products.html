@@ -1,0 +1,121 @@
+<section-products>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-title">Тип подсветки</div>
+            <div class="select select-m mb-m">
+                <select name="selectLight" onChange={ select.light } onUpdate="none">
+                    <option each={ item in $store.light.get() } value="{ item._id }">{ item.title }</option>
+                </select>
+            </div>
+            <div class="{ display-none : product }">
+                <products-search></products-search>
+            </div>
+            <div class="{ display-none : !product }">
+                <products-options></products-options>
+            </div>
+        </div>
+        <div class="col-md-16">
+            <products-table></products-table>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.loading = false;
+
+    $Data = {
+        tag: $,
+        el: $$($.root)
+    };
+
+    $.on("before-mount", function(){
+
+        $.sections = {
+            search: $.tags["products-search"],
+            options: $.tags["products-options"],
+            table: $.tags["products-table"]
+        };
+
+        $.state = new Baobab({
+            light: null,
+            length: null,
+            group: null
+        },
+        { autoCommit: true });
+
+        _.bbUpdate($.state, function(prop, value, e){
+            $.sections.table.update();
+        });
+    });
+
+    $.on("mount", function(){
+        $.product = null;
+
+        $.state.set('light', $.selectLight.value);
+
+        var search = riot.mount('products-search', {
+            tags: {
+                placeholder: 'Начните вводить артикул',
+                filter: 'p_art',
+                options: $store.data.get(),
+                tags: []
+            }
+        });
+
+        search[0].on('select', function(item){
+            if (item){
+                $.product = item;
+                $.update();
+            }
+        });
+    });
+
+    $.select = {
+        light: function(e){
+            $.state.set('light', e.target.value);
+        }
+    };
+
+    $.onReset = function(){
+        $.product = null;
+        $.update();
+    };
+
+    $.onSave = function(){
+        if ($.sections.options.image.getAttribute("src").match(/no_photo/)){
+            $Notify.show({
+                text: "Выберите товар с фотографией"
+            })
+        }
+        else {
+            $.loading = true;
+
+            var item = {
+                _id: $.product.p_art,
+                title: $.product.p_name,
+                price: $.product.p_price,
+                text: $.sections.options.text.value
+            }
+            _.extend(item, $.state.get());
+
+            app.request('addProducts', item).then(function(){
+                $store.products.push(item);
+                $.loading = false;
+                $.onReset();
+            }, function(){
+                $.loading = false;
+                $.update();
+            });
+        }
+    };
+
+    $.on("unmount", function(){
+        $.state.off("update");
+    });
+
+</script>
+
+</section-products>

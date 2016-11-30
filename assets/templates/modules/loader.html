@@ -1,7 +1,5 @@
 <section-loader class="loader" data-show="{ active }">
 
-    <div class="loader-spinner"></div>
-
 <script>
 
     var $ = this;
@@ -9,9 +7,8 @@
     $.active = false;
 
     $.show = function(){
-        $.update({
-            active: true
-        });
+        $.active = true;
+        $.update();
 
         return new Promise(function(resolve, reject){
             _.onEndTransition($.root, function(){
@@ -21,9 +18,8 @@
     };
 
     $.hide = function(){
-        $.update({
-            active: false
-        });
+        $.active = false;
+        $.update();
     };
 
 </script>

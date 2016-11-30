@@ -14,12 +14,11 @@
 @import 'ui/basic/button';
 @import 'ui/basic/input';
 @import 'ui/basic/textarea';
-// @import 'ui/basic/select';
-// @import 'ui/basic/checkbox';
+@import 'ui/basic/select';
+@import 'ui/basic/checkbox';
 // @import 'ui/basic/progress';
 @import 'ui/basic/balloon';
 @import 'ui/basic/balloonError';
-@import 'ui/basic/loader';
 @import 'ui/basic/notify';
 // @import 'ui/basic/arrowPointer';
 // @import 'ui/basic/table';
@@ -35,73 +34,24 @@
 // @import 'modules/chart/chartist/chartist';
 // @import 'modules/chart/chartRadial';
 @import 'modules/oScreen';
+@import 'modules/loader';
 // @import 'modules/screens';
 @import 'modules/tutorial';
 @import 'modules/incompatible';
 // @import 'modules/shareButton';
 
+// Partials
+@import 'partials/auth';
+@import 'partials/nav';
+@import 'partials/content';
+
 // Sections
 @import 'sections/sections';
 
-// Screens
-@import 'sections/screens';
-@import 'sections/step1';
-@import 'sections/step2';
-@import 'sections/packs/tooltips';
-@import 'sections/packs/econom';
-@import 'sections/packs/norm';
-@import 'sections/packs/lux';
-@import 'sections/podbor/animate';
-@import 'sections/podbor/control/control';
-@import 'sections/podbor/control/items';
-@import 'sections/podbor/menu';
-@import 'sections/podbor/packs/packSelect';
-@import 'sections/podbor/packs/packSelectList';
-@import 'sections/podbor/content';
-@import 'sections/podbor/product';
-@import 'sections/podbor/products';
-@import 'sections/podbor/totalPrice';
-@import 'sections/podbor/order';
-@import 'sections/podbor/offerManager';
-
-// Screens Mobile
-@import 'sections/mobile/begin';
-@import 'sections/mobile/step1';
-@import 'sections/mobile/step2';
-@import 'sections/mobile/podbor/control';
-@import 'sections/mobile/podbor/navbar';
-@import 'sections/mobile/podbor/content';
-@import 'sections/mobile/podbor/product';
-@import 'sections/mobile/podbor/products';
-@import 'sections/mobile/podbor/resultCount';
+// Products
+@import 'sections/products/productItem';
+@import 'sections/products/productsSearch';
+@import 'sections/products/productsTable';
 
 // states
-@import 'states/states';
-@import 'states/display';
-@import 'states/flexbox';
-@import 'states/pageWrap';
-@import 'states/position';
-@import 'states/overflow';
-@import 'states/color';
-@import 'states/links';
-@import 'states/sizes';
-@import 'states/text';
-@import 'states/padding';
-@import 'states/margin';
-@import 'states/fontSize';
-@import 'states/lineHeight';
-@import 'states/fontWeight';
-@import 'states/letterSpacing';
-@import 'states/border';
-@import 'states/boxShadow';
-@import 'states/opacity';
-@import 'states/animations';
-@import 'states/transition';
-@import 'states/transform';
-@import 'states/zIndex';
-
-// states responsive
-@import 'states/responsive/border';
-@import 'states/responsive/margin';
-@import 'states/responsive/padding';
-@import 'states/responsive/text';
+@import 'base/states';

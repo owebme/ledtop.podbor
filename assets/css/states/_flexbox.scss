@@ -88,3 +88,9 @@
     @extend .justifyContent-center;
     @extend .alignItems-center;
 }
+.flex-column-left-center {
+    @extend .flex;
+    @extend .flexDirection-column;
+    @extend .justifyContent-center;
+    @extend .alignItems-flex-start;
+}

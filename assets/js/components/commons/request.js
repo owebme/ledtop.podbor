@@ -1,9 +1,7 @@
 (function(){
 
-    window.DOMAIN = "http://192.168.1.64:3000";
-
-    app.url = function(url){
-        return DOMAIN + url;
+    app.url = function(){
+        return app.config.domain + app.config.api;
     };
 
     app.fetch = function(methods){
@@ -49,7 +47,7 @@
             }
 
             var xhr = new XMLHttpRequest();
-            xhr.open(type, app.url("/api") + url, true);
+            xhr.open(type, app.url() + url, true);
             xhr.setRequestHeader("Accept", "application/json");
             xhr.setRequestHeader("Content-Type", "application/json");
 
@@ -120,7 +118,7 @@
 
     window.onerror = function(msg, url, line) {
     	if (app && app.config && app.config.logger && app.config.logger.report){
-    		app.request("addLog", {
+    		app.request(app.config.logger.method, {
     			msg: msg,
     			line: line,
     			url: url,

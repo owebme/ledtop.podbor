@@ -146,6 +146,10 @@
         height:16px;
         vertical-align:text-bottom;
         margin:0 5px 0 -3px;
+
+        &-color {
+            @extend .transition-default;
+        }
     }
     &-active {
         @extend .cursor-pointer;

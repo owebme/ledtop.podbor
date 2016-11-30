@@ -162,9 +162,7 @@ gulp.task('public.js.build', gulp.parallel('public.libs', 'public.app', 'public.
 
 gulp.task('build', gulp.parallel('public.css.build', 'public.app.build'));
 
-gulp.task('dev.public', gulp.series(
-	gulp.parallel('public.css', 'public.js.build')
-));
+gulp.task('dev', gulp.parallel('public.css', 'public.js.build'));
 
 // gulp.task('build', gulp.series(gulp.parallel('css', 'css.largeScreen', 'styleguide', 'libs', 'app', 'templates'), 'app.build'));
 

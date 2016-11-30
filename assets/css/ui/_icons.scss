@@ -6,7 +6,7 @@
     info_white, check, check_black, check_white, check_circle, edit, edit_white, repeat, settings_white,
     light, light_white, light_blue, humidity, humidity_blue, length, length_blue, unbox_white,
     led_mono, led_mono_white, led_rgb, led_lightrun_blue, led_lightrun_white, okey_white,
-    sendEmail, order, stars_v, callback, phone, star_fill, pay_mobile, wallet
+    sendEmail, order, stars_v, callback, phone, star_fill, pay_mobile, wallet, profile
 ){
     .ui-icon-#{$icon} {
         background:url('/assets/images/ui/ui-#{$icon}.svg') no-repeat 0 0 / cover;

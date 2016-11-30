@@ -1,0 +1,11 @@
+{
+  "apps" : [{
+    "name"          : "ResumeKraft",
+    "script"        : "./SERVER.js",
+    "watch"         : true,
+    "ignore_watch"  : ["assets", "node_modules"],
+    "watch_options" : {
+      "followSymlinks": false
+    }
+  }]
+}

@@ -2,6 +2,7 @@
 /cgi-bin
 /css
 /js
+/logs
 /parser
 /node_modules
 /temp

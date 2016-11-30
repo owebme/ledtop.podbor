@@ -7,7 +7,7 @@
     select {
         @extend .display-block;
         @extend .fontFamily-helvetica;
-        @extend .c-black;
+        @extend .c-blackDark;
         @extend .fontWeight-normal;
         @extend .border-none;
         @extend .borderRadius-m;
@@ -20,7 +20,7 @@
         box-shadow:inset 0 0 0 1px $grayLighten;
 
         &:hover {
-            box-shadow:inset 0 0 0 1px darken($grayLight,9%);
+            box-shadow:inset 0 0 0 1px darken($grayLighten,9%);
         }
         &:focus {
             @extend .outline-none;
@@ -60,7 +60,7 @@
     }
     &-xl {
         select {
-            font-size:22px;
+            font-size:18px;
             height:60px;
             line-height:60px;
             padding:0 60px 0 20px;
@@ -84,7 +84,7 @@
     }
     &-l {
         select {
-            font-size:20px;
+            font-size:16px;
             height:50px;
             line-height:50px;
             padding:0 50px 0 16px;
@@ -99,7 +99,7 @@
     }
     &-m {
         select {
-            font-size:18px;
+            font-size:16px;
             height:40px;
             line-height:40px;
             padding:0 40px 0 12px;
@@ -114,7 +114,7 @@
     }
     &-s {
         select {
-            font-size:16px;
+            font-size:14px;
             height:30px;
             line-height:30px;
             padding:0 30px 0 10px;
