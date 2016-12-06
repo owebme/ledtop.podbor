@@ -1,24 +1,25 @@
-<products-table class="products__table__wrapper">
+<products-table class="table__wrapper">
 
-    <div class="rows products__table">
-        <div class="row products__table__header">
-            <div class="col-md-8 products__table__title c-blueLight">
-                { $store.group.get(0).title }
+    <div class="rows table">
+        <div class="row table__header">
+            <div class="col-md-8">
+                { $store.type.get(0).title }
             </div>
-            <div class="col-md-8 products__table__title c-emerald">
-                { $store.group.get(1).title }
+            <div class="col-md-8">
+                { $store.type.get(1).title }
             </div>
-            <div class="col-md-8 products__table__title c-orange">
-                { $store.group.get(2).title }
+            <div class="col-md-8">
+                { $store.type.get(2).title }
             </div>
         </div>
-        <div each={ item in _.range(5, 55, 5) } no-reorder class="row products__table__row">
-            <div class="products__table__length">
+        <div each={ item in _.range(5, 55, 5) } no-reorder class="row table__row">
+            <div class="table__length">
                 { item }м
             </div>
-            <div onClick={ select } onUpdate="none" each={ group in $store.group.get() } no-reorder class="col-md-8 { selected : selected(parent.item, group._id) }" data-group="{ group._id }">
-                <div class="products__table__items"><span each={ product in get.items(parent.item, group._id) } class="products__table__item">{ product._id }</span></div>
-                <div class="products__table__buttonEdit"></div>
+            <div each={ type in $store.type.get() } no-reorder class="col-md-8">
+                <div class="table__items">
+                    <div onClick={ select } oncontextmenu={ dropmenu } onUpdate="self" each={ group in $store.group.get() } no-reorder class="table__item table__item--select { selected : selected(this) }" data-item="{ group._id }">{ get.items(this) }</div>
+                </div>
             </div>
         </div>
     </div>
@@ -28,31 +29,136 @@
     var $ = this;
 
     $.get = {
-        items: function(length, group){
-            var light = $.parent.state.get('light');
-            return _.filter($store.products.get(), function(item){
-                return item.light == light && item.length == String(length) && item.group == group;
-            });
+        options: function(_this){
+            return {
+                'light': $Products.state.get('light'),
+                'type': _this.parent._item.type._id,
+                'length': String(_this.parent.item),
+                'group': _this.group._id
+            }
+        },
+        items: function(_this){
+            var result = $store.products.getItemsByParams(
+                $.get.options(_this)
+            );
+            return result.length ? result.length : "";
         }
     };
 
-    $.selected = function(length, group){
-        return $.parent.state.get('length') == length && $.parent.state.get('group') == group;
+    $.selected = function(_this){
+        var options = $.get.options(_this);
+        return $Products.state.get('type') == options.type && $Products.state.get('length') == options.length && $.parent.state.get('group') == options.group;
     };
 
-    $.select = function(e){
-        var c = e.target.getAttribute("class");
-        if (c && c.match(/buttonEdit/)){
+    $.select = function(){
+        $Products.state.set($.get.options(this));
+        $Products.sections.create.update();
+    };
 
-        }
-        else {
-            $.parent.state.set({
-                'light': $.parent.state.get('light'),
-                'length': String(this.parent.item),
-                'group': this.group._id
+    $.action = {
+        copy: function(options){
+            Store.set(
+                'bufferProducts', $store.products.getItemsByParams(options)
+            );
+        },
+        paste: function(options){
+            var items = Store.get('bufferProducts');
+
+            if (items && items.length){
+                _.each(items, function(item, i){
+                    _.extend(item, options);
+                    item._id = _.newId() + i;
+                    item.light = $Products.state.get('light');
+                });
+                app.request('addProducts', items).then(function(){
+                    $store.products.concat(items);
+                    $.update();
+                });
+            }
+        },
+        clear: function(options){
+            var ids = _.pluck($store.products.getItemsByParams(options), "_id");
+
+            app.request('delProducts', { ids: ids }).then(function(){
+                _.each(ids, function(id){
+                    $store.products.select({ "_id": id }).unset();
+                });
+                $.update();
             });
-            $.parent.sections.options.update();
+        },
+        edit: function(options){
+            $Products.sections.edit.show(
+                options,
+                $store.products.getItemsByParams(options)
+            );
         }
+    }
+
+    $.dropmenu = function(e){
+        var $item = $$(e.target),
+            options = $.get.options(this),
+            isEmpty = $item.is(":empty"),
+            items = [];
+
+        if (Store.get('bufferProducts')){
+            items.push({
+                title: "Вставить",
+                callback: function(){
+                    if (isEmpty){
+                        $.action.paste(options);
+                    }
+                    else {
+                        $Alert.show({
+                            title: "Заменить товары новыми?",
+                            subtitle: "В этой ячейке уже есть товары",
+                            success: {
+                                callback: function(){
+                                    $.action.clear(options);
+                                    $.action.paste(options);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        if (!isEmpty){
+            items.push(
+                {
+                    title: "Скопировать",
+                    callback: function(){
+                        $.action.copy(options);
+                    }
+                },
+                {
+                    title: "Редактировать",
+                    callback: function(){
+                        $.action.edit(options);
+                    }
+                },
+                {
+                    title: "Очистить ячейку",
+                    callback: function(){
+                        $Alert.show({
+                            title: "Удалить все товары в ячейке?",
+                            subtitle: "Очистить ячейку",
+                            success: {
+                                callback: function(){
+                                    $.action.clear(options);
+                                }
+                            }
+                        });
+                    }
+                }
+            );
+        }
+
+        $DropMenu.show({
+            id: JSON.stringify(options),
+            elem: $item,
+            pos: "down-left",
+            menu: items
+        });
     };
 
 </script>

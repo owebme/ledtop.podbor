@@ -1,0 +1,16 @@
+<package-item class="package__item__container">
+
+    <virtual each={ type in $store.type.get() } no-reorder>
+        <div class="package__item__product">
+            <div class="package__item__product__image">
+                <img name="image" onerror="this.src='/assets/images/no_photo.png'" src={ parent.opts && parent.opts.item && parent.opts.item[type._id] ? $store.products.getImageByArticle(parent.opts.item[type._id]) : null }>
+            </div>
+            <div class="package__item__product__text">
+                <div class="package__item__product__article">{ parent.opts.item[type._id] }</div>
+                <div class="package__item__product__title">{ $store.products.getItemByArticle(parent.opts.item[type._id]).title }</div>
+                <div class="package__item__product__price">Розница: <span>{ $store.products.getItemByArticle(parent.opts.item[type._id]).price } ₽</span></div>
+            </div>
+        </div>
+    </virtual>
+
+</package-item>

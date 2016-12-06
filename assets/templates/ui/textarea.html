@@ -1,6 +1,6 @@
 <ui-textarea>
 
-    <textarea onInput={ onInput } onUpdate={ opts.onupdate ? opts.onupdate : "none" } class="textarea textarea-{ opts.size ? opts.size : 'm' }" disabled={ typeof opts.disabled !== 'undefined' }>{ value }</textarea>
+    <textarea onInput={ onInput } onUpdate={ opts.onupdate ? opts.onupdate : "none" } class="textarea textarea-{ opts.size ? opts.size : 'm' }" disabled={ typeof opts.disabled !== 'undefined' } placeholder={ opts.placeholder }>{ value }</textarea>
 
 <script>
 

@@ -1,10 +1,10 @@
 <control-length class="control" data-active={ active }>
 
-    <div onClick={ toggle } onUpdate="none" class="control__value">{ $State.get('length') }м</div>
+    <div onClick={ toggle } onUpdate="none" class="control__value">{ $Options.get('length') }м</div>
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="length"></div>
     <div class="control__container flex-row-left-center">
         <div class="control__container__title">длина ленты</div>
-        <ui-slider update="length" cursor={ $State.select() } phone="true" size="m" min="5" max="50" step="5" ed="м" readonly="true"></ui-slider>
+        <ui-slider update="length" cursor={ $Options.select() } phone="true" size="m" min="5" max="50" step="5" ed="м" readonly="true"></ui-slider>
         <div onClick={ hide } onUpdate="none" class="control__button"></div>
     </div>
 

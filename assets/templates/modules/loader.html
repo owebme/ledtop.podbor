@@ -7,9 +7,9 @@
     $.active = false;
 
     $.show = function(){
-        $.active = true;
-        $.update();
-
+        $.update({
+            active: true
+        })
         return new Promise(function(resolve, reject){
             _.onEndTransition($.root, function(){
                 return resolve();
@@ -18,8 +18,9 @@
     };
 
     $.hide = function(){
-        $.active = false;
-        $.update();
+        $.update({
+            active: false
+        })
     };
 
 </script>

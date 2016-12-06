@@ -1,0 +1,25 @@
+<section-loader-ajax class="loader-ajax" data-show="{ active }">
+
+    <div class="loader-ajax-spinner"></div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.show = function(){
+        $.update({
+            active: true
+        })
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</section-loader-ajax>

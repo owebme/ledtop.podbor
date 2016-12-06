@@ -17,23 +17,18 @@
 <body class="appAuth appAuthShow">
 
     <div id="auth" class="pos-abs-full flex-centered">
-        <form method="post" action="/auth" class="text-center pt-l" style="width:350px">
+        <form method="post" action="/login" class="text-center pt-l" style="width:400px">
             <input type="hidden" name="logined" value="true">
-            <div class="pt-l mb-l c-grayLighten fontSize-xs text-uppercase letterSpacing-xxl">Авторизация</div>
+            <div class="pt-l mb-l pb-xs c-gray fontSize-16 text-uppercase letterSpacing-xxl">Авторизация</div>
             <div class="mb-m pos-rel tooltip">
-                <input class="input input-light input-xl" type="text" placeholder="Логин" autocomplete="off" name="username" value="admin">
+                <input class="input input-light input-xl" type="text" placeholder="Логин" autocomplete="off" name="login" value="">
             </div>
-            <div class="mb-xs">
-                <input class="input input-light input-xl" type="text" placeholder="Пароль" autocomplete="off" name="password" value="1234">
+            <div class="mb-l pb-xs">
+                <input class="input input-light input-xl" type="password" placeholder="Пароль" autocomplete="off" name="password" value="">
             </div>
-            <div class="mb-l text-right pr-xxs">
-                <a class="link link-primary-hover text-uppercase fontSize-xs fontFamily-helvetica letterSpacing-l caret-right" href="#">Забыли пароль?</a>
-            </div>
-            <div id="submit" class="btn btn-xl btn-primary-hover text-uppercase letterSpacing-xl plr-l">Войти</div>
+            <div id="submit" class="btn btn-xl btn-primary-hover w45p text-uppercase letterSpacing-xl plr-l">Войти</div>
         </form>
     </div>
-
-<div id="authLine" class="pos-bl w100p bg-blue" style="height:8px; z-index:1002"></div>
 
 <script src="/assets/js/libs/modernizr.custom.js"></script>
 <script src="/assets/js/libs/jquery.min.js"></script>
@@ -42,11 +37,11 @@
     var $body = $("body"),
         $form = $("#auth").find("form"),
         $tooltip = $form.find(".tooltip"),
-        $username = $form.find("input[name='username']"),
+        $login = $form.find("input[name='login']"),
         $password = $form.find("input[name='password']"),
         $submit = $form.find("#submit");
 
-    $username.on("keydown", function(e){
+    $login.on("keydown", function(e){
         if (e.which == 13) auth();
     });
 
@@ -59,36 +54,36 @@
     });
 
     var auth = function(){
-        var username = $username.val(),
+        var login = $login.val(),
             password = $password.val();
 
         if ($submit.hasClass("loading")){
             return;
         }
-        else if (!username.length || !password.length){
+        else if (!login.length || !password.length){
             $tooltip.attr("data-errballoon", "Введите свой логин и пароль");
-            $username.addClass("input-error");
+            $login.addClass("input-error");
             $password.addClass("input-error");
             return;
         }
 
-        $username.removeClass("input-error");
+        $login.removeClass("input-error");
         $password.removeClass("input-error");
         $submit.addClass("btn-loading");
         $tooltip.removeAttr("data-errballoon");
 
         setTimeout(function(){
             $.post({
-                url: '/auth',
+                url: '/login',
                 data: {
-                    username: $form.find("input[name='username']").val(),
+                    login: $form.find("input[name='login']").val(),
                     password: $form.find("input[name='password']").val()
                 },
                 dataType : "json",
                 success: function(data, status){
                     if (data && data.status){
                         if (data.status == "error"){
-                            $tooltip.attr("data-errballoon", data.error);
+                            $tooltip.attr("data-errballoon", "Не верный логин и/или пароль");
                         }
                         else if (data.status == "OK"){
                             $body.removeClass("appAuth");

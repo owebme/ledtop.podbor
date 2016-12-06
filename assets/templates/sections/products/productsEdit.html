@@ -1,0 +1,161 @@
+<products-edit class="oScreen zIndex-2" data-open={ active } data-show="down">
+
+    <div class="oScreen__buttons" data-pos="top-right">
+        <div onClick={ hide } onUpdate="none" class="button__close"></div>
+    </div>
+
+    <div name="content" class="oScreen__content pt-l pb-xl bg-white">
+        <div class="container">
+            <div class="row pb-s">
+                <div class="col-md-24 fontSize-24 fontWeight-3 mb-xl">
+                    { $store.light.getTitleById(path.light) } &mdash;
+                    { $store.type.getTitleById(path.type) } &mdash;
+                    { path.length }м &mdash;
+                    { $store.group.getTitleById(path.group) }
+                </div>
+            </div>
+            <div class="row flex-row-center-stretch">
+                <div class="col-md-15">
+                    <div class="row product__item__list sortable">
+                        <div each={ item in _.sortArray(items.get(), "pos") } class="sortable__item col-md-12" data-id="{ item._id }">
+                            <div class="product__item { selected : editing == item._id } mr-m mb-m">
+                                <product-item onClick={ onEdit } item={ item }></product-item>
+                                <div class="product__item__handle"></div>
+                                <div onClick={ onRemove } onUpdate="none"  class="product__item__remove"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="{ display-none : editing || !items.get().length } pos-centered-v w100p plr-l pb-m fontSize-24 c-gray">
+                        Выберите товар для редактирования
+                    </div>
+                    <div class="{ display-none : !editing } pl-m trY--l">
+                        <product-edit></product-edit>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$($.root);
+
+    $.items = new Baobab([]);
+    $.editing = null;
+    $.path = null;
+
+    $.on("mount", function(){
+        $.product = $.tags["product-edit"];
+
+        $.product.on("cancel", function(){
+            $.editing = null;
+            $.update();
+        });
+        $.product.on("save", function(item){
+            $.items.select({ "_id": item._id }).set(item);
+            $.editing = null;
+            $.update();
+        });
+    });
+
+    $.show = function(path, items){
+        $.items.set(items);
+
+        $.update({
+            path: path,
+            active: true
+        })
+        app.$dom.body.addClass("overflow-hidden");
+
+        _.onEndTransition($.content, function(){
+            $.sorting.init();
+        });
+    };
+
+    $.sorting = {
+        init: function(){
+            $.sortable = new app.plugins.sortable($scope.find(".sortable"), {
+                handle: ".product__item__handle",
+                draggable: ".sortable__item"
+            },
+            function(sort){
+                app.request('setProductsSort', sort).then(function(){
+                    $Notify.show({
+                        text: "Сортировка обновлена"
+                    })
+                });
+                _.each(sort, function(item){
+                    $store.products.get({ "_id": item._id }).pos = item.pos;
+                });
+            });
+            $.sortable.init();
+        },
+        destroy: function(){
+            $.sortable.destroy();
+        }
+    };
+
+    $.onEdit = function(){
+        $.product.trigger("edit", this.item);
+        $.editing = this.item._id;
+    };
+
+    $.onRemove = function(){
+        var item = this.item,
+            prop = {};
+
+        prop[item.type] = item.article;
+
+        if ($store.packages.select(prop).get()){
+            $Notify.show({
+                color: "danger",
+                text: "Этот товар удалить нельзя, он уже используется в комплектах"
+            })
+        }
+        else {
+            $Alert.show({
+                title: "Вы хотите удалить товар?",
+                subtitle: "Вы уверены?",
+                success: {
+                    callback: function(){
+                        app.request('delProducts', { ids: [item._id] }).then(function(){
+
+                            $store.products.select({"_id": item._id}).unset();
+                            $.items.select({"_id": item._id}).unset();
+                            //$store.data.select({"article": item.article}).get().selected = false;
+
+                            if ($.editing == item._id){
+                                $.editing = null;
+                            }
+
+                            $.update();
+                            $Products.sections.table.update();
+
+                            $Notify.show({
+                                text: "Товар успешно удален"
+                            })
+                        });
+                    }
+                }
+            });
+        }
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+        app.$dom.body.removeClass("overflow-hidden");
+
+        _.onEndTransition($.content, function(){
+            $.sorting.destroy();
+            $.editing = null;
+        });
+    };
+
+</script>
+
+</products-edit>

@@ -1,13 +1,5 @@
-<control-color-item class="control__color__items" data-items="{ opts.content.split('|').length }">
+<control-color-item class="control__color__items" data-items="{ opts.item.split('|').length }">
 
-<script>
-
-    this.on("updated", function(){
-        this.root.innerHTML = this.opts.content.split("|").map(function(item){
-            return '<span class="control__color__item color-' + item + '"></span>';
-        }).join("");
-    });
-
-</script>
+    <span each={ color in opts.item.split('|') } no-reorder class="control__color__item color-{ color }"></span>
 
 </control-color-item>

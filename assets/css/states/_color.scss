@@ -5,7 +5,7 @@
         }
     }
 }
-@each $title, $color in (white: $white, blue: $blue, blueLight: $blueLight, blueDark: $blueDark, red: $red, redDark: $redDark, crimson: $crimson, crimsonDark: $crimsonDark, orange: $orange, orangeDark: $orangeDark, yellow: $yellow, yellowDark: $yellowDark, violet: $violet, green: $green, greenDark: $greenDark, lime: $lime, breeze: $breeze, emerald: $emerald, emeraldDark: $emeraldDark, black: $black, blackLight: $blackLight, blackDark: $blackDark, gray: $gray, grayDark: $grayDark, grayLight: $grayLight, grayLighten: $grayLighten, smoke: $smoke, smokeLight: $smokeLight, smokeDark: $smokeDark, snow: $snow, snowLight: $snowLight, snowDark: $snowDark, snowGray: $snowGray){
+@each $title, $color in (white: $white, blue: $blue, blueLight: $blueLight, blueDark: $blueDark, red: $red, redDark: $redDark, crimson: $crimson, crimsonDark: $crimsonDark, orange: $orange, orangeDark: $orangeDark, yellow: $yellow, yellowDark: $yellowDark, violet: $violet, green: $green, greenDark: $greenDark, lime: $lime, breeze: $breeze, emerald: $emerald, emeraldDark: $emeraldDark, black: $black, steel: $steel, blackLight: $blackLight, blackDark: $blackDark, gray: $gray, silver: $silver, grayDark: $grayDark, grayLight: $grayLight, grayLighten: $grayLighten, smoke: $smoke, smokeSilver: $smokeSilver, smokeLight: $smokeLight, smokeDark: $smokeDark, snow: $snow, snowLight: $snowLight, snowDark: $snowDark, snowGray: $snowGray){
     .bg-#{$title} {
         background-color:$color;
     }
@@ -64,6 +64,17 @@
         .btn-svg-color {
             fill:$white;
         }
+        .btn-badge {
+            color:$color
+        }
+        .btn-checked {
+            @extend .bg-white;
+            @extend .boxShadow-close;
+
+            &:after {
+                @include ui-icon("check");
+            }
+        }
         &:hover {
             background-color:darken($color,9%);
         }
@@ -76,6 +87,16 @@
         .btn-svg-color {
             fill:$color;
         }
+        .btn-badge {
+            color:$color
+        }
+        .btn-checked {
+            background-color:$color;
+
+            &:after {
+                @include ui-icon("check_white");
+            }
+        }
         &:hover {
             color:#fff;
             background-color:$color;
@@ -83,6 +104,14 @@
 
             .btn-svg-color {
                 fill:#fff;
+            }
+            .btn-checked {
+                @extend .bg-white;
+                @extend .boxShadow-close;
+
+                &:after {
+                    @include ui-icon("check");
+                }
             }
         }
     }

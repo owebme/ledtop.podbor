@@ -46,8 +46,8 @@
 @import 'sections/podbor/control/control';
 @import 'sections/podbor/control/items';
 @import 'sections/podbor/menu';
-@import 'sections/podbor/packs/packSelect';
-@import 'sections/podbor/packs/packSelectList';
+@import 'sections/podbor/packages/packages';
+@import 'sections/podbor/packages/packagesSelect';
 @import 'sections/podbor/content';
 @import 'sections/podbor/product';
 @import 'sections/podbor/products';
@@ -56,6 +56,7 @@
 @import 'sections/podbor/offerManager';
 
 // Screens Mobile
+@import 'sections/mobile/menu';
 @import 'sections/mobile/begin';
 @import 'sections/mobile/step1';
 @import 'sections/mobile/step2';
@@ -67,4 +68,32 @@
 @import 'sections/mobile/podbor/resultCount';
 
 // states
-@import '../../assets/css/base/states';
+@import '../../assets/css/states/states';
+@import '../../assets/css/states/display';
+@import '../../assets/css/states/flexbox';
+@import '../../assets/css/states/pageWrap';
+@import '../../assets/css/states/position';
+@import '../../assets/css/states/overflow';
+@import '../../assets/css/states/color';
+@import '../../assets/css/states/links';
+@import '../../assets/css/states/sizes';
+@import '../../assets/css/states/text';
+@import '../../assets/css/states/padding';
+@import '../../assets/css/states/margin';
+@import '../../assets/css/states/fontSize';
+@import '../../assets/css/states/lineHeight';
+@import '../../assets/css/states/fontWeight';
+@import '../../assets/css/states/letterSpacing';
+@import '../../assets/css/states/border';
+@import '../../assets/css/states/boxShadow';
+@import '../../assets/css/states/opacity';
+@import '../../assets/css/states/animations';
+@import '../../assets/css/states/transition';
+@import '../../assets/css/states/transform';
+@import '../../assets/css/states/zIndex';
+
+// states responsive
+@import '../../assets/css/states/responsive/border';
+@import '../../assets/css/states/responsive/margin';
+@import '../../assets/css/states/responsive/padding';
+@import '../../assets/css/states/responsive/text';

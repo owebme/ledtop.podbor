@@ -5,33 +5,34 @@
     @extend .borderRadius-l;
     @extend .pointerEvents-none;
     @extend .zIndex-101;
-    padding:28px 25px 30px 80px;
+    min-width:280px;
+    padding:25px 30px 25px 75px;
     transition:transform .4s $cubic40, opacity .4s $cubic40;
 
     &:before {
         @extend .content-empty;
         @extend .pos-tl;
-        @include ui-icon("info_white", 32px, 32px);
+        @include ui-icon("info_white", 28px, 28px);
         transform:translate3d(25px, 20px, 0);
     }
     &-xl {
         font-size:22px;
-        line-height:28px;
+        line-height:30px;
     }
     &-l {
         font-size:20px;
-        line-height:26px;
+        line-height:28px;
     }
     &-m {
-        font-size:19px;
-        line-height:25px;
+        font-size:18px;
+        line-height:24px;
     }
     &-s {
-        font-size:18px;
+        font-size:16px;
         line-height:22px;
     }
     &-xs {
-        font-size:17px;
+        font-size:15px;
         line-height:20px;
     }
     &-wrapper {

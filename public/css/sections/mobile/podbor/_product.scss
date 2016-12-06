@@ -176,7 +176,7 @@ screen-podbor-mobile {
             }
         }
         &[data-product="ledribbon"],
-        &[data-product="power-supply"] {
+        &[data-product="power"] {
             .connect__control {
                 @extend .display-none;
             }

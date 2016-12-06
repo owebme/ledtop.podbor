@@ -13,37 +13,40 @@
     $root = this;
     $rootScope = $$(this.root);
 
-    app.ver = "1.0";
+    this.ready = false;
 
-    var config = {
-        pack: "norm",
-        tooltipScreen: false,
-        showProducts: false,
-        tutorial: true,
-        offers: {
-            manager: false
-        }
-    };
+    app.ver = "1.02";
 
     var state = {
-        control: true,
-        light: "rgb",
-        color: "green",
-        humidity: "P67",
-        length: "25"
+        package: null,
+        group: "norm",
+        tooltipScreen: true,
+        showProducts: false,
+        tutorial: false
     };
 
-    if ($Router.params.get()){
-        _.extend(state, $Router.params.get());
-        state.control = state.control === "false" ? false : true;
+    var options = {
+        light: "1",
+        color: "white",
+        hum: "IP33",
+        length: "5",
+        control: true
+    };
+
+    if (!_.isEmpty($Router.params.get())){
+        _.extend(options, $Router.params.get());
+        options.control = options.control === "false" ? false : true;
     }
 
     var appVer = Store.get('appVer');
 
     if (appVer && appVer == app.ver){
-        if (Store.get('config')){
-            _.extend(config, Store.get('config'));
-            config.showProducts = false;
+        if (Store.get('state')){
+            _.extend(state, Store.get('state'));
+            state.showProducts = false;
+        }
+        if (Store.get('options') && _.isEmpty($Router.params.get())){
+            _.extend(options, Store.get('options'));
         }
     }
     else {
@@ -51,11 +54,15 @@
         Store.set('appVer', app.ver);
     }
 
-    $Config = new Baobab(config, { autoCommit: true });
     $State = new Baobab(state, { autoCommit: true });
+    $Options = new Baobab(options, { autoCommit: true });
 
-    $Config.on("update", function(e){
-        Store.set('config', $Config);
+    $State.on("write", function(e){
+        Store.set('State', $State.get());
+    });
+
+    $Options.on("write", function(e){
+        Store.set('options', $Options.get());
     });
 
     if (app.config.changeStyles){
@@ -66,12 +73,12 @@
                 {
                     title: "normal",
                     maxWidth: 1400,
-                    path: "/assets/css/style.css"
+                    path: "/public/css/style.css"
                 },
                 {
                     title: "large",
                     minWidth: 1400,
-                    path: "/assets/css/style.largeScreen.css"
+                    path: "/public/css/style.largeScreen.css"
                 }
             ]
         });
@@ -83,6 +90,8 @@
         $Notify = $root.tags["section-notify"];
 
         app.router.init();
+
+        $root.ready = true;
     });
 
 </script>

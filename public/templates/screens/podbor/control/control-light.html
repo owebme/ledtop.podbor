@@ -1,10 +1,10 @@
 <control-light class="control" data-active={ active }>
 
-    <div onClick={ toggle } onUpdate="none" class="control__light__icon" data-light="{ $State.get('light') }"></div>
+    <div onClick={ toggle } onUpdate="none" class="control__light__icon" data-light="{ $Options.get('light') }"></div>
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="light"></div>
     <div class="control__container flex-row-left-center">
         <div class="control__container__title">тип освещения</div>
-        <div onClick={ select } onUpdate="none" each={ item in items } class="control__light__item" data-balloon="{ item.tooltip }" data-balloon-pos="up" data-light="{ item.title }"></div>
+        <div onClick={ select } onUpdate="none" each={ item in $store.light.get() } class="control__light__item" data-balloon="{ item.title }" data-balloon-pos="up" data-light="{ item._id }"></div>
     </div>
 
 <script>
@@ -13,21 +13,6 @@
 
     $.active = false;
 
-    $.items = [
-        {
-            title: 'mono',
-            tooltip: 'Монохромная'
-        },
-        {
-            title: 'rgb',
-            tooltip: 'Мультицветная'
-        },
-        {
-            title: 'lightrun',
-            tooltip: 'Бегущий огонь'
-        }
-    ];
-
     $.toggle = function(){
         $.update({
             active: !$.active
@@ -35,7 +20,7 @@
     };
 
     $.select = function(){
-        $State.set('light', this.item.title);
+        $Options.set('light', this.item._id);
         $.hide();
     };
 

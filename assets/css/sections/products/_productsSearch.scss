@@ -23,7 +23,8 @@
             @extend .plr-m;
             @extend .cursor-pointer;
 
-            &:hover {
+            &:hover,
+            &[data-active="true"]{
                 @extend .bg-smokeLight;
             }
             &__article {
@@ -37,8 +38,12 @@
                 max-width:calc(100% - 70px);
                 @extend .text-truncate;
             }
-            &[data-disabled="true"]{
-                @extend .display-none;
+            &[data-selected="true"]{
+                @extend .c-gray;
+
+                .products__search__list__item__article {
+                    @extend .c-grayLight;
+                }
             }
         }
     }

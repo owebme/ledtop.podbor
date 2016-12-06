@@ -2,7 +2,7 @@
     @extend .pos-centered-v;
     @include flex("column", "flex-start", "center");
     @extend .w100p;
-    @extend .pb-m;
+    @extend .pb-l;
 }
 .section__control {
     @extend .display-block;
@@ -60,7 +60,7 @@
             @extend .ptb-m;
             @extend .pl-m;
             @extend .pr-s;
-            min-width:200px;
+            min-width:164px;
             box-shadow:5px 5px 20px 0 rgba(#D3DCE6,.7);
             @extend .bg-white;
             @extend .borderRadius-xl;
@@ -138,22 +138,22 @@
             &[data-color="uni"],
             &[data-color="warm_cool"] {
                 @extend .borderRadius-circle;
-                box-shadow:0 0 0 1px #C0CCDA;
+                box-shadow:0 0 0 1px $smokeSilver;
             }
         }
         &__light__icon {
             @extend .pos-centered;
             @extend .cursor-pointer;
 
-            &[data-light="mono"]{
+            &[data-light="1"]{
                 @include ui-icon(led_mono_white, 29px, 29px);
                 @extend .borderRadius-circle;
                 @extend .bg-blue;
             }
-            &[data-light="rgb"]{
+            &[data-light="2"]{
                 @include ui-icon(led_rgb, 36px, 36px);
             }
-            &[data-light="lightrun"]{
+            &[data-light="3"]{
                 @include ui-icon(led_lightrun_blue, 34px, 34px);
                 @extend .borderRadius-circle;
                 @extend .bg-white;
@@ -249,14 +249,14 @@
             @extend .mlr-xs;
             @extend .cursor-pointer;
 
-            &[data-light="mono"]{
+            &[data-light="1"]{
                 @include ui-icon("led_mono", 36px, 36px);
                 transform:translateY(1px);
             }
-            &[data-light="rgb"]{
+            &[data-light="2"]{
                 @include ui-icon("led_rgb", 40px, 40px);
             }
-            &[data-light="lightrun"]{
+            &[data-light="3"]{
                 @include ui-icon(led_lightrun_blue, 36px, 36px);
                 transform:translateY(1px);
             }

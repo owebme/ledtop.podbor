@@ -13,8 +13,14 @@ screen-podbor {
             @extend .fontWeight-3;
         }
     }
-    .product[data-product="power-supply"] .title {
+    .product[data-product="power"] .title {
         @extend .opacity-0;
         // transform:translate3d(15px, 65px, 0);
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    screen-podbor .content {
+        max-width:83.34%;
     }
 }

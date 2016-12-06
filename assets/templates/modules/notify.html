@@ -1,13 +1,13 @@
 <section-notify class="notify-wrapper" data-active={ active } data-pos={ opts.pos ? opts.pos : "top-left" }>
 
-    <div onClick={ hide } name="notify" class="notify { opts.size ? 'notify-' + opts.size : 'notify-m' }" data-color={ opts.color ? opts.color : "primary" } style="max-width:{ opts.maxWidth ? opts.maxWidth : '400px' } { opts.width ? 'width:' + opts.width : null }">{ opts.text }</div>
+    <div onClick={ hide } name="notify" class="notify { opts.size ? 'notify-' + opts.size : 'notify-m' }" data-color={ opts.color ? opts.color : "primary" } style="max-width:{ opts.maxWidth ? opts.maxWidth : '380px' } { opts.width ? 'width:' + opts.width : null }">{ opts.text }</div>
 
 <script>
 
     var $ = this;
 
     $.active = false;
-    $.timeout = 3;
+    $.timeout = 2;
     $.interval = null;
 
     $.opts = {
@@ -23,6 +23,9 @@
     $.show = function(opts){
         clearTimeout($.interval);
 
+        if (typeof opts.timeout === "undefined"){
+            if (!opts.color) opts.timeout = 1;
+        }
         if ($.active) $.autoHide(opts);
 
         if (opts.pos != $.opts.pos){

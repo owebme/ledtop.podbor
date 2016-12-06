@@ -59,7 +59,8 @@ gulp.task('libs', function() {
 		'js/libs/rangeslider.js',
 		'js/libs/afterlag-js/dist/afterlag.min.js',
 		'js/libs/url.min.js',
-		'js/libs/store.min.js'])
+		'js/libs/store.min.js',
+		'js/libs/sortable/Sortable.min.js'])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('js'));

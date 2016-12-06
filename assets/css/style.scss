@@ -16,29 +16,25 @@
 @import 'ui/basic/textarea';
 @import 'ui/basic/select';
 @import 'ui/basic/checkbox';
-// @import 'ui/basic/progress';
+@import 'ui/basic/dropmenu';
 @import 'ui/basic/balloon';
 @import 'ui/basic/balloonError';
 @import 'ui/basic/notify';
-// @import 'ui/basic/arrowPointer';
-// @import 'ui/basic/table';
 @import 'ui/basic/typography';
-@import 'ui/animations';
+@import 'ui/table';
 @import 'ui/button';
 @import 'ui/rangeslider';
 @import 'ui/switcher';
 @import 'ui/spinner';
+@import 'ui/sortable';
 
 // modules
-// @import 'modules/alert';
+@import 'modules/alert';
 // @import 'modules/chart/chartist/chartist';
 // @import 'modules/chart/chartRadial';
 @import 'modules/oScreen';
 @import 'modules/loader';
-// @import 'modules/screens';
-@import 'modules/tutorial';
-@import 'modules/incompatible';
-// @import 'modules/shareButton';
+@import 'modules/loaderAjax';
 
 // Partials
 @import 'partials/auth';
@@ -51,7 +47,14 @@
 // Products
 @import 'sections/products/productItem';
 @import 'sections/products/productsSearch';
-@import 'sections/products/productsTable';
+@import 'sections/products/productsEdit';
+
+// Packages
+@import 'sections/packages/packageItem';
+@import 'sections/packages/packagesEdit';
+
+// Managers
+@import 'sections/managers/managerItem';
 
 // states
 @import 'base/states';

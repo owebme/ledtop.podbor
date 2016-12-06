@@ -16,6 +16,7 @@ var ACCOUNT_ID = ObjectId();
 var accounts = [
 	{
 		_id: ACCOUNT_ID,
+		post: "admin",
         name: "Роман",
         surname: "Хохлов",
         gender: "male",

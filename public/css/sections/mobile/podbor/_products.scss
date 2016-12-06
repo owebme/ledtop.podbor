@@ -27,32 +27,17 @@ screen-podbor-mobile {
                 }
             }
         }
-        &__item {
-            &[data-active="true"]{
-                &:before {
-                    width:24px;
-                    height:24px;
-                    transform:translate3d(-22px, 5px, 0);
-                }
-                &:after {
-                    margin:3px;
-                    width:18px;
-                    height:18px;
-                    transform:translate3d(-22px, 5px, 0);
-                }
-            }
-        }
         &[data-product="ledribbon"] {
             .products__list__item__image {
                 max-width:85px;
             }
         }
-        &[data-product="power-supply"] {
+        &[data-product="power"] {
             .products__list__item__image {
                 max-width:90px;
             }
         }
-        &[data-product="ir-control"] {
+        &[data-product="control"] {
             .products__list__item__image {
                 max-width:78px;
             }

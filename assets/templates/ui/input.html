@@ -1,6 +1,6 @@
 <ui-input>
 
-    <input onInput={ onInput } onUpdate={ opts.onupdate ? opts.onupdate : "none" } class="input input-{ opts.size ? opts.size : 'm' }" value={ value } disabled={ typeof opts.disabled !== 'undefined' }>
+    <input onInput={ onInput } onUpdate={ opts.onupdate ? opts.onupdate : "none" } class="input input-{ opts.size ? opts.size : 'm' }" value={ value } disabled={ typeof opts.disabled !== 'undefined' } placeholder={ opts.placeholder }>
 
 <script>
 
@@ -35,7 +35,7 @@
             $.parent[$.opts.commit](value, $.opts.i);
         }
         if ($.opts.update && $.opts.cursor){
-            $.opts.cursor.set($.opts.update, value);
+            $.opts.cursor.set($.opts.update, _.clean(value));
         }
     };
 

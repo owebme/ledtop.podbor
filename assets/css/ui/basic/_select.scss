@@ -24,6 +24,7 @@
         }
         &:focus {
             @extend .outline-none;
+            box-shadow:inset 0 0 0 1px $blue;
         }
         &:focus:-moz-focusring {
             color:transparent;
@@ -43,6 +44,7 @@
             @extend .bg-snow;
             box-shadow:inset 0 0 0 1px $smoke;
             @extend .cursor-default;
+            @extend .pointerEvents-none;
         }
     }
     &:after {

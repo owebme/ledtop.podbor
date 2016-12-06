@@ -1,0 +1,20 @@
+<product-content class="product__content">
+
+    <div class="title">{ opts.item.get().title }</div>
+    <div class="product__label">{ $store.group.getTitleById(opts.item.get('product').group) }</div>
+    <div onClick={ parent.tags["products-list"].toggle } onUpdate="none" class="product__select">
+        <div class="product__select__count">{ $store.data.getProductsCount(opts.item.get("_id")) }</div>
+    </div>
+    <div class="product__article">Арт: <strong>{ opts.item.get('product').article }</strong></div>
+    <div if={ opts.item.get("_id") !== "ledribbon" } class="product__sizes" data-balloon="длина: { opts.item.get('product').size.length } мм ширина: { opts.item.get('product').size.width } мм высота: { opts.item.get('product').size.height } мм" data-balloon-pos="left" data-balloon-color="gray">
+        <div class="product__sizes__icon"></div>
+    </div>
+    <div class="product__item">
+        <div class="product__item__photo">
+            <img class="product__item__photo__image" onerror="this.src='/assets/images/no_photo_big.png'" src="{ $store.products.getImageByArticle(opts.item.get('product').article) }">
+        </div>
+        <div class="product__item__text" data-balloon="{ opts.item.get('product').title }" data-balloon-color="gray">{ opts.item.get('product').text }</div>
+    </div>
+    <div class="product__price">{ _.numberFormat(opts.item.get('product').price, 0, "", ",") } ₽ { "/ м" : opts.item.get("_id") == "ledribbon" }</div>
+
+</product-content>

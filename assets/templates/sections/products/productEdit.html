@@ -1,0 +1,68 @@
+<product-edit>
+
+    <div class="c-gray fontSize-22 mb-xs text-left">Редактирование позиции</div>
+    <div class="product__item mb-m">
+        <product-item item={ product.get() }></product-item>
+    </div>
+    <div class="mb-m">
+        <ui-textarea update="text" cursor={ product.select() } placeholder="Описание товара"></ui-textarea>
+    </div>
+    <div class="inline text-right">
+        <div onClick={ onCancel } class="btn btn-m btn-primary-hover mr-s">Отменить</div>
+        <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-loading: loading }">Сохранить</div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        $.product = new Baobab(
+            !_.isEmpty($.opts.product) ? $.opts.product : {}
+        );
+    });
+
+    $.on("edit", function(item){
+        $.product.set(_.copyArray(item));
+    });
+
+    $.onCancel = function(e){
+        $.product.set({});
+        $.trigger("cancel");
+    };
+
+    $.onSave = function(e){
+        $.loading = true;
+
+        app.request('setProductsItem', {
+            article: $.product.get('article'),
+            text: $.product.get('text')
+        })
+        .then(function(){
+            var article = $.product.get('article'),
+                text = $.product.get('text');
+
+            _.each(_.where(
+                    $store.products.get(), {"article": article}
+                ),
+                function(item){
+                    item.text = text;
+                }
+            );
+
+            $.trigger("save", $.product.get());
+            $.product.set({});
+
+            $.update({
+                loading: false
+            });
+
+        }, function(){
+            $.loading = false;
+            $.update();
+        });
+    };
+
+</script>
+
+</product-edit>

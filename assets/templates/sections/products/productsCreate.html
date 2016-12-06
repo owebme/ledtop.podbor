@@ -1,0 +1,125 @@
+<products-create>
+
+    <div class="{ display-none : product }">
+        <products-search></products-search>
+    </div>
+    <div class="{ display-none : !product }">
+        <div class="product__item mb-m">
+            <product-item item={ product }></product-item>
+        </div>
+        <div class="row mb-m">
+            <div class="col-md-12">
+                <div class="select select-m">
+                    <select name="selectType" onChange={ select.type }>
+                        <option value="" selected>Выберите тип</option>
+                        <option each={ item in $store.type.get() } value="{ item._id }" selected={ selected.type(item._id) }>{ item.title }</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="select select-m">
+                    <select name="selectLength" onChange={ select.length }>
+                        <option value="" selected>Выберите длину</option>
+                        <option each={ item in _.range(5, 55, 5) } value="{ item }" selected={ selected.length(item) }>{ item } метров</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="select select-m mb-m">
+            <select name="selectGroup" onChange={ select.group }>
+                <option value="" selected>Выберите ценовую группу</option>
+                <option each={ item in $store.group.get() } value="{ item._id }" selected={ selected.group(item._id) }>{ item.title }</option>
+            </select>
+        </div>
+        <div class="mb-m">
+            <textarea class="textarea textarea-m" name="text" placeholder="Описание товара"></textarea>
+        </div>
+        <div class="inline text-right">
+            <div onClick={ onReset } class="btn btn-m btn-primary-hover mr-s">Отменить</div>
+            <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-disabled : !selectType.value.length || !selectLength.value.length || !selectGroup.value.length, btn-loading: loading }">Добавить товар</div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.product = null;
+    $.loading = false;
+
+    $.on("mount", function(){
+        $.search = riot.mount("products-search", {
+            tags: {
+                placeholder: 'Начните вводить артикул',
+                filter: 'article',
+                options: $store.data.get()
+            }
+        });
+        $.search[0].on('select', function(item){
+            if (item){
+                $.product = item;
+                $.update();
+            }
+        });
+    });
+
+    $.selected = {
+        type: function(value){
+            return $Products.state.get('type') == value;
+        },
+        length: function(value){
+            return $Products.state.get('length') == value;
+        },
+        group: function(value){
+            return $Products.state.get('group') == value;
+        }
+    };
+
+    $.select = {
+        type: function(e){
+            $Products.state.set('type', e.target.value);
+        },
+        length: function(e){
+            $Products.state.set('length', String(e.target.value));
+        },
+        group: function(e){
+            $Products.state.set('group', e.target.value);
+        }
+    };
+
+    $.onSave = function(){
+        if ($.tags["product-item"].image.getAttribute("src").match(/no_photo/)){
+            $Notify.show({
+                text: "Выберите товар с фотографией"
+            })
+        }
+        else {
+            $.loading = true;
+
+            var item = {
+                _id: _.newId(),
+                text: _.clean($.text.value)
+            }
+            _.extend(item, $.product);        
+            _.extend(item, $Products.state.get());
+
+            app.request('addProducts', item).then(function(){
+                //$store.data.select({"article": item.article}).get().selected = true;
+                $store.products.push(item);
+                $.loading = false;
+                $.onReset();
+                $Products.update();
+            }, function(){
+                $.loading = false;
+                $.update();
+            });
+        }
+    };
+
+    $.onReset = function(){
+        $.product = null;
+    };
+
+</script>
+
+</products-create>

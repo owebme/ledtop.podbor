@@ -1,0 +1,149 @@
+<packages-edit class="oScreen zIndex-2" data-open={ active } data-show="down">
+
+    <div class="oScreen__buttons" data-pos="top-right">
+        <div onClick={ hide } onUpdate="none" class="button__close"></div>
+    </div>
+
+    <div name="content" class="oScreen__content pt-l pb-xl bg-white">
+        <div class="container">
+            <div class="row pb-s">
+                <div class="col-md-24 fontSize-24 fontWeight-3 mb-xl">
+                    { $store.light.getTitleById(path.light) } &mdash;
+                    { path.length }м &mdash;
+                    { $store.group.getTitleById(path.group) }
+                </div>
+            </div>
+            <div class="row flex-row-center-stretch">
+                <div class="col-md-15">
+                    <div class="row package__item__list sortable">
+                        <div each={ item in _.sortArray(items.get(), "pos") } class="sortable__item col-md-24 pb-xs" data-id="{ item._id }">
+                            <div class="package__item { selected : editing == item._id } mr-m mb-m" data-active={ item.active }>
+                                <div class="package__item__title">{ item.title }</div>
+                                <package-item onClick={ onEdit } item={ item }></package-item>
+                                <div class="package__item__handle"></div>
+                                <div onClick={ onRemove } onUpdate="none"  class="package__item__remove"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="{ display-none : editing || !items.get().length } pos-centered-v w100p plr-l pb-m fontSize-24 c-gray">
+                        Выберите комплект для редактирования
+                    </div>
+                    <div if={ editing } class="pl-m trY--xl pt-m">
+                        <package-edit></package-edit>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$($.root);
+
+    $.items = new Baobab([]);
+    $.editing = null;
+    $.path = null;
+
+    $.on("mount", function(){
+        $.package = $.tags["package-edit"];
+
+        $.package.on("cancel", function(){
+            $.editing = null;
+            $.update();
+        });
+        $.package.on("save", function(item){
+            $.items.select({ "_id": item._id }).set(item);
+            $.editing = null;
+            $.update();
+        });
+    });
+
+    $.show = function(path, items){
+        $.items.set(items);
+
+        $.update({
+            path: path,
+            active: true
+        })
+        app.$dom.body.addClass("overflow-hidden");
+
+        _.onEndTransition($.content, function(){
+            $.sorting.init();
+        });
+    };
+
+    $.sorting = {
+        init: function(){
+            $.sortable = new app.plugins.sortable($scope.find(".sortable"), {
+                handle: ".package__item__handle",
+                draggable: ".sortable__item"
+            },
+            function(sort){
+                app.request('setPackagesSort', sort).then(function(){
+                    $Notify.show({
+                        text: "Сортировка обновлена"
+                    })
+                });
+                _.each(sort, function(item){
+                    $store.packages.get({ "_id": item._id }).pos = item.pos;
+                });
+            });
+            $.sortable.init();
+        },
+        destroy: function(){
+            $.sortable.destroy();
+        }
+    };
+
+    $.onEdit = function(){
+        $.package.trigger("edit", this.item);
+        $.editing = this.item._id;
+    };
+
+    $.onRemove = function(){
+        var item = this.item;
+
+        $Alert.show({
+            title: "Вы хотите удалить комплект?",
+            subtitle: "Вы уверены?",
+            success: {
+                callback: function(){
+                    app.request('delPackages', { id: item._id }).then(function(){
+
+                        $store.packages.select({"_id": item._id}).unset();
+                        $.items.select({"_id": item._id}).unset();
+
+                        if ($.editing == item._id){
+                            $.editing = null;
+                        }
+
+                        $.update();
+                        $Packages.sections.table.update();
+
+                        $Notify.show({
+                            text: "Комплект успешно удален"
+                        })
+                    });
+                }
+            }
+        });
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+        app.$dom.body.removeClass("overflow-hidden");
+
+        _.onEndTransition($.content, function(){
+            $.sorting.destroy();
+            $.editing = null;
+        });
+    };
+
+</script>
+
+</packages-edit>

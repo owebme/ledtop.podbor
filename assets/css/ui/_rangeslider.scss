@@ -41,6 +41,7 @@
             border-bottom:12px solid $blue;
             border-right:9px solid transparent;
             border-left:9px solid transparent;
+            box-shadow:0 2px 0 $blue;
 
             .d-phone & {
                 top:-15px;

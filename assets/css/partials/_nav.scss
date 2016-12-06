@@ -2,9 +2,11 @@
     @extend .pos-tl-fixed;
     @extend .w100p;
     @extend .bg-white;
+    @extend .userSelect-none;
     @extend .zIndex-2;
     height:62px;
-    box-shadow:0 1px 2px rgba(67, 89, 102, 0.05);
+    // box-shadow:0 1px 2px rgba(67, 89, 102, 0.05);
+    @extend .boxShadow-close;
 
     &__item {
         @extend .display-block;

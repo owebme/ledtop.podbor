@@ -1,0 +1,17 @@
+<packages-select-light class="select select-m mb-s">
+
+    <select name="select" onChange={ onSelect } onUpdate="none" disabled={ disabled }>
+        <option each={ item in $store.light.get() } value="{ item._id }">{ item.title }</option>
+    </select>
+
+<script>
+
+    $.disabled = true;
+
+    this.onSelect = function(e){
+        $Packages.state.set('light', e.target.value);
+    }
+
+</script>
+
+</packages-select-light>

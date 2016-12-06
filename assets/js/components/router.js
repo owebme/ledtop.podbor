@@ -20,6 +20,10 @@
                 Router.routes.packages();
             });
 
+            riot.route('/orders', function(){
+                Router.routes.orders();
+            });
+
             riot.route('/offers', function(){
                 Router.routes.offers();
             });
@@ -40,6 +44,10 @@
             packages: function(){
                 Router.section = "packages";
                 Router.mount('section-packages');
+            },
+            orders: function(){
+                Router.section = "orders";
+                Router.mount('section-orders');
             },
             offers: function(){
                 Router.section = "offers";

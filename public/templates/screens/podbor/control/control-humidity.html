@@ -1,13 +1,13 @@
 <control-humidity class="control" data-active={ active }>
 
-    <div onClick={ toggle } onUpdate="none" class="control__value">{ $State.get('humidity') }</div>
+    <div onClick={ toggle } onUpdate="none" class="control__value">{ $Options.get('hum') }</div>
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="humidity"></div>
     <div class="control__container flex-row-left-center">
         <div class="control__container__title">влагозащищенность</div>
         <div class="nowrap fontSize-0">
-            <div onClick={ select } onUpdate="none" each={ item in items } class="pos-rel display-inlineBlock" data-balloon="{ item.tooltip }" data-balloon-pos="up">
-                <div class="btn { item.title == $State.get('humidity') ? 'btn-primary' : 'btn-primary-hover' } btn-m w40 p0 mlr-xxs text-center">
-                    { item.title }
+            <div onClick={ select } onUpdate="none" each={ item in _.sortArray($store.humidity.get(), "hum") } no-reorder class="pos-rel display-inlineBlock" data-balloon={ tooltip.get({'title': item.hum}) ? tooltip.get({'title': item.hum}).text : null } data-balloon-pos="up">
+                <div class="btn { item.hum == $Options.get('hum') ? 'btn-primary' : 'btn-primary-hover' } btn-m w40 p0 mlr-xxs text-center">
+                    { item.hum }
                 </div>
             </div>
         </div>
@@ -19,24 +19,32 @@
 
     $.active = false;
 
-    $.items = [
+    $.tooltip = new Baobab([
         {
-            title: 'P64',
-            tooltip: 'Защита от брызгов воды'
+            title: 'IP20',
+            text: 'Защита от пальцев'
         },
         {
-            title: 'P65',
-            tooltip: 'Защита от струй воды'
+            title: 'IP33',
+            text: 'Защита от дождя'
         },
         {
-            title: 'P66',
-            tooltip: 'Сильная струя воды'
+            title: 'IP65',
+            text: 'Защита от водяных струй'
         },
         {
-            title: 'P67',
-            tooltip: 'Погружение под воду'
+            title: 'IP66',
+            text: 'Защита от морских волн'
+        },
+        {
+            title: 'IP67',
+            text: 'На глубину менее 1м'
+        },
+        {
+            title: 'IP68',
+            text: 'На глубину более 1м'
         }
-    ];
+    ]);
 
     $.toggle = function(){
         $.update({
@@ -45,7 +53,15 @@
     };
 
     $.select = function(){
-        $State.set('humidity', this.item.title);
+        var _article = $store.data.getProduct("ledribbon").article,
+            article = this.item.article,
+            hum = this.item.hum;
+
+        if (_article != article){
+            $store.data.setProduct($store.products.getItemByArticle(article));
+            $Control.refresh.color();
+        }
+        $Options.set('hum', hum);
         $.hide();
     };
 

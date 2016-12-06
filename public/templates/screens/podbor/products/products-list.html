@@ -1,0 +1,120 @@
+<products-list class="products__list" data-active="false">
+
+    <div class="products__list__container">
+        <div onClick={ hide } onUpdate="none" class="products__list__close">{ app.device.isPhone ? 'закрыть' : 'скрыть' }</div>
+        <div each={ group in $store.group.get().reverse() } no-reorder class="{ display-none : !$store.data.getProductsByGroup(parent.opts.item.get('_id'), group._id).length }">
+            <div class="products__list__title">
+                <span if={ group._id == "lux" } class="products__list__stars"><i></i><i></i><i></i></span>
+                <span if={ group._id == "norm" } class="products__list__stars"><i></i><i></i></span>
+                <span if={ group._id == "econom" } class="products__list__stars"><i></i></span>
+                { group.title }
+            </div>
+            <div class="rows products__list__items" data-items="{ group._id }">
+                <div class="row">
+                    <div onClick={ onSelect } onUpdate="none" each={ item, i in $store.data.getProductsByGroup(parent.opts.item.get('_id'), group._id) } no-reorder data-id="{ item.article }" class="col-xs-8 products__list__item" data-active={ get.select(item) }>
+                        <img src="{ $store.products.getImageByArticle(item.article) }" class="products__list__item__image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this,
+    $scope = $$($.root);
+
+    $.active = false;
+
+    $.selected = null;
+
+    $.product = null;
+
+    $.on("mount", function(){
+        if (!app.device.isMobile){
+            $scope.on("mouseenter mouseleave", ".products__list__item", function(e){
+                if (e.currentTarget.getAttribute("data-active") != "true"){
+                    if (e.type === "mouseenter"){
+                        $.product = _.copyArray($.opts.item.get("product"));
+                        var item = $.opts.item.get("products", {"article": e.currentTarget.getAttribute("data-id")})
+                        $.selected = $.product.article;
+                        $store.data.setProduct(item);
+                    }
+                    else {
+                        $.selected = null;
+                        $store.data.setProduct($.product);
+                    }
+                }
+            });
+        }
+    });
+
+    $.get = {
+        select: function(item){
+            if ($.selected){
+                return $.selected === item.article;
+            }
+            else {
+                return $Product[$.opts.item.get("_id")].opts.item.get("product").article === item.article;
+            }
+        }
+    };
+
+    $.onSelect = function(){
+        $.selected = null;
+
+        $store.data.setProduct(this.item);
+
+        if ($.opts.item.get("_id") == "ledribbon"){
+            $Control.refresh.humidity();
+            $Control.refresh.color();
+        }
+        if (app.device.isPhone) $.update();
+
+        $.hide();
+    };
+
+    $.toggle = function(){
+        if (!$.active && $State.get("showProducts")){
+            $Notify.show({
+                text: "Завершите предыдущий выбор"
+            })
+        }
+        else {
+            $.active = !$.active;
+            $.control();
+        }
+    };
+
+    $.show = function(){
+        $.active = true;
+        $.control();
+    };
+
+    $.hide = function(){
+        if (app.device.isPhone){
+            $.parent.hide();
+        }
+        else {
+            $.active = false;
+            $.control();
+        }
+    };
+
+    $.control = function(){
+        $.parent.root.setAttribute("data-products", $.active);
+        $.root.setAttribute("data-active", $.active);
+
+        if ($.active){
+            $Product["power"].tags["connect-control"].hide();
+            $State.set("showProducts", $.opts.item.get("_id"));
+        }
+        else {
+            $Product["power"].tags["connect-control"].show();
+            $State.set("showProducts", false);
+        }
+    };
+
+</script>
+
+</products-list>

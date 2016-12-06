@@ -6,7 +6,7 @@
         function(){
             return {
                 figure: "square",
-                target: "section-pack-select",
+                target: "section-packages-select",
                 position: "down",
                 padding: 20,
                 title: "Выбор готовых наборов",

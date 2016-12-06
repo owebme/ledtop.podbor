@@ -20,10 +20,9 @@ body {
 	}
 	&.appAuth {
 		&:after {
-			transform:translate3d(0, -222px, 0) scale3d(0.35, 0.35, 1);
+			transform:translate3d(0, -222px, 0) scale3d(0.7, 0.7, 1);
 		}
-		#auth,
-		#authLine {
+		#auth {
 			opacity:1;
 			transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
 		}
@@ -32,10 +31,6 @@ body {
 		#auth {
 			pointer-events:auto;
 			animation:authShowForm 0.65s $bounceSoft forwards;
-		}
-		#authLine {
-			pointer-events:auto;
-			animation:authShowLine 0.65s $bounceSoft forwards;
 		}
 		#submit {
 			@include animation(rubberBand, linear, 0.65s, 0.65s);
@@ -72,11 +67,6 @@ body {
 	transition:opacity 0.45s $cubic272, transform 0.45s $cubic272;
 	z-index:1002;
 }
-#authLine {
-	will-change:transform;
-	transition:transform 0.45s $cubic272;
-	transform:translate3d(0, 0, 0) scale3d(0, 0.5, 1);
-}
 @keyframes authShowForm {
 	from {
 		opacity:0;
@@ -84,14 +74,6 @@ body {
 	}
     to {
 		opacity:1;
-		transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
-    }
-}
-@keyframes authShowLine {
-	from {
-		transform:translate3d(0, 0, 0) scale3d(0, 0.5, 1);
-	}
-    to {
 		transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
     }
 }

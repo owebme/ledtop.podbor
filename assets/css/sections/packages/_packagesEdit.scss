@@ -1,0 +1,12 @@
+.package__item__list {
+    .package__item {
+        @extend .cursor-pointer;
+        @extend .boxShadow-distant;
+        @extend .transition-default;
+
+        &:hover,
+        &.selected {
+            @extend .borderColor-blue;
+        }
+    }
+}

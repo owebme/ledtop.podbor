@@ -1,12 +1,54 @@
 <section-packages>
 
+    <div class="row">
+        <div class="col-md-8">
+            <div class="input-title">Тип подсветки</div>
+            <packages-select-light></packages-select-light>
+            <packages-create></packages-create>
+        </div>
+        <div class="col-md-16">
+            <packages-table></packages-table>
+        </div>
+    </div>
+
+    <packages-edit></packages-edit>
 
 <script>
-
     var $ = this;
 
-    this.on("mount", function(){
+    $Packages = $;
 
+    $.on("before-mount", function(){
+
+        $.sections = {
+            light: $.tags["packages-select-light"],
+            create: $.tags["packages-create"],
+            table: $.tags["packages-table"],
+            edit: $.tags["packages-edit"]
+        };
+
+        $.state = new Baobab({
+            light: null,
+            length: null,
+            group: null
+        },
+        { autoCommit: true });
+
+        _.bbUpdate($.state, function(prop, value, e){
+            var data = e.data.currentData;
+            if (_.every(data)){
+                $.sections.create.search($store.products.getItemsByParamsWithoutType(data));
+            }
+            $.sections.table.update();
+        });
+    });
+
+    $.on("mount", function(){
+        $.state.set('light', $.sections.light.select.value);
+    });
+
+    $.on("unmount", function(){
+        $.state.off("update");
     });
 
 </script>

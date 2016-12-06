@@ -19,10 +19,10 @@ browserSync.init({
 	watchOptions: {
         usePolling: true
     },
-	// proxy: "http://localhost:8080/"
-	server: {
-		baseDir: "./"
-	}
+	proxy: "http://localhost:8080/"
+	// server: {
+	// 	baseDir: "./"
+	// }
 });
 
 gulp.task('public.css', function() {
@@ -121,14 +121,21 @@ gulp.task('public.app', function() {
 		'assets/js/components/commons/compatible.js',
 		'assets/js/components/commons/modules.js',
 		'assets/js/components/commons/utils.js',
+		'assets/js/components/commons/request.js',
+		'public/js/components/fetch.js',
 		'public/js/components/config.js',
 	    'public/js/components/tutorial.js',
 		'public/js/components/router.js',
-		'assets/js/plugins/animate.js',
 		'assets/js/plugins/styles.js',
-		'public/js/store/control.js',
-		'public/js/store/ledribbon.js',
-		'public/js/store/power.js'])
+		'assets/js/plugins/animate.js',
+		'assets/js/store/products.js',
+		'assets/js/store/packages.js',
+		'assets/js/store/light.js',
+		'assets/js/store/type.js',
+		'assets/js/store/group.js',
+		'public/js/store/data.js',
+		'public/js/store/humidity.js',
+		'public/js/store/color.js'])
 		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./public/js'));
@@ -169,7 +176,7 @@ gulp.task('dev', gulp.parallel('public.css', 'public.js.build'));
 gulp.watch([
 	'public/css/style.scss',
 	'public/css/**/*.scss'
-], gulp.series('public.css'));
+], gulp.parallel('public.css', 'public.css.largeScreen'));
 
 // gulp.watch([
 // 	'public/css/styleguide.scss',

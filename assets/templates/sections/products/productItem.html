@@ -1,0 +1,20 @@
+<product-item class="product__item__container">
+
+    <div class="product__item__image">
+        <img name="image" onerror="this.src='/assets/images/no_photo.png'" src={ opts.item && opts.item.article ? $store.products.getImageByArticle(opts.item.article) : null }>
+    </div>
+    <div class="product__item__text">
+        <div class="product__item__article">{ opts.item.article }</div>
+        <div class="product__item__title">{ opts.item.title }</div>
+        <div class="product__item__price">Розница: <span>{ opts.item.price } ₽</span></div>
+    </div>
+    <div if={ opts.item && opts.item.color } class="product__item__colors">
+        <div each={ item in opts.item.related } no-reorder class="product__item__colors__items" data-items="{ item.color.split('|').length }" data-color="{ item.color }" data-related="true">
+            <div each={ color in item.color.split('|') } no-reorder class="product__item__color color-{ color }"></div>
+        </div>
+        <div class="product__item__colors__items" data-items="1" data-color="{ opts.item.color }" data-related="false">
+            <div each={ color in opts.item.color.split('|') } no-reorder class="product__item__color color-{ color }"></div>
+        </div>
+    </div>
+
+</product-item>

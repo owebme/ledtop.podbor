@@ -1,9 +1,6 @@
 <section-control class="section__control">
 
-    <div if={ !app.device.isPhone } class="total">
-        <div class="total__title">=</div>
-        <div class="total__price">12,489 <span class="total__price__rub">₽</span></div>
-    </div>
+    <total-price if={ !app.device.isPhone }></total-price>
 
     <control-wrapper></control-wrapper>
 

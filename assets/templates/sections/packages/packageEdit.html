@@ -1,0 +1,131 @@
+<package-edit>
+
+    <div class="c-gray fontSize-22 mb-xs text-left">Редактирование комплекта</div>
+    <div class="rows">
+        <div class="row mb-xxs">
+            <div each={ item in $store.type.get() } no-reorder class="col-md-8 h15">
+                <div class="input-title">{ item.title }</div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group w100p mb-m">
+        <button onClick={ select.products } each={ item in $store.type.get() } no-reorder class="btn btn-m w33p btn-primary{ product == item._id ? '' : '-hover' }">
+            { package.get(item._id) ? package.get(item._id) : item.title }
+            <div if={ !package.get(item._id) } class="btn-badge">{ $store.products.getItemsByParams(get.options(item._id), items).length }</div>
+            <div if={ package.get(item._id) } class="btn-checked"></div>
+        </button>
+    </div>
+    <div if={ product && $store.products.getItemsByParams(get.options(product), items).length }>
+        <div each={ item in _.sortArray($store.products.getItemsByParams(get.options(product), items), "pos") } no-reorder class="product__item product__item--select { selected : package.get(product) == item.article } mb-s">
+            <product-item onClick={ select.product } item={ item }></product-item>
+        </div>
+    </div>
+    <div if={ !product }>
+        <div class="mb-m">
+            <ui-input update="title" cursor={ package.select() } placeholder="Название комплекта"></ui-input>
+        </div>
+        <div class="mb-m">
+            <ui-textarea update="text" cursor={ package.select() } placeholder="Описание комплекта"></ui-textarea>
+        </div>
+        <div class="flex-row-right-center w100p">
+            <div class="mr-xs">
+                <ui-checkbox update="active" cursor={ package.select() } title="Активный" size="l"></ui-checkbox>
+            </div>
+            <div onClick={ onCancel } class="btn btn-m btn-primary-hover ml-m mr-s">Отменить</div>
+            <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-loading: loading }">Сохранить</div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        $.product = null;
+        $.items = null;
+        $.package = new Baobab(
+            !_.isEmpty($.opts.package) ? $.opts.package : {}
+        );
+    });
+
+    $.on("edit", function(item){
+        if ($.package.get()) $.product = null;
+        $.package.set(_.copyArray(item));
+        $.items = $store.products.getItemsByParamsWithoutType(item);
+    });
+
+    $.get = {
+        options: function(type){
+            return {
+                'light': $.package.get('light'),
+                'type': type,
+                'length': $.package.get('length'),
+                'group': $.package.get('group'),
+            }
+        }
+    };
+
+    $.select = {
+        products: function(e){
+            if ($.product && $.product == this.item._id){
+                $.product = null;
+            }
+            else {
+                $.product = this.item._id;
+                $.trigger("select:products");
+            }
+        },
+        product: function(e){
+            $.package.select($.product).set(this.item.article);
+            $.product = null;
+            $.trigger("select:product");
+        }
+    };
+
+    $.onCancel = function(e){
+        $.package.set({});
+        $.product = null;
+        $.trigger("cancel");
+    };
+
+    $.onSave = function(e){
+        if (!$.package.get('title').length){
+            $Notify.show({
+                text: "Введите название комплекта"
+            })
+        }
+        else {
+            $.loading = true;
+
+            app.request('setPackagesItem', {
+                id: $.package.get('_id'),
+                item: $.package.get()
+            })
+            .then(function(){
+                $store.packages.select({
+                    "_id": $.package.get('_id')
+                })
+                .set($.package.get());
+
+                $.trigger("save", $.package.get());
+                $.package.set({});
+
+                $.update({
+                    product: null,
+                    loading: false
+                });
+
+            }, function(){
+                $.update({
+                    product: null,
+                    loading: false
+                });
+
+                $.trigger("cancel");
+            });
+        }
+    };
+
+</script>
+
+</package-edit>

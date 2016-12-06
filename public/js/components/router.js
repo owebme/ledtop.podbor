@@ -69,7 +69,7 @@
                         $loader.remove();
                     });
                 }, {
-                    iterations: screen == "podbor" ? 10 : 2,
+                    iterations: screen == "podbor" ? 7 : 2,
                     timeout: screen == "podbor" ? 2000 : 500
                 });
                 $afterlag.run(function(){

@@ -2,6 +2,7 @@
     @include accelerate();
     @extend .pos-rel;
     @extend .display-inlineBlock;
+    @extend .vAlign-middle;
     @extend .userSelect-none;
     @extend .text-left;
     @extend .c-gray;
@@ -58,6 +59,10 @@
             transition:opacity .5s $cubic089, transform .5s $cubic089;
             @include ui-icon(check_white);
         }
+    }
+    &-text {
+        @extend .flex-row-left-center;
+        @extend .h30;
     }
     input {
         @extend .pos-abs;

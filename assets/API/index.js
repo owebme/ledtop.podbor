@@ -6,4 +6,7 @@ module.exports = function(app){
 	// Products
 	require('./products/products')(app, '/private/api/products');
 
+	// Packages
+	require('./packages/packages')(app, '/private/api/packages');
+
 }

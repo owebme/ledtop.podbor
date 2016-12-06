@@ -45,6 +45,9 @@
                 url += "/" + params;
                 params = null;
             }
+            if (window.$LoaderAjax){
+                $LoaderAjax.show();
+            }
 
             var xhr = new XMLHttpRequest();
             xhr.open(type, app.url() + url, true);
@@ -74,11 +77,20 @@
                         reject(error);
                     }
                 } catch(e){}
+
                 app.request.list = {};
+
+                if (window.$LoaderAjax){
+                    $LoaderAjax.hide();
+                }
             };
 
             xhr.onerror = function() {
                 reject(new Error("Network Error"));
+
+                if (window.$LoaderAjax){
+                    $LoaderAjax.hide();
+                }
             };
 
             try {

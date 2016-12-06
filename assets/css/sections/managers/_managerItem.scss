@@ -1,0 +1,67 @@
+.manager__item {
+    @extend .pos-rel;
+    @include flex("row", "space-between", "stretch");
+    @extend .bg-white;
+    height:170px;
+    border:1px solid $grayLighten;
+    @extend .borderRadius-m;
+    @extend .ptb-m;
+    @extend .fontSize-16;
+    @extend .boxShadow-distant;
+    @extend .transition-default;
+    @extend .cursor-pointer;
+
+    &:hover {
+        @extend .borderColor-blue;
+    }
+    &__avatar {
+        width:27.5%;
+        @extend .flex-centered;
+
+        &__image {
+            @extend .w100;
+            @extend .h100;
+            @extend .borderRadius-circle;
+            @extend .bg-cover;
+            @extend .mb-m;
+            @extend .boxShadow-deboss;
+        }
+    }
+    &__text {
+        width:32.5%;
+        border-right:1px solid $grayLighten;
+    }
+    &__title {
+        @extend .fontSize-18;
+        @extend .fontWeight-bold;
+    }
+    &__stat {
+        @extend .flex-column-left-center;
+        @extend .fontSize-18;
+        @extend .w40p;
+        height:120px;
+        @extend .pl-l;
+
+        &__item {
+            @include flex("row", "space-between", "flex-start");
+            @extend .mb-xxs;
+            width:120px;
+        }
+        strong {
+            @extend .c-blue;
+        }
+    }
+    &__button__create {
+        @extend .flex-centered;
+        @extend .pos-centered;
+        @extend .c-blue;
+        @extend .fontSize-22;
+
+        &:before {
+            @extend .content-empty;
+            @extend .display-block;
+            @include ui-icon("plus", 32px, 32px);
+            @extend .mr-xxs;
+        }
+    }
+}

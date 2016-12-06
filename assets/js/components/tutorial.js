@@ -36,7 +36,7 @@
         function(){
             return {
                 figure: "square",
-                target: "product-item[data-product='power-supply']",
+                target: "product-item[data-product='power']",
                 position: "left",
                 padding: 30,
                 actions: {
@@ -51,7 +51,7 @@
         function(){
             return {
                 figure: "circle",
-                target: "product-item[data-product='power-supply'] .connect__control",
+                target: "product-item[data-product='power'] .connect__control",
                 position: "left",
                 padding: 30,
                 activeZone: true,

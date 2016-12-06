@@ -1,0 +1,149 @@
+<packages-create>
+
+    <div class="row mb-m { display-none : _.some(package) }">
+        <div class="col-md-12">
+            <div class="select select-m">
+                <select name="selectLength" onChange={ select.length }>
+                    <option value="" selected>Выберите длину</option>
+                    <option each={ item in _.range(5, 55, 5) } value="{ item }" selected={ selected.length(item) }>{ item } метров</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="select select-m">
+                <select name="selectGroup" onChange={ select.group }>
+                    <option value="" selected>Выберите группу</option>
+                    <option each={ item in $store.group.get() } value="{ item._id }" selected={ selected.group(item._id) }>{ item.title }</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="{ display-none : !selectLength.value.length || !selectGroup.value.length }">
+        <div class="btn-group w100p mb-m">
+            <button onClick={ select.products } each={ item in $store.type.get() } no-reorder class="btn btn-m w33p btn-primary{ product == item._id ? '' : '-hover' }">
+                { package[item._id] ? package[item._id] : item.title }
+                <div if={ !package[item._id] } class="btn-badge">{ $store.products.getItemsByParams(get.options(item._id), items).length }</div>
+                <div if={ package[item._id] } class="btn-checked"></div>
+            </button>
+        </div>
+        <div if={ product && $store.products.getItemsByParams(get.options(product), items).length }>
+            <div each={ item in _.sortArray($store.products.getItemsByParams(get.options(product), items), "pos") } no-reorder class="product__item product__item--select { selected : parent.package[product] == item.article } mb-s">
+                <product-item onClick={ select.product } item={ item }></product-item>
+            </div>
+        </div>
+        <div if={ !product && _.some(package) }>
+            <input name="title" placeholder="Название комплекта" class="input input-m mb-m">
+            <textarea name="text" placeholder="Описание комплекта" class="textarea textarea-m mb-m"></textarea>
+            <div class="flex-row-right-center">
+                <div onClick={ onReset } class="btn btn-m btn-primary-hover mr-s">Отменить</div>
+                <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-loading: loading, btn-disabled: !_.every(package) }">Добавить комплект</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.on("before-mount", function(){
+        $.onReset();
+    });
+
+    $.onReset = function(){
+        $.loading = false;
+        $.items = null;
+        $.product = null;
+        $.package = {
+            ledribbon: null,
+            power: null,
+            control: null
+        }
+        if ($Packages.sections){
+            $Packages.sections.light.update({
+                disabled: false
+            });
+        }
+    };
+
+    $.search = function(items){
+        $.update({
+            items: items
+        });
+    };
+
+    $.get = {
+        options: function(type){
+            return {
+                'light': $Packages.state.get('light'),
+                'type': type,
+                'length': $Packages.state.get('length'),
+                'group': $Packages.state.get('group')
+            }
+        }
+    };
+
+    $.selected = {
+        length: function(value){
+            return $Packages.state.get('length') == value;
+        },
+        group: function(value){
+            return $Packages.state.get('group') == value;
+        }
+    };
+
+    $.select = {
+        length: function(e){
+            $Packages.state.set('length', String(e.target.value));
+        },
+        group: function(e){
+            $Packages.state.set('group', e.target.value);
+        },
+        products: function(e){
+            if ($.product && $.product == this.item._id){
+                $.product = null;
+            }
+            else {
+                $.product = this.item._id;
+            }
+        },
+        product: function(e){
+            $.package[$.product] = this.item.article;
+            $.product = null;
+            $Packages.sections.light.update({
+                disabled: true
+            });
+        }
+    };
+
+    $.onSave = function(){
+        var item = {
+            _id: _.newId(),
+            title: _.clean($.title.value),
+            text: _.clean($.text.value),
+            active: true
+        }
+        _.extend(item, $Packages.state.get());
+        _.extend(item, $.package);
+
+        if (!item.title){
+            $Notify.show({
+                text: "Введите название комплекта"
+            })
+        }
+        else {
+            $.loading = true;
+
+            app.request('addPackages', item).then(function(){
+                $store.packages.push(item);
+                $.onReset();
+                $Packages.update();
+            }, function(){
+                $.loading = false;
+                $.update();
+            });
+        }
+    };
+
+</script>
+
+</packages-create>

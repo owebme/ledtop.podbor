@@ -1,5 +1,6 @@
 .loader {
-    display:block;
+    @extend .display-block;
+    @extend .pointerEvents-none;
     @include abs();
     opacity:0.001;
     visibility:hidden;

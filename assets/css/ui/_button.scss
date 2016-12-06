@@ -10,7 +10,7 @@
     }
     &-tr, &[data-pos="top-right"] {
         @extend .pos-tr;
-        transform:translate3d(-17px, 15px, 0);
+        transform:translate3d(-41px, 25px, 0);
 
         .d-phone & {
             transform:translate3d(-10px, 12px, 0);
@@ -51,8 +51,8 @@
         @extend .btn-hover;
         @extend .btn-active;
         @extend .zIndex-2;
-        width:24px;
-        height:24px;
+        width:35px;
+        height:35px;
         @include ui-icon(close);
         margin:25px 22px 0 0;
 
@@ -60,6 +60,8 @@
             @include ui-icon(close_white);
         }
         &[data-color="gray"]{
+            width:24px;
+            height:24px;
             margin:15px 17px 0 0;
             @include ui-icon(close_fill_gray, 38px, 38px);
         }
@@ -71,6 +73,8 @@
             height:32px;
         }
         .d-phone & {
+            width:24px;
+            height:24px;
             margin:17px 10px 0 0;
         }
     }

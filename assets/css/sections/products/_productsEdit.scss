@@ -1,0 +1,12 @@
+.product__item__list {
+    .product__item {
+        @extend .cursor-pointer;
+        @extend .boxShadow-distant;
+        @extend .transition-default;
+
+        &:hover,
+        &.selected {
+            @extend .borderColor-blue;
+        }
+    }
+}

@@ -1,5 +1,7 @@
 (function(){
 
-    riot.mount("*");
+    app.fetch("getDataInit").then(function(){
+        riot.mount("*");
+    });
 
 })();

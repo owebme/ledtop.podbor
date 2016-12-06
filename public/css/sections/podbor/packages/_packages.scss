@@ -1,0 +1,115 @@
+screen-podbor {
+    .packages {
+        &__header {
+            @extend .pos-tl-fixed;
+            @extend .w100p;
+            @extend .c-white;
+            @extend .ptb-l;
+            @extend .zIndex-1;
+            background:linear-gradient(to bottom, rgba(34,34,40,.9), rgba(34,34,40,0));
+        }
+        &__content {
+            @include abs();
+            @extend .c-white;
+            @extend .overflowY-auto;
+            padding-top:22vh;
+            @extend .pb-xl;
+        }
+        &__title {
+            @extend .fontSize-28;
+            @extend .fontWeight-3;
+            @extend .mb-l;
+        }
+        &__list {
+            &__items {
+                @extend .text-left;
+                @extend .plr-xs;
+            }
+            &__item {
+                @extend .pos-rel;
+                @extend .flex-row-left-center;
+                @extend .ptb-s;
+                @extend .pl-l;
+                @extend .pr-xl;
+                height:105px;
+                background-color:rgba($white,.05);
+                box-shadow:inset 0 0 0 1px rgba($white,.2);
+                @extend .borderRadius-xl;
+                @extend .mb-m;
+                @extend .cursor-pointer;
+                transition:all 0.2s $cubic645;
+
+                &[data-active="true"],
+                &[data-active="true"]:hover {
+                    @extend .bg-white;
+                    @extend .c-blackDark;
+                    @extend .cursor-default;
+                    box-shadow:inset 0 0 0 1px $white;
+                }
+                &[data-active="true"]{
+                    &:after {
+                        @extend .content-empty;
+                        @extend .pos-abs;
+                        @extend .t-xxs;
+                        @extend .r-xxs;
+                        @include ui-icon("check_circle", 29px, 29px);
+                    }
+                }
+                &:before {
+                    @extend .flex-centered;
+                    @extend .pos-abs;
+                    @extend .t--xs;
+                    @extend .l--xs;
+                    @extend .c-white;
+                    @extend .fontSize-16;
+                    @extend .fontWeight-5;
+                    background-color:rgba($black,.7);
+                    width:24px;
+                    height:24px;
+                    padding-top:2px;
+                    border:1px solid rgba($white,.8);
+                    @extend .borderRadius-circle;
+                    @extend .opacity-85;
+                }
+                &__price {
+                    @extend .pos-abs;
+                    @extend .b-xs;
+                    @extend .r-s;
+                    font-size:17px;
+                }
+                &__container {
+                    @extend .pos-rel;
+
+                    @for $i from 1 through 20 {
+                        &:nth-child(#{$i}) .packages__list__item:before {
+                            content:"#{$i}";
+                        }
+                    }
+                }
+            }
+            &[data-package="econom"] .packages__list__item:not([data-active="true"]):hover {
+                background-color:darken($blueLight,9%);
+                box-shadow:inset 0 0 0 1px darken($blueLight,9%);
+            }
+            &[data-package="norm"] .packages__list__item:not([data-active="true"]):hover {
+                background-color:darken($emerald,5%);
+                box-shadow:inset 0 0 0 1px darken($emerald,5%);
+            }
+            &[data-package="lux"] .packages__list__item:not([data-active="true"]):hover {
+                @extend .c-blackDark;
+                background-color:darken($yellow,3%);
+                box-shadow:inset 0 0 0 1px darken($yellow,3%);
+            }            
+        }
+    }
+}
+
+@media screen and (max-height: 670px) {
+    .d-no-phone {
+        screen-podbor {
+            .packages__header {
+                padding-bottom:20px;
+            }
+        }
+    }
+}

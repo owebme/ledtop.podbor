@@ -3,7 +3,7 @@
     <label onClick={ onClick } onUpdate={ opts.onupdate ? opts.onupdate : "self" } class="checkbox { small : typeof opts.small !== 'undefined' }" data-color={ opts.theme }>
         <input type="checkbox" checked={ value }>
         <span class="checkbox-control"></span>
-        <span class="fontSize-{ opts.size ? opts.size : 'm' } { opts.color ? 'c-' + opts.color : null }">{ opts.title }</span>
+        <span class="checkbox-text fontSize-{ opts.size ? opts.size : 'm' } { opts.color ? 'c-' + opts.color : null }">{ opts.title }</span>
     </label>
 
 <script>
@@ -21,7 +21,7 @@
                 $.value = $.opts.cursor.get($.opts.update);
             }
         }
-        else {
+        else if (!$.opts.update){
             if ($.opts.value === undefined) $.opts.value = $.value = false;
             else $.value = $.opts.value;
         }

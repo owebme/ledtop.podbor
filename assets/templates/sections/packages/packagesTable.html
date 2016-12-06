@@ -1,0 +1,72 @@
+<packages-table class="table__wrapper">
+
+    <div class="rows table">
+        <div class="row table__header">
+            <div class="col-md-8 c-blueLight">
+                { $store.group.get(0).title }
+            </div>
+            <div class="col-md-8 c-emerald">
+                { $store.group.get(1).title }
+            </div>
+            <div class="col-md-8 c-orange">
+                { $store.group.get(2).title }
+            </div>
+        </div>
+        <div each={ item in _.range(5, 55, 5) } no-reorder class="row table__row">
+            <div class="table__length">
+                { item }м
+            </div>
+            <div onClick={ select } oncontextmenu={ edit } onUpdate="self" each={ group in $store.group.get() } no-reorder class="col-md-8 table__item__count table__item--select { selected : selected(this) }">{ get.items(this) }</div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.get = {
+        options: function(_this){
+            return {
+                'light': $Packages.state.get('light'),
+                'length': String(_this.parent.item),
+                'group': _this.group._id
+            }
+        },
+        items: function(_this){
+            var result = $store.packages.getItemsByParams(
+                $.get.options(_this)
+            );
+            return result.length ? result.length : "";
+        }
+    };
+
+    $.selected = function(_this){
+        var options = $.get.options(_this);
+        return $Packages.state.get('type') == options.type && $Packages.state.get('length') == options.length && $Packages.state.get('group') == options.group;
+    };
+
+    $.select = function(){
+        if ($Packages.sections.light.disabled){
+            $Notify.show({
+                text: "Закончите или отмените редактирование"
+            })
+        }
+        else {
+            $Packages.state.set($.get.options(this));
+            $Packages.sections.create.update();
+        }
+    };
+
+    $.edit = function(e){
+        if (!$$(e.target).is(":empty")){
+            var options = $.get.options(this);
+            $Packages.sections.edit.show(
+                options,
+                $store.packages.getItemsByParams(options)
+            );
+        }
+    };
+
+</script>
+
+</packages-table>

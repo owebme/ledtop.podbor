@@ -15,43 +15,66 @@ screen-podbor {
                 background:linear-gradient(to bottom, rgba(#D3DCE6,0), $grayLighten, rgba(#D3DCE6,0));
             }
         }
-        &:before {
-            @extend .content-empty;
-            @include abs();
-            @extend .h100v;
-            @extend .bg-white;
-            @extend .opacity-0;
-            @extend .visibility-hidden;
-            will-change:opacity;
-            transition:opacity 0.5s $cubic32, visibility 0s 0.5s;
-            @extend .zIndex-2;
-        }
         &__scribble {
             @include accelerate();
-            @extend .pos-centered;
+            @include abs();
+            @extend .h100v;
             @extend .opacity-0;
             @extend .visibility-hidden;
             @extend .pointerEvents-none;
             @extend .fontSize-32;
             @extend .lineHeight-xxxxl;
+            background-color:rgba($white,.8);
             @extend .zIndex-2;
-            width:200px;
             will-change:opacity;
-            transition:opacity 0.5s $cubic32, visibility 0s 0.5s;
+            transition:opacity 0.35s $cubic32, visibility 0s 0.35s;
+
+            &__text {
+                @extend .pos-centered;
+                width:200px;
+            }
+            &__icon {
+                @extend .pos-rel;
+                @extend .bg-cover;
+                width:102px;
+                height:102px;
+                @extend .mlr-auto;
+                @extend .mb-m;
+                @extend .mt--l;
+                background-image:url(/assets/images/ir_gray.svg);
+
+                &:after {
+                    @extend .content-empty;
+                    @extend .pos-abs;
+                    @extend .t50;
+                    @extend .l50;
+                    @extend .w2px;
+                    @extend .bg-red;
+                    @extend .mt-xs;
+                    height:0px;
+                    will-change:height;
+                    transform:translate3d(-50%, -50%, 0) rotate(45deg);
+                    transition:height 0.3s $cubic32;
+                }
+            }
         }
         &[data-hidden="true"]{
-            &:before {
-                @extend .opacity-80;
-                @extend .visibility-visible;
-                transition:opacity 0.3s $cubic32, visibility 0s;
-            }
             .product__scribble {
-                @extend .opacity-80;
+                @extend .opacity-100;
                 @extend .visibility-visible;
-                transition:opacity 0.5s $cubic32, visibility 0s;
+                transition:opacity 0.35s $cubic32, visibility 0s;
+
+                &__icon:after {
+                    height:110%;
+                    transition:height 0.4s $cubic32 0.4s;
+                }
+            }
+            .product__content {
+                @extend .pointerEvents-none;
+                filter:blur(14px);
             }
         }
-        &[data-pack="econom"]{
+        &[data-group="econom"]{
             .product__label {
                 @extend .fontSize-18;
                 @extend .letterSpacing--xs;
@@ -64,9 +87,9 @@ screen-podbor {
                 @extend .text-capitalize;
             }
         }
-        &[data-pack="norm"]{
+        &[data-group="norm"]{
             .product__label {
-                @extend .fontSize-20;
+                @extend .fontSize-18;
             }
             .product__label,
             .product__price {
@@ -76,9 +99,9 @@ screen-podbor {
                 @extend .text-capitalize;
             }
         }
-        &[data-pack="lux"]{
+        &[data-group="lux"]{
             .product__label {
-                @extend .fontSize-24;
+                @extend .fontSize-22;
             }
             .product__label,
             .product__price {
@@ -88,7 +111,7 @@ screen-podbor {
                 @extend .text-uppercase;
             }
         }
-        &[data-product="power-supply"]{
+        &[data-product="power"]{
             .product__item__photo {
                 width:78.5%;
                 @extend .trX--l;
@@ -102,7 +125,6 @@ screen-podbor {
             @extend .w70;
             @extend .h70;
             @extend .c-white;
-            @extend .fontWeight-3;
             @extend .borderRadius-circle;
             @extend .zIndex-1;
             padding-top:2px;
@@ -161,33 +183,93 @@ screen-podbor {
                 }
             }
         }
+        &__article {
+            @extend .pos-centered-h;
+            top:100px;
+            @extend .pl-m;
+            @extend .userSelect-text;
+            color:darken($smokeSilver,10%);
+            @extend .fontSize-16;
+
+            strong {
+                @extend .c-silver;
+                @extend .fontWeight-5;
+            }
+        }
+        &__sizes {
+            @extend .pos-abs;
+            top:155px;
+            @extend .r-xs;
+            @extend .flex-centered;
+            @extend .w50;
+
+            &:after {
+                width:150px;
+                @extend .fontSize-16;
+                @extend .lineHeight-xs;
+                @extend .fontFamily-myriad;
+                @extend .whiteSpace-normal;
+                @extend .borderRadius-xxl;
+                @extend .text-right;
+                padding:0.7em 1.25em 0.7em 0.7em;
+            }
+            &__icon {
+                @include ui-icon("sizes_gray", 30px, 30px);
+            }
+        }
         &__item {
             @extend .w100p;
             @extend .pos-centered-v;
-            @extend .pt-xl;
+            @extend .mt-l;
             @extend .overflow-hidden;
 
             &__photo {
+                @extend .pos-rel;
                 @extend .flex-centered;
                 width:74%;
                 height:33vh;
                 @extend .mlr-auto;
 
                 &__image {
-                    @extend .w100p;
+                    @extend .maxW-100p;
+                    max-height:200px;
                 }
             }
-            &__title {
+            &__text {
+                @extend .pos-rel;
                 @extend .h20v;
                 @extend .pt-xxs;
                 @extend .plr-l;
+                @extend .cursor-default;
                 @extend .fontWeight-3;
                 @extend .lineHeight-l;
+
+                &:after {
+                    @extend .w70p;
+                    @extend .fontSize-16;
+                    @extend .lineHeight-xs;
+                    @extend .fontFamily-myriad;
+                    @extend .whiteSpace-normal;
+                    @extend .borderRadius-xxxxl;
+                    padding:0.7em 1.65em;
+                    transition:transform 0.3s $cubic32, opacity 0.3s $cubic32;
+                }
+                &:before {
+                    @extend .display-none;
+                }
+                &:hover {
+                    &:after {
+                        transition:transform 0.35s $cubic32 0.3s, opacity 0.35s $cubic32 0.3s;
+                    }
+                }
             }
         }
         &__content {
+            @include accelerate();
             @extend .display-block;
             @extend .w100p;
+            will-change:filter;
+            transition:filter 0.5s $cubic32;
         }
         &__price {
             @extend .flex-centered;
@@ -249,7 +331,7 @@ screen-podbor {
         @extend .l--xs;
         @extend .text-center;
     }
-    .product[data-product="ir-control"] .product__tooltip__screen {
+    .product[data-product="control"] .product__tooltip__screen {
         @extend .l0;
         @extend .text-left;
     }
@@ -273,8 +355,8 @@ screen-podbor {
         @extend .h60;
         margin-left:-30px;
         @extend .borderRadius-circle;
-        @extend .bg-grayLight;
-        @extend .zIndex-5;
+        @extend .bg-silver;
+        @extend .zIndex-3;
         @extend .cursor-pointer;
         will-change:background-color, transform, opacity;
         transition:background-color .5s $bounce, transform 0.2s $cubic645, opacity 0.5s $cubic089;
@@ -294,7 +376,7 @@ screen-podbor {
                 transform:rotate(0deg);
             }
             &:hover {
-                @extend .bg-grayLight;
+                @extend .bg-silver;
 
                 &:after {
                     transform:rotate(45deg);
@@ -310,9 +392,30 @@ screen-podbor {
         }
     }
     .product[data-product="ledribbon"],
-    .product[data-product="ir-control"] {
+    .product[data-product="control"] {
         .connect__control {
             @extend .display-none;
+        }
+    }
+    @media screen and (min-height: 720px) {
+        .product__article {
+            font-size:18px !important;
+        }
+        .product__sizes {
+            top:160px;
+        }
+        .product__item {
+            padding-top:8px;
+        }
+        .product__item__text {
+            font-size:20px;
+            line-height:32px !important;
+        }
+        .product__price {
+            margin-top:-110px;
+            width:220px;
+            height:220px;
+            font-size:38px !important;
         }
     }
 }

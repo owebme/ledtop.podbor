@@ -1,12 +1,12 @@
 <control-color class="control" data-active={ active }>
 
-    <div onClick={ toggle } onUpdate="none" class="control__icon" data-color={ $State.get('color') }>
-        <control-color-item content={ $State.get('color') }>{ item }</control-color-item>
+    <div onClick={ toggle } onUpdate="none" class="control__icon" data-color={ $Options.get('color') }>
+        <control-color-item item={ $Options.get('color') }></control-color-item>
     </div>
     <div class="control__container { flex-row-left-center : !app.device.isPhone }">
         <div class="control__container__title">цвет свечения</div>
-        <div onClick={ select } onUpdate="none" each={ item in items } class="control__color" data-active={ item == $State.get('color') } data-color={ item }>
-            <control-color-item content={ item }>{ item }</control-color-item>
+        <div onClick={ select } onUpdate="none" each={ item in $store.color.get() } no-reorder class="control__color" data-active={ item.color == $Options.get('color') } data-color={ item.color }>
+            <control-color-item item={ item.color }></control-color-item>
         </div>
     </div>
 
@@ -16,8 +16,6 @@
 
     $.active = false;
 
-    $.items = ['blue', 'cool_white', 'day_white', 'warm_white', 'yellow', 'green', 'ir850', 'orange', 'pink', 'red', 'violet'];
-
     $.toggle = function(){
         $.update({
             active: !$.active
@@ -25,7 +23,36 @@
     };
 
     $.select = function(){
-        $State.set('color', this.item);
+        var _article = $store.data.getProduct("ledribbon").article,
+            article = this.item.article,
+            color = this.item.color;
+
+        if (_article != article){
+            var product = $Cursor.ledribbon.get("product", "related", {"color": color});
+
+            if (!product){
+                var other = null;
+                _.each($store.data.getProducts("ledribbon"), function(item){
+                    if (!other){
+                        if (item.article == article){
+                            other = $store.products.getItemByArticle(article);
+                        }
+                        else {
+                            _.each(item.related, function(child){
+                                if (child.article == article){
+                                    other = $store.products.getItemByArticle(item.article);
+                                }
+                            });
+                        }
+                    }
+                });
+                if (other){
+                    $store.data.setProduct(other);
+                    $Control.refresh.humidity();
+                }
+            }
+        }
+        $Options.set('color', color);
         $.hide();
     };
 

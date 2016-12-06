@@ -1,4 +1,4 @@
-<connect-control onClick={ toggle } class="connect__control" data-active={ $State.get('control') } data-hidden={ hidden }>
+<connect-control onClick={ toggle } class="connect__control" data-active={ $Options.get('control') } data-hidden={ hidden }>
 
 <script>
 
@@ -7,7 +7,7 @@
     $.hidden = false;
 
     $.toggle = function(){
-        $State.set('control', !$State.get('control'));
+        $Options.set('control', !$Options.get('control'));
     };
 
     $.show = function(){
@@ -16,7 +16,7 @@
 
     $.hide = function(){
         $.root.setAttribute("data-hidden", true);
-    };   
+    };
 
 </script>
 
