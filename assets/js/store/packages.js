@@ -2,11 +2,14 @@ $store.packages = _.extend(new Baobab([]),
     {
         getItemsByParams: function(options, items){
             return _.filter(items ? items : $store.packages.get(), function(item){
-                return item.light == options.light && item.length == String(options.length) && item.group == options.group;
+                return item.light == options.light && item.length == String(options.length) && item.group == options.group && (_.isBoolean(options.active) ? options.active === item.active : true);
             });
         },
-        getItemById: function(id){
-            return $store.packages.select({ "_id": id }).get();
+        getItemById: function(id, options){
+            var params = { "_id": id };
+            if (options) _.extend(params, options);
+
+            return $store.packages.select(params).get();
         },
         getTitleById: function(id){
             return $store.packages.select({ "_id": id }).get("title");

@@ -29,7 +29,7 @@ underscore.extend(app.utils, underscore);
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + (app.config.get('env') == "production" ? "/views/production" : "/views"));
 swig.setDefaults({ cache: false });
 app.set('view cache', false);
 app.swig = swig;

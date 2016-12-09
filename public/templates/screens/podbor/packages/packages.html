@@ -25,8 +25,8 @@
             <div class="row">
                 <div each={ group in $store.group.get() } no-reorder class="col-md-8 packages__list" data-package="{ group._id }">
                     <div class="packages__list__items">
-                        <div onClick={ select } onUpdate="none" each={ item in get.list(group._id) } no-reorder class="packages__list__item__container" data-balloon={ item.text } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
-                            <div class="packages__list__item" data-active={ $State.get('package') == item._id }>
+                        <div if={ item.active } onClick={ select } onUpdate="none" each={ item in get.list(group._id) } no-reorder class="packages__list__item__container" data-balloon={ item.text } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
+                            <div class="packages__list__item" data-active={ $Options.get('package') == item._id }>
                                 { item.title }
                                 <div class="packages__list__item__price">
                                     { _.numberFormat(get.price(item._id), 0, "", ",") } ₽
@@ -68,14 +68,15 @@
     };
 
     $.select = function(){
-        var pk = $store.packages.getItemById(this.item._id);
+        var pkg = $store.packages.getItemById(this.item._id);
 
-        $State.select("package").set(this.item._id);
+        $Options.select("package").set(this.item._id);
+        $State.select("group").set(this.item.group);
 
         $Screen.set.products({
-            "ledribbon": pk.ledribbon,
-            "power": pk.power,
-            "control": pk.control
+            "ledribbon": pkg.ledribbon,
+            "power": pkg.power,
+            "control": pkg.control
         });
 
         $Control.refresh.humidity();

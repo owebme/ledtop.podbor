@@ -21,150 +21,145 @@
     </div>
 
 <script>
-		/* istanbul ignore next */
-		if (!opts.tags) opts.tags = { options: [], tags: [] }
-		if (!opts.tags.options) opts.tags.options = []
+    var $ = this;
 
-		const handleClickOutside = e => {
-			if (!this.root.contains(e.target) && opts.tags.isvisible){
-                this.close()
-			    this.update()
+    /* istanbul ignore next */
+    if (!opts.tags) opts.tags = { options: [], tags: [] };
+    if (!opts.tags.options) opts.tags.options = [];
+
+    var handleClickOutside = function(e) {
+        if (!$.root.contains(e.target) && opts.tags.isvisible) {
+            $.close();
+            $.update();
+        }
+    };
+
+    var applyFieldText = function() {
+        $.selectfield.value = '';
+        for (var i = 0; i < opts.tags.options.length; i++) {
+            var item = opts.tags.options[i];
+        }
+    };
+
+    $.filterOptions = function () {
+        if ($.selectfield.value.length) opts.tags.isvisible = true;else opts.tags.isvisible = false;
+        $.options = opts.tags.options;
+        if (opts.tags.filter) $.options = $.options.filter(function (option) {
+            var attr = option[opts.tags.filter];
+            return attr && attr.toLowerCase().indexOf($.selectfield.value.toLowerCase()) > -1;
+        });
+        if ($.options.length > 10) {
+            $.options = $.options.splice(0, 9);
+        }
+        $.trigger('filter', $.selectfield.value);
+    };
+
+    function getWindowDimensions() {
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
+        return { width: x, height: y };
+    }
+
+    var positionDropdown = function positionDropdown() {
+        var w = getWindowDimensions();
+        var m = $.root.querySelector('.menu');
+        if (!m) return;
+        if (!opts.tags.isvisible) {
+            // Reset position
+            m.style.marginTop = '';
+            m.style.marginLeft = '';
+            return;
+        }
+        var pos = m.getBoundingClientRect();
+        if (w.width < pos.left + pos.width) {
+            // menu is off the right hand of the page
+            m.style.marginLeft = w.width - (pos.left + pos.width) - 20 + 'px';
+        }
+        if (pos.left < 0) {
+            // menu is off the right hand of the page
+            m.style.marginLeft = '20px';
+        }
+        if (w.height < pos.top + pos.height) {
+            // Popup is off the bottom of the page
+            m.style.marginTop = w.height - (pos.top + pos.height) - 20 + 'px';
+        }
+    };
+
+    $.navigate = function (e) {
+        if ([13, 38, 40].indexOf(e.keyCode) > -1 && !opts.tags.isvisible) {
+            e.preventDefault();
+            $.open();
+            return true;
+        }
+        var length = $.options.length;
+        if (length > 0 && [13, 38, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+            // Get the currently selected item
+            var activeIndex = null;
+            for (var i = 0; i < length; i++) {
+                var item = $.options[i];
+                if (item.active) {
+                    activeIndex = i;
+                    break;
+                }
             }
-		}
 
-		const applyFieldText = () => {
-			this.selectfield.value = ''
-			for (let i = 0; i < opts.tags.options.length; i++) {
-				let item = opts.tags.options[i]
-			}
-		}
+            // We're leaving this item
+            if (activeIndex != null) $.options[activeIndex].active = false;
 
-		this.filterOptions = () => {
-            if (this.selectfield.value.length) opts.tags.isvisible = true
-            else opts.tags.isvisible = false
-			this.options = opts.tags.options
-			if (opts.tags.filter)
-				this.options = this.options.filter(option => {
-						const attr = option[opts.tags.filter]
-						return attr && attr.toLowerCase().indexOf(this.selectfield.value.toLowerCase()) > -1
-					})
-            if (this.options.length > 10){
-                this.options = this.options.splice(0, 9);
+            if (e.keyCode == 38) {
+                // Move the active state to the next item lower down the index
+                if (activeIndex == null || activeIndex == 0) $.options[length - 1].active = true;else $.options[activeIndex - 1].active = true;
+            } else if (e.keyCode == 40) {
+                // Move the active state to the next item higher up the index
+                if (activeIndex == null || activeIndex == length - 1) $.options[0].active = true;else $.options[activeIndex + 1].active = true;
+            } else if (e.keyCode == 13 && activeIndex != null) {
+                $.select({
+                    item: $.options[activeIndex]
+                });
             }
-			this.trigger('filter', this.selectfield.value)
-		}
+        }
+        return true;
+    };
 
-		function getWindowDimensions() {
-			var w = window,
-				d = document,
-				e = d.documentElement,
-				g = d.getElementsByTagName('body')[0],
-				x = w.innerWidth || e.clientWidth || g.clientWidth,
-				y = w.innerHeight || e.clientHeight || g.clientHeight
-			return { width: x, height: y }
-		}
+    $.open = function () {
+        if ($.selectfield.value.length) opts.tags.isvisible = true;
+        $.trigger('open');
+    };
 
-		const positionDropdown = () => {
-			const w = getWindowDimensions()
-			const m = this.root.querySelector('.menu')
-			if (!m) return
-			if (!opts.tags.isvisible) {
-				// Reset position
-				m.style.marginTop = ''
-				m.style.marginLeft = ''
-				return
-			}
-			const pos = m.getBoundingClientRect()
-			if (w.width < pos.left + pos.width) {
-				// menu is off the right hand of the page
-				m.style.marginLeft = (w.width - (pos.left + pos.width) - 20) + 'px'
-			}
-			if (pos.left < 0) {
-				// menu is off the right hand of the page
-				m.style.marginLeft = '20px'
-			}
-			if (w.height < pos.top + pos.height) {
-				// Popup is off the bottom of the page
-				m.style.marginTop = (w.height - (pos.top + pos.height) - 20) + 'px'
-			}
-		}
+    $.close = function () {
+        if (opts.tags.isvisible) {
+            opts.tags.isvisible = false;
+            $.trigger('close');
+        }
+    };
 
-		this.navigate = e => {
-			if ([13, 38, 40].indexOf(e.keyCode) > -1 && !opts.tags.isvisible) {
-				e.preventDefault()
-				this.open()
-				return true
-			}
-			var length = this.options.length
-			if (length > 0 && [13, 38, 40].indexOf(e.keyCode) > -1) {
-				e.preventDefault()
-				// Get the currently selected item
-				var activeIndex = null
-				for (let i = 0; i < length; i++) {
-					let item = this.options[i]
-					if (item.active) {
-						activeIndex = i
-						break
-					}
-				}
+    $.select = function (e) {
+        applyFieldText();
+        $.filterOptions();
+        $.trigger('select', e.item);
+    };
 
-				// We're leaving this item
-				if (activeIndex != null) this.options[activeIndex].active = false
+    $.on('mount', function () {
+        applyFieldText();
+        $.filterOptions();
+        document.addEventListener('click', handleClickOutside);
+        $.update();
+    });
 
-				if (e.keyCode == 38) {
-					// Move the active state to the next item lower down the index
-					if (activeIndex == null || activeIndex == 0)
-						this.options[length - 1].active = true
-					else
-						this.options[activeIndex - 1].active = true
-				} else if (e.keyCode == 40) {
-					// Move the active state to the next item higher up the index
-					if (activeIndex == null || activeIndex == length - 1)
-						this.options[0].active = true
-					else
-						this.options[activeIndex + 1].active = true
-				} else if (e.keyCode == 13 && activeIndex != null) {
-					this.select({
-						item: this.options[activeIndex]
-					})
-				}
-			}
-			return true
-		}
+    $.on('update', function () {
+        if (!opts.tags.filter) applyFieldText();
+        positionDropdown();
+    });
 
-		this.open = () => {
-			if (this.selectfield.value.length) opts.tags.isvisible = true
-			this.trigger('open')
-		}
+    $.on('unmount', function () {
+        document.removeEventListener('click', handleClickOutside);
+    });
 
-		this.close = () => {
-			if (opts.tags.isvisible) {
-				opts.tags.isvisible = false
-				this.trigger('close')
-			}
-		}
-
-		this.select = e => {
-			applyFieldText()
-			this.filterOptions()
-			this.trigger('select', e.item)
-		}
-
-		this.on('mount', () => {
-			applyFieldText()
-			this.filterOptions()
-			document.addEventListener('click', handleClickOutside)
-			this.update()
-		})
-
-		this.on('update', () => {
-			if (!opts.tags.filter) applyFieldText()
-			positionDropdown()
-		})
-
-		this.on('unmount', () => {
-			document.removeEventListener('click', handleClickOutside)
-		})
 </script>
 
 </products-search>

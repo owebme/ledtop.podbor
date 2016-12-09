@@ -86,9 +86,7 @@
         $Screens.self.trigger("steps-hidden");
         $.root.setAttribute("data-visible", true);
 
-        //$.render(true);
-
-        $.update();
+        $.render(true);
 
         $afterlag.m(function(){
             if (animate){
@@ -115,29 +113,52 @@
     };
 
     $.render = function(update){
-        var group = $State.get("group");
+        var group = $State.get("group"),
             options = {
-            "group": group,
-            "light": $Options.get("light"),
-            "length": $Options.get("length")
-        }
-        $.set.productsAll(options);
+                "active": true,
+                "light": $Options.get("light"),
+                "length": $Options.get("length")
+            };
 
-        var pkg = _.sortArray(
-            $store.packages.getItemsByParams(options)
-        , "pos")[0];
+        // get package with url
+        var pkg = $Options.get("package") ?
+            $store.packages.getItemById(
+                $Options.get("package"), options
+            ) : false;
 
         if (pkg){
-            $State.select("package").set(pkg._id);
-            $.set.products(pkg);
+            $State.select("group").set(pkg.group);
+            $.set.productsAll(options);
+            $.set.products({
+                "ledribbon": pkg.ledribbon,
+                "power": pkg.power,
+                "control": pkg.control
+            });
         }
         else {
-            $State.select("package").set(null);
-            $.set.products({
-                "ledribbon": $Cursor.ledribbon.get("products", {"group": group}),
-                "power": $Cursor.power.get("products", {"group": group}),
-                "control": $Cursor.control.get("products", {"group": group})
-            });
+            $.set.productsAll(options);
+            options.group = group;
+
+            // find first package with options
+            pkg = _.sortArray(
+                $store.packages.getItemsByParams(options)
+            , "pos")[0];
+
+            if (pkg){
+                $State.select("group").set(pkg.group);
+                $Options.select("package").set(pkg._id);
+                $.set.products(pkg);
+            }
+            // other take the first of the list
+            else {
+                group = "norm";
+                $Options.select("package").set();
+                $.set.products({
+                    "ledribbon": $Cursor.ledribbon.get("products", {"group": group}),
+                    "power": $Cursor.power.get("products", {"group": group}),
+                    "control": $Cursor.control.get("products", {"group": group})
+                });
+            }
         }
 
         $store.humidity.setStore();
@@ -167,6 +188,7 @@
         },
         products: function(data){
             if (!data) return;
+
             $store.data.setProducts({
                 "ledribbon": data.ledribbon && data.ledribbon.article ? data.ledribbon.article : data.ledribbon,
                 "power": data.power && data.power.article ? data.power.article : data.power,
@@ -175,14 +197,15 @@
         },
         productsAll: function(options){
             if (!options) return;
+
             $store.data.setProductsAll({
-                "ledribbon": _.sortArray($store.products.getItemsByParams(
+                "ledribbon": _.sortArray($store.products.getItemsByParamsWithoutGroup(
                     _.extend(options, {"type": "ledribbon"})
                 ), "pos"),
-                "power": _.sortArray($store.products.getItemsByParams(
+                "power": _.sortArray($store.products.getItemsByParamsWithoutGroup(
                     _.extend(options, {"type": "power"})
                 ), "pos"),
-                "control": _.sortArray($store.products.getItemsByParams(
+                "control": _.sortArray($store.products.getItemsByParamsWithoutGroup(
                     _.extend(options, {"type": "control"})
                 ), "pos")
             });
@@ -192,7 +215,7 @@
                 products = {
                     ledribbon: $Cursor.ledribbon.get("product", "price"),
                     power: $Cursor.power.get("product", "price"),
-                    control: $Options.get("control") ? $Cursor.control.get("product", "price") : null
+                    control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
                 };
 
             result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
@@ -210,7 +233,7 @@
     $Options.on("write", function(e){
         var prop = e.data.path[0];
 
-        if (prop == "control"){
+        if (prop == "controlled"){
             $Product["control"].update();
         }
         else if (prop == "light" || prop == "length"){

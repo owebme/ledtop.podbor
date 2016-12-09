@@ -1,4 +1,4 @@
-<connect-control onClick={ toggle } class="connect__control" data-active={ $Options.get('control') } data-hidden={ hidden }>
+<connect-control onClick={ toggle } class="connect__control" data-active={ $Options.get('controlled') } data-hidden={ hidden }>
 
 <script>
 
@@ -7,7 +7,7 @@
     $.hidden = false;
 
     $.toggle = function(){
-        $Options.set('control', !$Options.get('control'));
+        $Options.set('controlled', !$Options.get('controlled'));
     };
 
     $.show = function(){

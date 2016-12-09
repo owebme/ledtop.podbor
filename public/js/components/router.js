@@ -25,10 +25,10 @@
                 Router.mount('podbor');
             });
 
-            riot.route('offerManager', function(){
-                $Config.select('offers', 'manager').set(true);
-                Router.mount('podbor');
-            });
+            // riot.route('offerManager', function(){
+            //     $Config.select('offers', 'manager').set(true);
+            //     Router.mount('podbor');
+            // });
 
             riot.route.base(this.base);
             riot.route.start(true);

@@ -1,14 +1,19 @@
-<order-list if={ $Screen.sections.totalPrice.total } class="order__list">
+<order-list class="order__list">
 
-    <div each={ item in $store.data.get() } no-reorder class="order__list__item">
-        <div class="order__list__item__image">
-            <img src={ $store.products.getImageByArticle(item.product.article) }>
+    <div if={ $Screen.sections.totalPrice.total }>
+        <div each={ item in $store.data.get() } no-reorder class="order__list__item" data-hidden={ item.product.type == 'control' && !$Options.get('controlled') }>
+            <div class="order__list__item__image">
+                <img src={ $store.products.getImageByArticle(item.product.article) }>
+            </div>
+            <div class="order__list__item__text">
+                <div class="order__list__item__article">Арт: { item.product.article }</div>
+                <div class="order__list__item__title">{ item.product.title }</div>
+                <div class="order__list__item__price">= { item._id == 'ledribbon' ? $Options.get("length") + ' м x ' + _.numberFormat(item.product.price, 0, "", ",") : '1 шт x ' +  _.numberFormat(item.product.price, 0, "", ",")} ₽</div>
+            </div>
         </div>
-        <div class="order__list__item__text">
-            <div class="order__list__item__article">Арт: { item.product.article }</div>
-            <div class="order__list__item__title">{ item.product.title }</div>
-            <div class="order__list__item__price">= { item._id == 'ledribbon' ? $Options.get("length") + ' м x ' + _.numberFormat(item.product.price, 0, "", ",") : '1 шт x ' +  _.numberFormat(item.product.price, 0, "", ",")} ₽</div>
-        </div>
+    </div>
+    <div if={ !$Screen.sections.totalPrice.total } class="order__list__empty">
+        Для совершения заказа выберите компоненты
     </div>
 
 </order-list>

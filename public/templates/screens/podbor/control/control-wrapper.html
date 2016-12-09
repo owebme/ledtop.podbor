@@ -2,7 +2,7 @@
 
     <div if={ app.device.isPhone } onClick={ parent.hide } onUpdate="none" class="control back"></div>
 
-    <div if={ !app.device.isPhone } onClick={ open } onUpdate="none" class="control">
+    <div if={ !app.device.isPhone } onClick={ $Menu.items.open.form } onUpdate="none" class="control">
         <div class="button__ok"></div>
     </div>
 

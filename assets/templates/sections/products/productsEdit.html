@@ -105,14 +105,18 @@
 
     $.onRemove = function(){
         var item = this.item,
-            prop = {};
+            options = {
+                light: item.light,
+                length: item.length,
+                group: item.group
+            }
 
-        prop[item.type] = item.article;
+        options[item.type] = item.article;
 
-        if ($store.packages.select(prop).get()){
+        if ($store.packages.select(options).get()){
             $Notify.show({
                 color: "danger",
-                text: "Этот товар удалить нельзя, он уже используется в комплектах"
+                text: "Этот товар удалить нельзя, он уже используется в комплекте"
             })
         }
         else {
@@ -125,7 +129,6 @@
 
                             $store.products.select({"_id": item._id}).unset();
                             $.items.select({"_id": item._id}).unset();
-                            //$store.data.select({"article": item.article}).get().selected = false;
 
                             if ($.editing == item._id){
                                 $.editing = null;

@@ -13,7 +13,7 @@ module.exports = function(app){
         res.render('podbor');
     });
 
-    app.get('/private/', function(req, res) {
+    app.get('/private/', app.checkAuth('/login'), function(req, res) {
         res.render('private');
     });
 

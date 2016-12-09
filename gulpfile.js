@@ -108,7 +108,8 @@ gulp.task('public.libs', function() {
 		'assets/js/libs/rangeslider.js',
 		'assets/js/libs/afterlag-js/dist/afterlag.min.js',
 		'assets/js/libs/url.min.js',
-		'assets/js/libs/store.min.js'])
+		'assets/js/libs/store.min.js',
+		'assets/js/libs/iscroll.js'])
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./public/js'));
@@ -128,6 +129,8 @@ gulp.task('public.app', function() {
 		'public/js/components/router.js',
 		'assets/js/plugins/styles.js',
 		'assets/js/plugins/animate.js',
+		'assets/js/plugins/marquee.js',
+		'assets/js/plugins/screens.js',
 		'assets/js/store/products.js',
 		'assets/js/store/packages.js',
 		'assets/js/store/light.js',
@@ -135,7 +138,8 @@ gulp.task('public.app', function() {
 		'assets/js/store/group.js',
 		'public/js/store/data.js',
 		'public/js/store/humidity.js',
-		'public/js/store/color.js'])
+		'public/js/store/color.js',
+		'public/js/store/order.js'])
 		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('./public/js'));

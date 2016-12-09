@@ -15,10 +15,9 @@
 
     this.ready = false;
 
-    app.ver = "1.05";
+    app.ver = "1.08";
 
     var state = {
-        package: null,
         group: "norm",
         tooltipScreen: true,
         showProducts: false,
@@ -30,12 +29,12 @@
         color: "white",
         hum: "IP33",
         length: "5",
-        control: true
+        controlled: true
     };
 
     if (!_.isEmpty($Router.params.get())){
         _.extend(options, $Router.params.get());
-        options.control = options.control === "false" ? false : true;
+        options.controlled = options.controlled === "false" ? false : true;
     }
 
     var appVer = Store.get('appVer');
@@ -45,9 +44,6 @@
             _.extend(state, Store.get('state'));
             state.showProducts = false;
         }
-        // if (Store.get('options') && _.isEmpty($Router.params.get())){
-        //     _.extend(options, Store.get('options'));
-        // }
     }
     else {
         Store.clear();
@@ -60,10 +56,6 @@
     $State.on("write", function(e){
         Store.set('State', $State.get());
     });
-
-    // $Options.on("write", function(e){
-    //     Store.set('options', $Options.get());
-    // });
 
     if (app.config.changeStyles){
         app.plugins.styles.init({

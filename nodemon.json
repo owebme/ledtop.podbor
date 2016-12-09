@@ -1,6 +1,7 @@
 {
   "watch" : [
       "/SERVER.js",
+      "/config.json",
       "/libs/*.*",
       "/router/*.*",
       "/views/*.*",

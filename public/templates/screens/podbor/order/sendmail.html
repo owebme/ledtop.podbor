@@ -30,7 +30,8 @@
             </div>
             <div class="row mb-xl">
                 <div class="col-sm-24">
-                    <button class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Отправить расчет</button>
+                    <button if={ $Screen.sections.totalPrice.total } class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Отправить расчет</button>
+                    <p if={ !$Screen.sections.totalPrice.total } class="text-right">Вы не выбрали компоненты</p>
                 </div>
             </div>
         </div>

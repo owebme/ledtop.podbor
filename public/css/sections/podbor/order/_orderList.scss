@@ -69,4 +69,15 @@
             @extend .fontWeight-5;
         }
     }
+    &__empty {
+        @extend .opacity-0;
+        @extend .pos-centered;
+        @extend .fontSize-24;
+        @extend .text-center;
+        @extend .pl-l;
+        @extend .pointerEvents-none;
+        width:300px;
+        will-change:opacity;
+        transition:opacity .3s $cubic28;
+    }
 }

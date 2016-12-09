@@ -13,6 +13,20 @@
         @extend .pl-s;
         @extend .pr-m;
     }
+    &__badge {
+        @extend .flex-centered;
+        @extend .pos-abs;
+        @extend .t-xxs;
+        @extend .l-xss;
+        @extend .c-white;
+        @extend .bg-red;
+        @extend .text-uppercase;
+        @extend .fontSize-11;
+        @extend .fontWeight-5;
+        @extend .borderRadius-m;
+        padding:2px 5px 0;
+        @extend .zIndex-1;
+    }
     &__image {
         @extend .flex-centered;
         @extend .w35p;

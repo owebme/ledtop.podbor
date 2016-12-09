@@ -65,26 +65,55 @@
             var items = Store.get('bufferProducts');
 
             if (items && items.length){
+                var _items = [];
                 _.each(items, function(item, i){
                     _.extend(item, options);
                     item._id = _.newId() + i;
                     item.light = $Products.state.get('light');
+                    _items.push($store.products.existItemsByParamsWithoutGroup(
+                        options, item.article
+                    ));
                 });
-                app.request('addProducts', items).then(function(){
-                    $store.products.concat(items);
-                    $.update();
-                });
+                if (_.some(_items)){
+                    $Notify.show({
+                        color: "danger",
+                        text: "Одни из добавляемых товаров, уже присутствуют в выбранной линейке"
+                    })
+                }
+                else {
+                    app.request('addProducts', items).then(function(){
+                        $store.products.concat(items);
+                        $.update();
+                    });
+                }
             }
         },
         clear: function(options){
-            var ids = _.pluck($store.products.getItemsByParams(options), "_id");
+            var items = $store.products.getItemsByParams(options),
+                ids = _.pluck(items, "_id"),
+                 _items = [];
 
-            app.request('delProducts', { ids: ids }).then(function(){
-                _.each(ids, function(id){
-                    $store.products.select({ "_id": id }).unset();
-                });
-                $.update();
+            delete options.type;
+
+            _.each(items, function(item, i){
+                var params = _.copyArray(options);
+                params[item.type] = item.article;
+                _items.push($store.packages.select(options).get());
             });
+            if (_.some(_items)){
+                $Notify.show({
+                    color: "danger",
+                    text: "Одни из товаров удалить нельзя, они уже используется в комплекте"
+                })
+            }
+            else {
+                app.request('delProducts', { ids: ids }).then(function(){
+                    _.each(ids, function(id){
+                        $store.products.select({ "_id": id }).unset();
+                    });
+                    $.update();
+                });
+            }
         },
         edit: function(options){
             $Products.sections.edit.show(

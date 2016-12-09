@@ -102,6 +102,13 @@ screen-podbor {
                     &:nth-child(3) {
                         transition-delay:0.65s;
                     }
+                    &[data-hidden="true"]{
+                        @extend .opacity-0;
+                    }
+                }
+                &__empty {
+                    @extend .opacity-100;
+                    transition:opacity .4s $cubic32 0.45s;
                 }
             }
             .menu__item {

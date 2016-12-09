@@ -18,7 +18,7 @@
         }
     }
 }
-@each $title, $size, $height in (21, 21px, 29px), (22, 22px, 30px), (42, 42px, 46px), (44, 44px, 48px), (46, 46px, 50px), (48, 48px, 52px){
+@each $title, $size, $height in (10, 10px, 14px), (11, 11px, 15px), (21, 21px, 29px), (22, 22px, 30px), (42, 42px, 46px), (44, 44px, 48px), (46, 46px, 50px), (48, 48px, 52px){
     .fontSize-#{$title} {
         font-size:$size;
         line-height:$height;

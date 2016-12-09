@@ -1,6 +1,6 @@
 <section-packages-select onClick={ $Screen.sections.packages.show } onUpdate="none" class="packages__select">
 
-    <div class="packages__select__value">{ $State.get('package') ? $store.packages.getTitleById($State.get('package')) : 'Пользовательский набор' }</div>
+    <div class="packages__select__value">{ $Options.get('package') ? $store.packages.getTitleById($Options.get('package')) : 'Пользовательский набор' }</div>
     <div class="packages__select__lines"></div>
 
 </section-packages-select>

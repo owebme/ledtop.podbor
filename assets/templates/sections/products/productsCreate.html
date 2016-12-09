@@ -5,6 +5,7 @@
     </div>
     <div class="{ display-none : !product }">
         <div class="product__item mb-m">
+            <div if={ exist.product() } class="product__item__badge">добавлен</div>
             <product-item item={ product }></product-item>
         </div>
         <div class="row mb-m">
@@ -35,8 +36,8 @@
             <textarea class="textarea textarea-m" name="text" placeholder="Описание товара"></textarea>
         </div>
         <div class="inline text-right">
-            <div onClick={ onReset } class="btn btn-m btn-primary-hover mr-s">Отменить</div>
-            <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-disabled : !selectType.value.length || !selectLength.value.length || !selectGroup.value.length, btn-loading: loading }">Добавить товар</div>
+            <div onClick={ onReset } class="btn btn-m btn-primary-hover mr-s">Выбрать другой</div>
+            <div onClick={ onSave } onUpdate="self" class="btn btn-m btn-success { btn-disabled : exist.product() || !selectType.value.length || !selectLength.value.length || !selectGroup.value.length, btn-loading: loading }">Добавить товар</div>
         </div>
     </div>
 
@@ -87,6 +88,19 @@
         }
     };
 
+    $.exist = {
+        product: function(){
+            if ($.product){
+                return $store.products.existItemsByParamsWithoutGroup(
+                    $Products.state.get(), $.product.article
+                );
+            }
+            else {
+                return false;
+            }
+        }
+    };
+
     $.onSave = function(){
         if ($.tags["product-item"].image.getAttribute("src").match(/no_photo/)){
             $Notify.show({
@@ -100,11 +114,10 @@
                 _id: _.newId(),
                 text: _.clean($.text.value)
             }
-            _.extend(item, $.product);        
+            _.extend(item, $.product);
             _.extend(item, $Products.state.get());
 
             app.request('addProducts', item).then(function(){
-                //$store.data.select({"article": item.article}).get().selected = true;
                 $store.products.push(item);
                 $.loading = false;
                 $.onReset();

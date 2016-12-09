@@ -7,6 +7,7 @@ var notify = require('gulp-notify');
 var riot = require('gulp-riot');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var px2vw = require('gulp-px2vw');
 var combiner = require('stream-combiner2').obj;
@@ -66,7 +67,62 @@ gulp.task('libs', function() {
 		.pipe(gulp.dest('js'));
 });
 
-gulp.task('dev', gulp.parallel('css', 'libs'));
+gulp.task('app', function() {
+	gulp.src(['js/components/commons/app.js',
+		'js/components/commons/common.js',
+		'js/components/commons/afterlag.js',
+		'js/components/commons/modules.js',
+		'js/components/commons/utils.js',
+		'js/components/commons/request.js',
+		'js/components/fetch.js',
+		'js/components/config.js',
+		'js/components/router.js',
+		'js/plugins/styles.js',
+		'js/plugins/sortable.js',
+		'js/store/data.js',
+		'js/store/products.js',
+		'js/store/packages.js',
+		'js/store/light.js',
+		'js/store/type.js',
+		'js/store/group.js'])
+		.pipe(concat('app.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('js'));
+});
+
+gulp.task('babel', function() {
+	gulp.src('templates/modules/productsSearch.js')
+		.pipe(babel({
+			presets: ['es2015']
+		}))
+		.pipe(rename("productsSearch.normal.js"))
+		.pipe(gulp.dest('templates/modules'));
+});
+
+gulp.task('templates', function() {
+	gulp.src(['templates/*.html',
+		'templates/**/*.html'])
+		.pipe(riot())
+		.pipe(concat('templates.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('js'));
+});
+
+gulp.task('app.build', function() {
+	gulp.src(['js/libs.js',
+		'js/templates.js',
+		'js/app.js',
+		'js/init.js'])
+		.pipe(concat('app.build.js'))
+		.pipe(gulp.dest('js'));
+});
+
+gulp.task('js.build', gulp.parallel('libs', 'app', 'templates'));
+
+gulp.task('build', gulp.parallel('css', 'app.build'));
+
+gulp.task('dev', gulp.parallel('css', 'js.build'));
+
 
 gulp.watch([
 	'css/style.scss',

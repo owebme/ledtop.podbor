@@ -2,7 +2,7 @@
 
     <div class="products__list__container">
         <div onClick={ hide } onUpdate="none" class="products__list__close">{ app.device.isPhone ? 'закрыть' : 'скрыть' }</div>
-        <div each={ group in $store.group.get().reverse() } no-reorder class="{ display-none : !$store.data.getProductsByGroup(parent.opts.item.get('_id'), group._id).length }">
+        <div each={ group in $store.group.clone().reverse() } no-reorder class="{ display-none : !$store.data.getProductsByGroup(parent.opts.item.get('_id'), group._id).length }">
             <div class="products__list__title">
                 <span if={ group._id == "lux" } class="products__list__stars"><i></i><i></i><i></i></span>
                 <span if={ group._id == "norm" } class="products__list__stars"><i></i><i></i></span>
@@ -68,6 +68,8 @@
     $.onSelect = function(){
         $.selected = null;
 
+        var article = $.product.article;
+
         $store.data.setProduct(this.item);
 
         if ($.opts.item.get("_id") == "ledribbon"){
@@ -77,6 +79,13 @@
         if (app.device.isPhone) $.update();
 
         $.hide();
+
+        if ($Options.get("package") && article && article != this.item.article){
+            $Options.select("package").set();
+            $Screen.sections.packages.update();
+            $Screen.sections.packagesSelect.update();
+        }
+        // $State.select("group").set(this.item.group);
     };
 
     $.toggle = function(){
