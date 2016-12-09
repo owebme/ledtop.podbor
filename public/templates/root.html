@@ -15,7 +15,7 @@
 
     this.ready = false;
 
-    app.ver = "1.02";
+    app.ver = "1.05";
 
     var state = {
         package: null,
@@ -45,9 +45,9 @@
             _.extend(state, Store.get('state'));
             state.showProducts = false;
         }
-        if (Store.get('options') && _.isEmpty($Router.params.get())){
-            _.extend(options, Store.get('options'));
-        }
+        // if (Store.get('options') && _.isEmpty($Router.params.get())){
+        //     _.extend(options, Store.get('options'));
+        // }
     }
     else {
         Store.clear();
@@ -61,9 +61,9 @@
         Store.set('State', $State.get());
     });
 
-    $Options.on("write", function(e){
-        Store.set('options', $Options.get());
-    });
+    // $Options.on("write", function(e){
+    //     Store.set('options', $Options.get());
+    // });
 
     if (app.config.changeStyles){
         app.plugins.styles.init({

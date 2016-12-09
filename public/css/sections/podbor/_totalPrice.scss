@@ -1,30 +1,54 @@
 screen-podbor {
-    .total {
-        @extend .pos-abs;
-        @extend .b0;
-        @extend .l0;
-        @extend .pt-xs;
-        @extend .pb-m;
-        width:calc(100% + 1px);
-        @extend .c-white;
-        @extend .bg-blue;
-        @include flex("column", "center", "center");
+    .section__control {
+        .total {
+            @extend .pos-abs;
+            @extend .b0;
+            @extend .l0;
+            @extend .pt-xs;
+            @extend .pb-m;
+            width:calc(100% + 1px);
+            @extend .c-white;
+            @extend .bg-blue;
+            @include flex("column", "center", "center");
 
-        &__title {
-            @extend .fontSize-28;
-            @extend .fontWeight-5;
-            @extend .mb--xxs;
-            transform:scale3d(1.1, 1, 1);
+            &__equal {
+                @extend .fontSize-28;
+                @extend .fontWeight-5;
+                @extend .mb--xxs;
+                transform:scale3d(1.1, 1, 1);
+            }
+            &__price {
+                @extend .fontFamily-helvetica;
+                @extend .fontSize-18;
+                @extend .fontWeight-5;
+
+                &__rub {
+                    @extend .display-inlineBlock;
+                    @extend .fontFamily-myriad;
+                    transform:scale3d(1.2, 1.1, 1);
+                }
+            }
         }
-        &__price {
-            @extend .fontFamily-helvetica;
-            @extend .fontSize-18;
-            @extend .fontWeight-5;
+    }
+    .menu {
+        .total {
+            @extend .flex-column-centered;
+            @extend .pos-abs;
+            @extend .r--l;
+            @extend .b--xl;
+            @extend .display-block;
+            background-color:rgba($steel,.45);
+            @extend .c-white;
+            @extend .fontSize-32;
+            @extend .borderRadius-circle;
+            @extend .pointerEvents-none;
+            width:242px;
+            height:242px;
+            padding-bottom:60px;
+            @extend .pr-s;
 
-            &__rub {
-                @extend .display-inlineBlock;
-                @extend .fontFamily-myriad;
-                transform:scale3d(1.2, 1.1, 1);
+            &__equal {
+                @extend .fontSize-36;
             }
         }
     }

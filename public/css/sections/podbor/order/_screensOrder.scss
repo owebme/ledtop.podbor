@@ -1,0 +1,83 @@
+.screens__order {
+    @extend .opacity-0;
+    @extend .display-block;
+    @extend .pos-tl;
+    @extend .h100p;
+    @extend .zIndex-6;
+    @extend .c-white;
+    @extend .overflow-hidden;
+    @extend .pointerEvents-none;
+    @extend .visibility-hidden;
+    will-change:opacity;
+    transition:opacity .3s $cubic28, visibility 0s .3s;
+    background-color:rgba(40,47,51,.86);
+    width:calc(100% - 400px);
+
+    &[data-open="true"]{
+        @extend .pointerEvents-all;
+        @extend .visibility-visible;
+        @extend .opacity-100;
+        transition:opacity .3s $cubic28 0.3s, visibility 0s;
+    }
+    &__wrapper {
+        @include accelerate();
+        @include abs();
+        @extend .willChange-transform;
+        transition:transform .75s $cubic345;
+
+        &[data-section="sendmail"]{
+            @extend .transform-default;
+
+            .screens__order__section[data-section="sendmail"]{
+                @extend .opacity-100;
+                @extend .pointerEvents-all;
+            }
+        }
+        &[data-section="form"]{
+            transform:translate3d(0, -100%, 0);
+
+            .screens__order__section[data-section="form"]{
+                @extend .opacity-100;
+                @extend .pointerEvents-all;
+            }
+        }
+        &[data-section="payment"]{
+            transform:translate3d(0, -200%, 0);
+
+            .screens__order__section[data-section="payment"]{
+                @extend .opacity-100;
+                @extend .pointerEvents-all;
+            }
+        }
+        &[data-section="gallery"]{
+            transition:transform .85s $cubic345;
+            transform:translate3d(0, -300%, 0);
+        }
+    }
+    &__section {
+        @include accelerate();
+        @include abs();
+        @extend .opacity-01;
+        transition:opacity .5s ease;
+        @extend .pointerEvents-none;
+
+        &[data-section="sendmail"]{
+            @extend .transform-default;
+        }
+        &[data-section="form"]{
+            transform:translate3d(0, 100%, 0);
+        }
+        &[data-section="payment"]{
+            transform:translate3d(0, 200%, 0);
+        }
+        .rows {
+            @extend .w100p;
+            @extend .pos-centered;
+            @extend .plr-xl;
+            max-width:890px;
+        }
+    }
+    .screen__gallery {
+        transform:translate3d(0, 300%, 0);
+    }
+}

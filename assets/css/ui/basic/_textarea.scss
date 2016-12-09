@@ -39,32 +39,27 @@
     &-xl {
         min-height:180px;
         padding:16px 20px;
-        @extend .lineHeight-l;
-        @extend .fontSize-l;
+        @extend .fontSize-20;
     }
     &-l {
         min-height:150px;
         padding:14px 16px;
-        @extend .lineHeight-m;
-        @extend .fontSize-m;
+        @extend .fontSize-18;
     }
     &-m {
         min-height:120px;
         padding:8px 12px;
-        @extend .lineHeight-m;
-        @extend .fontSize-m;
+        @extend .fontSize-18;
     }
     &-s {
         min-height:100px;
         padding:6px 8px;
-        @extend .lineHeight-s;
-        @extend .fontSize-s;
+        @extend .fontSize-16;
     }
     &-xs {
         min-height:80px;
         padding:6px 8px;
-        @extend .lineHeight-xs;
-        @extend .fontSize-xs;
+        @extend .fontSize-15;
         @extend .borderRadius-xs;
     }
 }

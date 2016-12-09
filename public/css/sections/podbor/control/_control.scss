@@ -11,7 +11,7 @@
     @extend .h100p;
     @extend .bg-white;
     @extend .userSelect-none;
-    @extend .zIndex-10;
+    @extend .zIndex-5;
     // border-right:1px solid #D3DCE6;
     box-shadow:0 1px 2px 0 rgba(31,45,61,.3);
 
@@ -39,15 +39,42 @@
             transform:scale(1.5) rotate(-9deg);
         }
     }
+    control-color {
+        &[data-hidden="true"]{
+            .control__icon {
+                width:62px;
+                height:62px;
+                @extend .bg-cover;
+                background-image:url(/public/images/colors.svg);
+
+                &:after {
+                    @extend .display-none;
+                }
+            }
+        }
+    }
+    control-humidity {
+        .btn-primary {
+            @extend .pointerEvents-none;
+        }
+    }
     .control {
         @extend .display-block;
         @extend .pos-rel;
         @extend .flex-centered;
         @extend .h70;
         @extend .w100p;
-        @extend .mb-l;
+        margin-bottom:45px;
         perspective:200px;
 
+        &[data-hidden="true"]{
+            @extend .pointerEvents-none;
+
+            .control__value,
+            .control__container {
+                @extend .display-none;
+            }
+        }
         input {
             @extend .userSelect-none;
         }
@@ -126,8 +153,19 @@
             &[data-icon="color"]{
                 @extend .w40;
                 @extend .h40;
-                background-color:$emerald;
                 @extend .borderRadius-circle;
+
+                &:after {
+                    @include accelerate(true);
+                    @extend .content-empty;
+                    @extend .pos-abs;
+                    top:-9px;
+                    right:-28px;
+                    width:56px;
+                    height:56px;
+                    @extend .bg-cover;
+                    background-image:url(/public/images/colors_blue.svg);
+                }
             }
             &[data-icon="length"]{
                 @include ui-icon(length, 36px, 56px);
@@ -135,9 +173,9 @@
             &[data-color="white"],
             &[data-color="white|warm_white"],
             &[data-color="white|day_white|warm_white"],
+            &[data-color="warm_white"],
             &[data-color="uni"],
             &[data-color="warm_cool"] {
-                @extend .borderRadius-circle;
                 box-shadow:0 0 0 1px $smokeSilver;
             }
         }
@@ -194,6 +232,8 @@
                 box-shadow:0 12px 20px -10px rgba($smoke, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($smoke, 0.2);
             }
             &[data-active="true"]{
+                @extend .pointerEvents-none;
+
                 &:before {
                     @extend .content-empty;
                     @include abs();

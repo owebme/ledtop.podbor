@@ -47,6 +47,8 @@ screen-podbor {
                     box-shadow:inset 0 0 0 1px $white;
                 }
                 &[data-active="true"]{
+                    @extend .pointerEvents-none;
+                    
                     &:after {
                         @extend .content-empty;
                         @extend .pos-abs;
@@ -99,7 +101,7 @@ screen-podbor {
                 @extend .c-blackDark;
                 background-color:darken($yellow,3%);
                 box-shadow:inset 0 0 0 1px darken($yellow,3%);
-            }            
+            }
         }
     }
 }

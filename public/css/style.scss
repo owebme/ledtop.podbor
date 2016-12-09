@@ -28,6 +28,7 @@
 // modules
 
 @import '../../assets/css/modules/oScreen';
+@import '../../assets/css/modules/screens';
 @import '../../assets/css/modules/tutorial';
 @import '../../assets/css/modules/incompatible';
 
@@ -52,20 +53,24 @@
 @import 'sections/podbor/product';
 @import 'sections/podbor/products';
 @import 'sections/podbor/totalPrice';
-@import 'sections/podbor/order';
+@import 'sections/podbor/order/screensOrder';
+@import 'sections/podbor/order/orderData';
+@import 'sections/podbor/order/orderList';
+@import 'sections/podbor/order/orderProducts';
 @import 'sections/podbor/offerManager';
+@import 'sections/podbor/gallery/gallery';
 
 // Screens Mobile
-@import 'sections/mobile/menu';
-@import 'sections/mobile/begin';
-@import 'sections/mobile/step1';
-@import 'sections/mobile/step2';
-@import 'sections/mobile/podbor/control';
-@import 'sections/mobile/podbor/navbar';
-@import 'sections/mobile/podbor/content';
-@import 'sections/mobile/podbor/product';
-@import 'sections/mobile/podbor/products';
-@import 'sections/mobile/podbor/resultCount';
+// @import 'sections/mobile/menu';
+// @import 'sections/mobile/begin';
+// @import 'sections/mobile/step1';
+// @import 'sections/mobile/step2';
+// @import 'sections/mobile/podbor/control';
+// @import 'sections/mobile/podbor/navbar';
+// @import 'sections/mobile/podbor/content';
+// @import 'sections/mobile/podbor/product';
+// @import 'sections/mobile/podbor/products';
+// @import 'sections/mobile/podbor/resultCount';
 
 // states
 @import '../../assets/css/states/states';

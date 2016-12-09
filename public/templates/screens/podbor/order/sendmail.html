@@ -1,0 +1,39 @@
+<screens-order-sendmail class="screens__order__section" data-section="sendmail">
+
+    <div class="rows">
+        <div class="row order__data">
+            <div class="row mb-xl">
+                <div class="col-sm-14">
+                    <div class="title">Отправить на почту</div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="order__data__tooltip">
+                        <icon-email color="white"></icon-email>
+                        <div class="order__data__tooltip__text">Отправить расчет выбранных компонентов на свой email</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-m">
+                <div class="col-sm-offset-7 col-sm-17">
+                    <div class="pk__select">
+                        <div class="pk__select__title">Пользовательский набор</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-l">
+                <div class="hidden-xs col-sm-7 pt-xs plr-m">
+                    <span class="name">Куда отправить?</span>
+                </div>
+                <div class="col-sm-17">
+                    <ui-input update="email" placeholder="Укажите E-mail" cursor={ $store.order.select() } size="l"></ui-input>
+                </div>
+            </div>
+            <div class="row mb-xl">
+                <div class="col-sm-24">
+                    <button class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Отправить расчет</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</screens-order-sendmail>

@@ -1,0 +1,56 @@
+<screens-order-payment class="screens__order__section" data-section="payment">
+
+    <div class="rows">
+        <div class="row order__data">
+            <div class="row mb-xl">
+                <div class="col-sm-11">
+                    <div class="title">Оплатить заказ</div>
+                </div>
+                <div class="col-sm-13">
+                    <div class="order__data__tooltip">
+                        <icon-wallet color="white"></icon-wallet>
+                        <div class="order__data__tooltip__text">Принимаем основные виды оплат: банковские карты, электронные деньги, интернет банкинг</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-m">
+                <div class="col-sm-offset-7 col-sm-17">
+                    <div class="pk__select">
+                        <div class="pk__select__title">Пользовательский набор</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-m">
+                <div class="hidden-xs col-sm-7 pt-xs plr-m">
+                    <span class="name">Ваше ФИО</span>
+                </div>
+                <div class="col-sm-17">
+                    <ui-input update="name" cursor={ $store.order.select() } size="l"></ui-input>
+                </div>
+            </div>
+            <div class="row mb-l">
+                <div class="hidden-xs col-sm-7 pt-xs plr-m">
+                    <span class="name">Телефон для связи</span>
+                </div>
+                <div class="col-sm-6">
+                    <ui-input update="email" cursor={ $store.order.select() } size="l"></ui-input>
+                </div>
+                <div class="col-sm-4 pt-xs">
+                    <span class="name">и E-mail</span>
+                </div>
+                <div class="col-sm-7">
+                    <ui-input update="phone" cursor={ $store.order.select() } size="l"></ui-input>
+                </div>
+            </div>
+            <div class="row mb-xl">
+                <div class="col-sm-offset-7 col-sm-9 order__data__total">
+                    = { _.numberFormat($Screen.sections.totalPrice.total, 0, "", ",") } ₽
+                </div>
+                <div class="col-sm-8">
+                    <button class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Оплатить заказ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</screens-order-payment>

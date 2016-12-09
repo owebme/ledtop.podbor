@@ -6,12 +6,6 @@ screen-podbor-mobile {
         padding-top:60px;
         @extend .bg-white;
     }
-    .section__menu {
-        .button__close {
-            @extend .opacity-100;
-            @include ui-icon(back_circle, 24px, 34px);
-        }
-    }
 }
 
 @media screen and (max-height: 525px) {

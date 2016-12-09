@@ -1,6 +1,6 @@
 <screen-podbor class="section" data-active="false" data-visible="false" data-animate="true" is-animate="false">
 
-    <offer-manager></offer-manager>
+    <!-- <offer-manager></offer-manager> -->
 
     <div class="wrapper">
 
@@ -26,6 +26,10 @@
     </div>
 
     <section-packages></section-packages>
+
+    <screens-order></screens-order>
+
+    <div class="section__overlay"></div>
 
 <script>
 
@@ -69,6 +73,8 @@
 
         $.sections = {
             packages: $.tags["section-packages"],
+            packagesSelect: $.tags["section-packages-select"],
+            order: $.tags["screens-order"],
             totalPrice: $Control.tags["total-price"]
         };
 
@@ -104,6 +110,7 @@
             $.open.tutorial();
         }
         $Router.params.set($Options.get());
+        $.trigger("ready");
         $.active = true;
     };
 
@@ -121,9 +128,11 @@
         , "pos")[0];
 
         if (pkg){
+            $State.select("package").set(pkg._id);
             $.set.products(pkg);
         }
         else {
+            $State.select("package").set(null);
             $.set.products({
                 "ledribbon": $Cursor.ledribbon.get("products", {"group": group}),
                 "power": $Cursor.power.get("products", {"group": group}),
@@ -146,6 +155,9 @@
         tutorial: function(){
             $Tutorial.show($scope, "podbor");
             $State.set('tutorial', false);
+        },
+        gallery: function(){
+            $Menu.items.open.gallery();
         }
     };
 
@@ -176,12 +188,19 @@
             });
         },
         totalPrice: function(){
-            var result = 0;
-            result += $Cursor.ledribbon.get("product", "price") * $Options.get("length");
-            result += $Cursor.power.get("product", "price")
-            result += $Options.get("control") ? $Cursor.control.get("product", "price") : 0;
+            var result = 0,
+                products = {
+                    ledribbon: $Cursor.ledribbon.get("product", "price"),
+                    power: $Cursor.power.get("product", "price"),
+                    control: $Options.get("control") ? $Cursor.control.get("product", "price") : null
+                };
+
+            result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
+            result += products.power ? products.power : 0;
+            result += products.control ? products.control : 0;
 
             $.sections.totalPrice.refresh(result);
+            $Menu.totalPrice.refresh(result);
         }
     };
 

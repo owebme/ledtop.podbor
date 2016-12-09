@@ -83,6 +83,9 @@
         padding:0 8.5px;
         @extend .borderRadius-s;
     }
+    &-rounded {
+        border-radius:100px;
+    }
     &-upper {
         opacity:0.8;
         @extend .text-uppercase;
@@ -151,6 +154,11 @@
 
         &-color {
             @extend .transition-default;
+        }
+        &-plus {
+            @extend .w20;
+            @extend .h20;
+            padding-top:3px;
         }
     }
     &-badge {

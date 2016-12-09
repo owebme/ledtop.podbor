@@ -1,0 +1,47 @@
+<screens-order class="screens__order" data-open={ active }>
+
+    <div name="wrapper" class="screens__order__wrapper">
+        <screens-order-sendmail></screens-order-sendmail>
+        <screens-order-form></screens-order-form>
+        <screens-order-payment></screens-order-payment>
+        <screens-gallery></screens-gallery>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.on("before-mount", function(){
+        $.sections = {
+            sendmail: $.tags["screens-order-sendmail"],
+            form: $.tags["screens-order-form"],
+            payment: $.tags["screens-order-payment"],
+            gallery: $.tags["screens-gallery"]
+        }
+    });
+
+    $.change = function(section){
+        if (!$.active) $.show();
+
+        $.wrapper.setAttribute("data-section", section);
+
+        if (section == "payment"){
+            $.sections.payment.update();
+        }
+    };
+
+    $.show = function(){
+        $.active = true;
+        $.root.setAttribute("data-open", true);
+    };
+
+    $.hide = function(){
+        $.active = false;
+        $.root.setAttribute("data-open", false);
+    };
+
+</script>
+
+</screens-order>

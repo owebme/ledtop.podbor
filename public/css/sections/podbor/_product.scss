@@ -41,7 +41,7 @@ screen-podbor {
                 @extend .mlr-auto;
                 @extend .mb-m;
                 @extend .mt--l;
-                background-image:url(/assets/images/ir_gray.svg);
+                background-image:url(/public/images/ir_gray.svg);
 
                 &:after {
                     @extend .content-empty;
@@ -216,6 +216,9 @@ screen-podbor {
             &__icon {
                 @include ui-icon("sizes_gray", 30px, 30px);
             }
+            &[data-hidden="true"]{
+                @extend .display-none;
+            }
         }
         &__item {
             @extend .w100p;
@@ -262,12 +265,19 @@ screen-podbor {
                         transition:transform 0.35s $cubic32 0.3s, opacity 0.35s $cubic32 0.3s;
                     }
                 }
+                &[data-selected="true"]{
+                    &:after {
+                        @extend .opacity-100;
+                        @extend .transition-none;
+                    }
+                }
             }
         }
         &__content {
             @include accelerate();
             @extend .display-block;
             @extend .w100p;
+            @extend .h100p;
             will-change:filter;
             transition:filter 0.5s $cubic32;
         }
@@ -355,13 +365,21 @@ screen-podbor {
         @extend .h60;
         margin-left:-30px;
         @extend .borderRadius-circle;
-        @extend .bg-silver;
         @extend .zIndex-3;
         @extend .cursor-pointer;
-        will-change:background-color, transform, opacity;
-        transition:background-color .5s $bounce, transform 0.2s $cubic645, opacity 0.5s $cubic089;
+        will-change:opacity;
+        transition:opacity 0.5s $cubic089;
 
+        &:before {
+            @include abs();
+            @extend .content-empty;
+            @extend .bg-silver;
+            @extend .borderRadius-circle;
+            will-change:background-color, transform;
+            transition:background-color .5s $bounce, transform 0.08s $cubic645;
+        }
         &:after {
+            @extend .pos-rel;
             @extend .content-empty;
             @extend .display-block;
             @include ui-icon(plus_thin_white, 32px, 32px);
@@ -370,21 +388,25 @@ screen-podbor {
             transition:transform .5s $bounce;
         }
         &[data-active="true"]{
-            @extend .bg-blue;
-
+            &:before {
+                @extend .bg-blue;
+            }
             &:after {
                 transform:rotate(0deg);
             }
             &:hover {
-                @extend .bg-silver;
-
+                &:before {
+                    @extend .bg-silver;
+                }
                 &:after {
                     transform:rotate(45deg);
                 }
             }
         }
         &:active {
-            transform:translate3d(0, -50%, 0) scale(0.95);
+            &:before {
+                transform:scale(0.95);
+            }
         }
         &[data-hidden="true"]{
             @extend .opacity-0;

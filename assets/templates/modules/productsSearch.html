@@ -26,8 +26,10 @@
 		if (!opts.tags.options) opts.tags.options = []
 
 		const handleClickOutside = e => {
-			if (!this.root.contains(e.target)) this.close()
-			this.update()
+			if (!this.root.contains(e.target) && opts.tags.isvisible){
+                this.close()
+			    this.update()
+            }
 		}
 
 		const applyFieldText = () => {

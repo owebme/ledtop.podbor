@@ -1,0 +1,126 @@
+.screen__gallery {
+    @extend .display-block;
+    @include abs();
+
+    &__image {
+        @include abs();
+        @extend .bg-cover;
+
+        &:after {
+            @extend .content-empty;
+            @include abs();
+            background:radial-gradient(rgba(64,64,75,.9), rgba(17,17,24,.9)) rgba(34,34,40,.52);
+            @extend .opacity-15;
+        }
+    }
+    &__like {
+        @extend .pos-abs;
+        @extend .t-m;
+        @extend .l-m;
+        @include ui-icon("like_fill_white", 37px, 37px);
+        margin:11px;
+        @extend .btn-active;
+        @extend .btn-hover;
+        @extend .opacity-60;
+    }
+    &__nav {
+        @extend .pos-abs;
+        bottom:140px;
+        @extend .l0;
+        @extend .w100;
+
+        &:before {
+            @extend .content-empty;
+            @extend .pos-abs;
+            @extend .t50;
+            @extend .l0;
+            @extend .w100p;
+            @extend .h1px;
+            @extend .bg-white;
+            @extend .opacity-20;
+        }
+        &__button {
+            @extend .pos-rel;
+            @extend .flex-centered;
+            @extend .h75;
+            background-color:rgba($blackDark,.2);
+            @extend .btn-active;
+
+            &:after {
+                @extend .content-empty;
+                @extend .display-block;
+                @include ui-icon("arrowRight_white", 38px, 38px);
+            }
+            &[data-arrow="up"]:after {
+                transform:rotate(-90deg);
+            }
+            &[data-arrow="down"]:after {
+                transform:rotate(90deg);
+            }
+            &.i-disabled {
+                @extend .opacity-40;
+                @extend .pointerEvents-none;
+            }
+            &[name="navPrev"].i-disabled ~ .screen__gallery__nav__button .screen__gallery__nav__title {
+                @extend .display-block;
+            }
+        }
+        &__title {
+            @extend .display-none;
+            @extend .pos-centered-v;
+            @extend .l100;
+            @extend .pl-m;
+            @extend .fontSize-15;
+            @extend .fontWeight-3;
+            @extend .c-yellow;
+            @extend .text-uppercase;
+        }
+    }
+    &__content {
+        @extend .c-white;
+        @extend .pos-bl;
+        @extend .w100p;
+        height:140px;
+        background:linear-gradient(to top, #070707, rgba(#070707,.0));
+        @extend .zIndex-1;
+
+        &:before {
+            @extend .content-empty;
+            @include abs();
+            @extend .bg-blackDark;
+            @extend .opacity-10;
+        }
+        &:after {
+            @extend .content-empty;
+            @extend .pos-tl;
+            @extend .w100p;
+            @extend .h1px;
+            @extend .bg-white;
+            @extend .opacity-20;
+        }
+    }
+    .rows {
+        @extend .pl-xl;
+        @extend .pr-l;
+    }
+    &__cell {
+        @extend .flex-row-left-center;
+        height:140px;
+        @extend .pb-xxs;
+    }
+    &__title {
+        @extend .pl-m;
+        @extend .fontSize-28;
+        @extend .fontWeight-3;
+    }
+    .btn {
+        @extend .c-yellow;
+        box-shadow:0 0 0 1px $yellow;
+        background:linear-gradient(to top, rgba($yellow,.06), rgba($yellow,0));
+
+        &:hover {
+            background:$green;
+            color:$white;
+        }
+    }
+}

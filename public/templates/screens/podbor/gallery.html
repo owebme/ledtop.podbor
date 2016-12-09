@@ -1,0 +1,48 @@
+<screens-gallery class="screen__gallery">
+
+    <div name="screens" class="screens screens-desktop">
+
+        <div each={ item in _.range(1, 7) } class="screen__gallery__image" data-marquee="{ item }" style="background-image:url(/public/images/gallery/slide{ item }.jpg)"></div>
+
+        <div class="screen__gallery__content">
+            <div class="rows">
+                <div class="col-md-15 screen__gallery__cell">
+                    <div class="screen__gallery__title">Одноцветная подсветка потолка</div>
+                </div>
+                <div class="col-md-9 screen__gallery__cell">
+                    <button class="btn btn-white-hover btn-xl btn-rounded">Хочу такую подсветку!</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="screen__gallery__like"></div>
+
+    <div class="screen__gallery__nav">
+        <div name="navPrev" class="screen__gallery__nav__button i-disabled" data-arrow="up"></div>
+        <div name="navNext" class="screen__gallery__nav__button" data-arrow="down">
+            <div class="screen__gallery__nav__title">Следующий</div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.on("mount", function(){
+        $.screens = new app.plugins.screens($.screens, {
+            screens: '.screen__gallery__image',
+            navPrev: $$($.navPrev),
+            navNext: $$($.navNext),
+            vertical: app.device.isPhone ? false : true,
+            duration: app.device.isPhone ? 375 : 600,
+        });
+        $Screen.on("ready", function(){
+            $.screens.init();
+        });
+    });
+
+</script>
+
+</screens-gallery>

@@ -50,29 +50,29 @@ screen-step1 {
         }
         &[data-column="1"] {
             &:before {
-                background-image:url(/assets/images/foto1.jpg);
+                background-image:url(/public/images/light/foto1.jpg);
             }
             .column__content:before {
-                background-image:url(/assets/images/foto1.jpg);
+                background-image:url(/public/images/light/foto1.jpg);
             }
         }
         &[data-column="2"] {
             &:before {
-                background-image:url(/assets/images/foto2.jpg);
+                background-image:url(/public/images/light/foto2.jpg);
             }
             .column__content {
                 @extend .mt-xl;
             }
             .column__content:before {
-                background-image:url(/assets/images/foto2.jpg);
+                background-image:url(/public/images/light/foto2.jpg);
             }
         }
         &[data-column="3"] {
             &:before {
-                background-image:url(/assets/images/foto3.jpg);
+                background-image:url(/public/images/light/foto3.jpg);
             }
             .column__content:before {
-                background-image:url(/assets/images/foto3.jpg);
+                background-image:url(/public/images/light/foto3.jpg);
             }
             .column__content {
                 margin-top:-20px;

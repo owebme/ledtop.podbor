@@ -1,4 +1,4 @@
-<control-humidity class="control" data-active={ active }>
+<control-humidity class="control" data-active={ active } data-hidden={ !$Options.get('hum') }>
 
     <div onClick={ toggle } onUpdate="none" class="control__value">{ $Options.get('hum') }</div>
     <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="humidity"></div>
@@ -70,6 +70,19 @@
             active: false
         })
     };
+
+    $.handleClickOutside = function(e){
+        if (!$.root.contains(e.target)) $.hide();
+    };
+
+    $.on("updated", function(){
+        if ($.active){
+            document.addEventListener('click', $.handleClickOutside);
+        }
+        else {
+            document.removeEventListener('click', $.handleClickOutside)
+        }
+    });  
 
 </script>
 

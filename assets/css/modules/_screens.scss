@@ -14,7 +14,6 @@
         will-change:transform, opacity;
         transform-origin:0% 50%;
         transition:transform 0.5s $cubic40, opacity 0.5s $cubic40;
-        @extend .zIndex-1;
 
         &[data-hidden="true"] {
             @extend .opacity-50;
@@ -47,7 +46,7 @@
     .vertical__space,
     .horizontal__space {
         @extend .pos-tl;
-        @extend .w100p;
+        width:100%;
     }
     .horizontal__space {
         top:-200%;

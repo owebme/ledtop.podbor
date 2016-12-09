@@ -7,7 +7,7 @@
     <div class="packages__header anim-group1 anim-tb-soft" duration-show="l" duration-hide="none" delay-show="xs">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div  class="col-md-8">
                     <div class="packages__title">Эконом</div>
                 </div>
                 <div class="col-md-8">
@@ -23,32 +23,14 @@
     <div class="packages__content anim-group1 anim-bt-soft" duration-show="m" duration-hide="none" delay-show="xs">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 packages__list" data-package="econom">
+                <div each={ group in $store.group.get() } no-reorder class="col-md-8 packages__list" data-package="{ group._id }">
                     <div class="packages__list__items">
-                        <div onClick={ select } onUpdate="none" each={ item in items1 } class="packages__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
-                            <div class="packages__list__item" data-active={ package == item._id }>
+                        <div onClick={ select } onUpdate="none" each={ item in get.list(group._id) } no-reorder class="packages__list__item__container" data-balloon={ item.text } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
+                            <div class="packages__list__item" data-active={ $State.get('package') == item._id }>
                                 { item.title }
-                                <div class="packages__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 packages__list" data-package="norm">
-                    <div class="packages__list__items">
-                        <div onClick={ select } onUpdate="none" each={ item in items2 } class="packages__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
-                            <div class="packages__list__item" data-active={ package == item._id }>
-                                { item.title }
-                                <div class="packages__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 packages__list" data-package="lux">
-                    <div class="packages__list__items">
-                        <div onClick={ select } onUpdate="none" each={ item in items3 } class="packages__list__item__container" data-balloon={ item.tooltip } data-balloon-fontSize="small" data-balloon-length="large" data-balloon-color="blue" data-balloon-pos="down">
-                            <div class="packages__list__item" data-active={ package == item._id }>
-                                { item.title }
-                                <div class="packages__list__item__price">{ _.numberFormat(item.price, 0, "", ",") } ₽</div>
+                                <div class="packages__list__item__price">
+                                    { _.numberFormat(get.price(item._id), 0, "", ",") } ₽
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,34 +43,48 @@
 
     var $ = this;
 
-    $.package = "1";
-
-    $.on("before-mount", function(){
-        var id = 1;
-
-        for(var i=1; i < 4; i++){
-            $["items" + i] = [];
-            for(var j=1; j < _.random(3, 6); j++){
-                var item = {
-                    _id: id,
-                    title: "Одноцветная подсветка #" + j,
-                    price: _.random(5000, 15000),
-                    tooltip: "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
-                }
-                $["items" + i].push(item);
-                id++;
-            }
-        }
-    });
-
     $.show = function(){
         $.update({
             active: true
         })
     };
 
+    $.get = {
+        list: function(group){
+            var options = {
+                "group": group,
+                "light": $Options.get("light"),
+                "length": $Options.get("length")
+            }
+            var items = _.sortArray(
+                $store.packages.getItemsByParams(options)
+            , "pos");
+
+            return items;
+        },
+        price: function(id){
+            return $store.packages.getPrice(id, $Options.get("length"));
+        }
+    };
+
     $.select = function(){
-        $.package = this.item._id;
+        var pk = $store.packages.getItemById(this.item._id);
+
+        $State.select("package").set(this.item._id);
+
+        $Screen.set.products({
+            "ledribbon": pk.ledribbon,
+            "power": pk.power,
+            "control": pk.control
+        });
+
+        $Control.refresh.humidity();
+        $Control.refresh.color();
+
+        $Screen.set.totalPrice();
+
+        $Screen.update();
+
         $.hide();
     };
 

@@ -1,0 +1,63 @@
+<section-menu class="menu">
+
+    <div class="menu__wrapper">
+        <div onClick={ show } onUpdate="none" class="menu__item menu__opener">
+            <div class="menu__opener__line"></div>
+            <div class="menu__opener__line"></div>
+            <div class="menu__opener__line"></div>
+        </div>
+        <div onClick={ hide } onUpdate="none" class="menu__close"></div>
+        <div class="menu__contacts">
+            <div class="menu__contacts__text">
+                <div class="menu__contacts__title">Компания ООО «ЛИДЕР»</div>
+                <div class="menu__contacts__phone">8 800 500 65 78</div>
+            </div>
+            <a class="menu__contacts__link" target="_blank" rel="noopener" href="http://ledtop-shop.ru/pages/contacts">контакты</a>
+        </div>
+        <div onClick={ $Screen.open.tutorial } onUpdate="none" class="menu__item menu__item__help" data-balloon="Обзор интерфейса" data-balloon-pos="left">
+            <icon-help size="l"></icon-help>
+        </div>
+        <total-price></total-price>
+    </div>
+
+    <menu-items></menu-items>
+
+    <order-list></order-list>
+
+    <div class="menu__footer__text">Мы осуществляем доставку во все регионы России</div>
+
+<script>
+
+    var $ = this;
+
+    $.orderMode = false;
+
+    $.on("before-mount", function(){
+        $.orderList = $.tags["order-list"];
+        $.items = $.tags["menu-items"];
+        $.totalPrice = $.tags["total-price"];
+    });
+
+    $.show = function(){
+        document.addEventListener('click', $.handleClickOutside);
+        $Screen.root.setAttribute("data-menu", true);
+    };
+
+    $.hide = function(){
+        document.removeEventListener('click', $.handleClickOutside)
+        $Screen.root.setAttribute("data-menu", false);
+
+        if ($.orderMode){
+            $.orderMode = false;
+            $Screen.sections.order.hide();
+            $.root.setAttribute("data-order", false);
+        }
+    };
+
+    $.handleClickOutside = function(e){
+        if (!$.root.contains(e.target) && !$.orderMode) $.hide();
+    };
+
+</script>
+
+</section-menu>

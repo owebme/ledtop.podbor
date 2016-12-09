@@ -14,6 +14,7 @@
     &[data-overlay="true"]{
         .section__overlay {
             @extend .opacity-100;
+			@extend .pointerEvents-all;
             @extend .visibility-visible;
             transition:opacity 0.3s $cubic28;
         }

@@ -5,7 +5,7 @@ screen-step2 {
         @extend .pointerEvents-none;
         @extend .opacity-0;
         will-change:opacity;
-        transition:visibility 0s 0.5s, opacity 0.5s $cubic28;    
+        transition:visibility 0s 0.5s, opacity 0.5s $cubic28;
     }
     .tooltip {
         @include accelerate(true);
@@ -24,14 +24,14 @@ screen-step2 {
             .tooltip__icon:after {
                 width:48px;
                 height:48px;
-                background-image:url(/assets/images/power_supply_mini_white.svg);
+                background-image:url(/public/images/packages/power_supply_mini_white.svg);
             }
         }
         &[data-tooltip="led"]{
             .tooltip__icon:after {
                 width:62px;
                 height:62px;
-                background-image:url(/assets/images/led_white.svg);
+                background-image:url(/public/images/packages/led_white.svg);
                 @extend .mt-s;
             }
         }
@@ -39,7 +39,7 @@ screen-step2 {
             .tooltip__icon:after {
                 width:128px;
                 height:128px;
-                background-image:url(/assets/images/ledribbon_white.svg);
+                background-image:url(/public/images/packages/ledribbon_white.svg);
                 @extend .mt-m;
             }
         }
@@ -47,14 +47,14 @@ screen-step2 {
             .tooltip__icon:after {
                 width:36px;
                 height:46px;
-                background-image:url(/assets/images/humidity_white.svg);
+                background-image:url(/public/images/packages/humidity_white.svg);
             }
         }
         &[data-tooltip="ir-control"]{
             .tooltip__icon:after {
                 width:64px;
                 height:64px;
-                background-image:url(/assets/images/ir_white.svg);
+                background-image:url(/public/images/packages/ir_white.svg);
                 @extend .mb-xxs;
             }
         }

@@ -1,0 +1,91 @@
+.order__data {
+    @extend .pr-l;
+
+    .title {
+        @extend .fontSize-32;
+        @extend .fontWeight-3;
+    }
+    .name {
+        @extend .display-block;
+        @extend .opacity-80;
+        @extend .fontSize-20;
+        @extend .fontWeight-3;
+        @extend .text-right;
+        @extend .pr-xxs;
+    }
+    .input,
+    .textarea {
+        @extend .c-white;
+        @extend .bg-transparent;
+        box-shadow:0 0 0 1px rgba($white,.3);
+
+        &:hover {
+            box-shadow:0 0 0 1px rgba($white,.5);
+        }
+        &:focus {
+            background-color:rgba($white,.04);
+            box-shadow:0 0 0 1px rgba($lime,.8), 0 12px 20px -10px rgba($lime, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($lime, 0.2);
+        }
+    }
+    .input {
+        padding-bottom:1px;
+    }
+    &__tooltip {
+        @extend .pos-rel;
+
+        &:before,
+        .icon {
+            @extend .pos-abs;
+            @extend .t0;
+            @extend .r100;
+            @extend .content-empty;
+            @extend .display-block;
+            @extend .bg-cover;
+        }
+        icon-email {
+            transform:translate3d(-15px, -15px, 0);
+        }
+        .icon-email {
+            width:68px;
+            height:68px;
+        }
+        icon-wallet {
+            transform:translate3d(0, -20px, 0);
+        }
+        .icon-wallet {
+            width:86px;
+            height:86px;
+        }
+        &[data-icon="secret"]:before {
+            @extend .trX--s;
+            width:48px;
+            height:48px;
+            background-image:url(/public/images/order_secret.svg);
+        }
+        &__text {
+            @extend .opacity-80;
+            @extend .fontWeight-3;
+            @extend .pb-xss;
+        }
+    }
+    .pk__select {
+        @extend .flex-row-left-center;
+        @extend .fontSize-20;
+
+        &:before {
+            @extend .content-empty;
+            @extend .display-block;
+            @include ui-icon("check_white", 40px, 40px);
+            @extend .mr-s;
+        }
+        &__title {
+            max-width:calc(100% - 80px);
+            @extend .text-truncate;
+        }
+    }
+    &__total {
+        @extend .fontSize-28;
+        padding-top:12px;
+        @extend .text-right;
+    }
+}

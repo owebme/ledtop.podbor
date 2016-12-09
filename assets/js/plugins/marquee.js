@@ -471,26 +471,26 @@ app.plugins.marquee = function($frame, settings){
 		$scroll.find('.iScrollIndicator').addClass('ui-scroll__handle').prepend('<div class="ui-scroll__handle__inner" />');
 	};
 	// {event} click on prev
-	if (settings.navPrev) settings.navPrev.on(app.events.click, function(){
-		marquee.prev();
+	if (settings.navPrev) settings.navPrev.on('click', function(){
+		marquee.prev(app.device.isPhone ? 500 : 700);
 	});
 	// {event} click on next
-	if (settings.navNext) settings.navNext.on(app.events.click, function(){
-		marquee.next();
+	if (settings.navNext) settings.navNext.on('click', function(){
+		marquee.next(app.device.isPhone ? 500 : 700);
 	});
 	// {event} enable keyboard
-	var keyboardEventName = 'keydown.marquee-' + (name ? name : '') + (settings.vertical ? 'v' : 'h');
+	var keyboardEventName = 'keydown.marquee-' + String(Math.round(new Date().getTime() / 1000)) + (settings.vertical ? 'v' : 'h');
 	marquee.enableKeyboard = function(){
-		if (!app.device.support.touch) $document.on(keyboardEventName, function(e){
+		if (!app.device.support.touch) app.$dom.document.on(keyboardEventName, function(e){
 			if (!$(e.target).is('input,textarea,select')) {
-				if (e.which==(settings.vertical ? 38 : 37)) marquee.prev();
-				if (e.which==(settings.vertical ? 40 : 39)) marquee.next();
+				if (e.which==(settings.vertical ? 38 : 37)) marquee.prev(app.device.isPhone ? 500 : 700);
+				if (e.which==(settings.vertical ? 40 : 39)) marquee.next(app.device.isPhone ? 500 : 700);
 			}
 		});
 	};
 	// {event} disable keyboard
 	marquee.disableKeyboard = function(){
-		if (!app.device.support.touch) $document.off(keyboardEventName);
+		if (!app.device.support.touch) app.$dom.document.off(keyboardEventName);
 	};
 
 	marquee.scroll = scroll;

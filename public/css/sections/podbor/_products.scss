@@ -40,12 +40,13 @@ screen-podbor-mobile {
         &__item {
             @extend .pos-rel;
             @extend .flex-centered;
-            @extend .plr-m;
+            @extend .plr0;
             @extend .h80;
             @extend .cursor-default;
 
             &__image {
                 @extend .display-block;
+                @extend .h-auto;
                 max-height:60px;
             }
             &:not([data-active="true"]):before {
@@ -95,7 +96,7 @@ screen-podbor-mobile {
         @extend .bg-white;
         @extend .c-blue;
         @extend .fontSize-32;
-        @extend .zIndex-3;
+        @extend .zIndex-4;
 
         &__text {
             @extend .pos-centered;
@@ -222,7 +223,7 @@ screen-podbor {
         }
         .product[data-product="power"] {
             .products__list__item__image {
-                max-width:90px;
+                max-width:85px;
             }
         }
         .product[data-product="control"] {

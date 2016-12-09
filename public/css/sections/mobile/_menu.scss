@@ -26,6 +26,10 @@
     //     @extend .fontWeight-8;
     //     @extend .text-uppercase;
     // }
+    .button__close {
+        @extend .opacity-100;
+        @include ui-icon(back_circle, 24px, 34px);
+    }    
     &__item {
         @extend .pos-rel;
         @include flex("row", "flex-start", "center");

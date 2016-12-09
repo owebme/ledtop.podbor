@@ -36,7 +36,7 @@
         function(){
             return {
                 figure: "square",
-                target: "product-item[data-product='power-supply']",
+                target: "product-item[data-product='power']",
                 position: "left",
                 padding: 30,
                 actions: {
@@ -51,7 +51,7 @@
         function(){
             return {
                 figure: "circle",
-                target: "product-item[data-product='power-supply'] .connect__control",
+                target: "product-item[data-product='power'] .connect__control",
                 position: "left",
                 padding: 30,
                 activeZone: true,
@@ -81,20 +81,20 @@
         function(){
             return {
                 figure: "square",
-                target: "control-humidity",
+                target: "control-length",
                 position: "right",
-                width: 380,
+                width: 400,
                 height: 170,
                 offset: {
                     top: -67
                 },
                 actions: {
                     toggle: function($target){
-                        $Control.humidity.toggle();
+                        $Control.length.toggle();
                     }
                 },
-                title: "Влагозащищенность",
-                text: "Выбор влагозащищенности ваших компонентов от брызгов воды или попадания под струю воды."
+                title: "Длина ленты",
+                text: "Один из наиболее важных параметров. Измерьте требуемую длину для светодиодной ленты. Изменив, длину вы получите новые предложения по всем компонентам, максимально отвечающим вашим новым требованиям."
             }
         },
         function(){
@@ -115,24 +115,24 @@
                 title: "Цвет освещения",
                 text: "Вы можете выбрать нужный вам цвет вашего освещения."
             }
-        },
+        },             
         function(){
             return {
                 figure: "square",
-                target: "control-length",
+                target: "control-humidity",
                 position: "right",
-                width: 400,
+                width: 380,
                 height: 170,
                 offset: {
                     top: -67
                 },
                 actions: {
                     toggle: function($target){
-                        $Control.length.toggle();
+                        $Control.humidity.toggle();
                     }
                 },
-                title: "Длина ленты",
-                text: "Один из наиболее важных параметров. Измерьте требуемую длину для светодиодной ленты. Изменив, длину вы получите новые предложения по всем компонентам, максимально отвечающим вашим новым требованиям."
+                title: "Влагозащищенность",
+                text: "Выбор влагозащищенности ваших компонентов от брызгов воды или попадания под струю воды."
             }
         },
         function(){
@@ -190,16 +190,16 @@
                 title: "Заказать звонок",
                 text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
             }
-        },
-        function(){
-            return {
-                figure: "circle",
-                target: "section-menu .menu__item[data-item='votes']",
-                position: "left",
-                title: "Оценить сервис",
-                text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-            }
         }
+        // function(){
+        //     return {
+        //         figure: "circle",
+        //         target: "section-menu .menu__item[data-item='votes']",
+        //         position: "left",
+        //         title: "Оценить сервис",
+        //         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        //     }
+        // }
     ];
 
 })(app);

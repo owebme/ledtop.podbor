@@ -5,7 +5,7 @@
     <div name="msgBox" class="tutorial__message__wrapper" style="{ message.style }">
         <div name="msgElem" class="tutorial__message" data-position="{ message.position }" data-active="false">
             <p class="pos-tr p-m c-grayLight fontSize-m">Шаг { num } из { steps.get().length }</p>
-            <h3 class="tutorial__message__title">{ message.title }</h3>
+            <div class="tutorial__message__title">{ message.title }</div>
             <p class="tutorial__message__text">{ message.text }</p>
             <div class="fontSize-0">
                 <button onClick={ nextStep } onUpdate="none" class="btn btn-m { endShow ? 'btn-success' : 'btn-default-hover-success' } mr-xs">

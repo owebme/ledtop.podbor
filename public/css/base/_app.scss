@@ -1,6 +1,7 @@
 #app {
 	@extend .display-block;
 	@extend .pos-abs-full;
+	perspective:500px;
 }
 #loader {
 	@extend .loader;

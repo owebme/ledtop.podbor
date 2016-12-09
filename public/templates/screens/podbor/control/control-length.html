@@ -26,6 +26,19 @@
         })
     };
 
+    $.handleClickOutside = function(e){
+        if (!$.root.contains(e.target)) $.hide();
+    };
+
+    $.on("updated", function(){
+        if ($.active){
+            document.addEventListener('click', $.handleClickOutside);
+        }
+        else {
+            document.removeEventListener('click', $.handleClickOutside)
+        }
+    });   
+
 </script>
 
 </control-length>

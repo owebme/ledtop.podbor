@@ -33,7 +33,12 @@
     $.on("mount", function(){
         if (!app.device.isMobile){
             $scope.on("mouseenter mouseleave", ".products__list__item", function(e){
-                if (e.currentTarget.getAttribute("data-active") != "true"){
+                if (e.currentTarget.getAttribute("data-active") == "true"){
+                    if (e.type === "mouseenter"){
+                        $Product[$State.get("showProducts")].update();
+                    }
+                }
+                else {
                     if (e.type === "mouseenter"){
                         $.product = _.copyArray($.opts.item.get("product"));
                         var item = $.opts.item.get("products", {"article": e.currentTarget.getAttribute("data-id")})
@@ -110,8 +115,10 @@
             $State.set("showProducts", $.opts.item.get("_id"));
         }
         else {
+            var type = $State.get("showProducts");
             $Product["power"].tags["connect-control"].show();
             $State.set("showProducts", false);
+            $Product[type].update();
         }
     };
 
