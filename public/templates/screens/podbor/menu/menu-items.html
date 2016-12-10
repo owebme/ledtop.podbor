@@ -6,7 +6,7 @@
         </div>
         <div class="menu__item__title">Отправить расчет на почту</div>
     </div>
-    <div onClick={ open.form } class="menu__item" data-active={ section === "form" } data-balloon="Отправить предзаказ" data-balloon-pos="left">
+    <div onClick={ open.order } class="menu__item" data-active={ section === "order" } data-balloon="Отправить предзаказ" data-balloon-pos="left">
         <div class="menu__item__icon">
             <icon-order></icon-order>
         </div>
@@ -32,27 +32,27 @@
     $.section = null;
 
     $.open = {
-        form: function(){
-            $Screen.sections.order.change("form");
-            $.section = "form";
-            if (!$.parent.orderMode) $.open.order();
+        order: function(){
+            $Screen.sections.order.change("order");
+            $.section = "order";
+            if (!$.parent.orderMode) $.open.section();
         },
         sendmail: function(){
             $Screen.sections.order.change("sendmail");
             $.section = "sendmail";
-            if (!$.parent.orderMode) $.open.order();
+            if (!$.parent.orderMode) $.open.section();
         },
         payment: function(){
             $Screen.sections.order.change("payment");
             $.section = "payment";
-            if (!$.parent.orderMode) $.open.order();
+            if (!$.parent.orderMode) $.open.section();
         },
         gallery: function(){
             $Screen.sections.order.change("gallery");
             $.section = "gallery";
-            if (!$.parent.orderMode) $.open.order();
+            if (!$.parent.orderMode) $.open.section();
         },
-        order: function(){
+        section: function(){
             $.parent.show();
             $.parent.orderMode = true;
             $.parent.root.setAttribute("data-order", true);

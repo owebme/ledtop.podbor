@@ -7,7 +7,7 @@ var notify = require('gulp-notify');
 var riot = require('gulp-riot');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
-var babel = require('gulp-babel');
+var cached = require('gulp-cached');
 var concat = require('gulp-concat');
 var px2vw = require('gulp-px2vw');
 var combiner = require('stream-combiner2').obj;
@@ -30,6 +30,7 @@ browserSync.init({
 gulp.task('css', function() {
 	return combiner(
 		gulp.src('css/style.scss'),
+		cached('sass'),
 		sass(),
 		csso(),
 		autoprefixer({
@@ -88,15 +89,6 @@ gulp.task('app', function() {
 		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('js'));
-});
-
-gulp.task('babel', function() {
-	gulp.src('templates/modules/productsSearch.js')
-		.pipe(babel({
-			presets: ['es2015']
-		}))
-		.pipe(rename("productsSearch.normal.js"))
-		.pipe(gulp.dest('templates/modules'));
 });
 
 gulp.task('templates', function() {

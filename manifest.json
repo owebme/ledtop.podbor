@@ -2,23 +2,23 @@
   "name": "Ledtop.Подсветка",
   "short_name": "Подсветка",
   "icons": [{
-    "src": "http://fantasy.co/build/images/favicons/32.png",
+    "src": "/assets/images/logotype.svg",
     "sizes": "32x32",
-    "type": "image/png"
+    "type": "xml/svg"
   }, {
-    "src": "http://fantasy.co/build/images/favicons/60.png",
+    "src": "/assets/images/logotype.svg",
     "sizes": "60x60",
-    "type": "image/png"
+    "type": "xml/svg"
   }, {
-    "src":"http://fantasy.co/build/images/favicons/76.png",
+    "src": "/assets/images/logotype.svg",
     "sizes": "76x76",
-    "type": "image/png"
+    "type": "xml/svg"
   }, {
-    "src": "http://fantasy.co/build/images/favicons/120.png",
+    "src": "/assets/images/logotype.svg",
     "sizes": "120x120",
-    "type": "image/png"
+    "type": "xml/svg"
   }],
-  "start_url": "/podbor/#podbor",
+  "start_url": "/#podbor",
   "display": "standalone",
   "background_color": "#fff",
   "theme_color": "#333",

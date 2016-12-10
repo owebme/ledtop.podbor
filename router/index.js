@@ -17,10 +17,6 @@ module.exports = function(app){
         res.render('private');
     });
 
-    // app.get('/private/', app.checkAuth('/login'), function(req, res) {
-    //     res.render('private');
-    // });
-
     require(process.cwd() + '/assets/API')(app);
     require(process.cwd() + '/public/API')(app);
 }

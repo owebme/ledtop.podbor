@@ -1,17 +1,15 @@
 .loader-ajax {
     @extend .flex-centered;
     @extend .pointerEvents-none;
-    @extend .pos-abs;
+    @extend .pos-fixed;
     @extend .t-s;
     @extend .l-l;
-    @extend .opacity-01;
-    @extend .visibility-hidden;
+    @extend .opacity-0;
     will-change:opacity;
     @extend .zIndex-100;
 
     &[data-show="true"]{
         @extend .opacity-100;
-        @extend .visibility-visible;
         transition:opacity 0s 0.1s;
 
         .loader-ajax-spinner {

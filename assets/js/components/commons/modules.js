@@ -138,19 +138,19 @@
 		}, false);
 	}
 
-	if (!device.isMobile){
-		var timer, body = $dom.body[0];
-		$dom.window[0].addEventListener('scroll', function(){
-			clearTimeout(timer);
-			if (!body.getAttribute("class") || !body.getAttribute("class").match(/disable__hover/)){
-				body.classList.add('disable__hover');
-			}
-
-			timer = setTimeout(function(){
-				body.classList.remove('disable__hover')
-			}, 300);
-		}, false);
-	}
+	// if (!device.isMobile){
+	// 	var timer, body = $dom.body[0];
+	// 	$dom.window[0].addEventListener('scroll', function(){
+	// 		clearTimeout(timer);
+	// 		if (!body.getAttribute("class") || !body.getAttribute("class").match(/disable__hover/)){
+	// 			body.classList.add('disable__hover');
+	// 		}
+	//
+	// 		timer = setTimeout(function(){
+	// 			body.classList.remove('disable__hover')
+	// 		}, 300);
+	// 	}, false);
+	// }
 
 })(app.device, app.$dom);
 

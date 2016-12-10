@@ -33,10 +33,10 @@
                 @extend .pointerEvents-all;
             }
         }
-        &[data-section="form"]{
+        &[data-section="order"]{
             transform:translate3d(0, -100%, 0);
 
-            .screens__order__section[data-section="form"]{
+            .screens__order__section[data-section="order"]{
                 @extend .opacity-100;
                 @extend .pointerEvents-all;
             }
@@ -64,7 +64,7 @@
         &[data-section="sendmail"]{
             @extend .transform-default;
         }
-        &[data-section="form"]{
+        &[data-section="order"]{
             transform:translate3d(0, 100%, 0);
         }
         &[data-section="payment"]{

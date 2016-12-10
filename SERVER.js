@@ -10,6 +10,7 @@ var config          = require('./libs/config'),
     logger          = require('morgan'),
     bodyParser      = require('body-parser'),
     session         = require('express-session'),
+    cachify         = require('connect-cachify'),
     memoryStore     = session.MemoryStore,
     underscore      = require('underscore'),
     MobileDetect    = require('mobile-detect');
@@ -29,7 +30,7 @@ underscore.extend(app.utils, underscore);
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
-app.set('views', __dirname + (app.config.get('env') == "production" ? "/views/production" : "/views"));
+app.set('views', __dirname + (process.env.NODE_ENV == "production" ? "/views/production" : "/views"));
 swig.setDefaults({ cache: false });
 app.set('view cache', false);
 app.swig = swig;
@@ -46,6 +47,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(cachify.setup([
+    '/assets/js/app.build.js',
+    '/assets/css/style.css',
+    '/public/js/app.build.js',
+    '/public/css/style.css'
+    ], {
+        root: path.join(__dirname, '/'),
+        prefix: 'v'
+    }
+));
 app.use(express.static(path.join(__dirname, '/')));
 
 app.checkAuth = require('./router/checkAuth');

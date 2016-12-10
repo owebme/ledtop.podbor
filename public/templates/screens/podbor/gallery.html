@@ -4,6 +4,19 @@
 
         <div each={ item in _.range(1, 7) } class="screen__gallery__image" data-marquee="{ item }" style="background-image:url(/public/images/gallery/slide{ item }.jpg)"></div>
 
+        <div class="screen__gallery__colors">
+            <div class="screen__gallery__colors__text">Варианты освещения</div>
+            <div name="colors" class="screen__gallery__colors__items">
+                <div class="screen__gallery__colors__item" data-color="green"></div>
+                <div class="screen__gallery__colors__item" data-color="yellow"></div>
+                <div class="screen__gallery__colors__item" data-color="pink"></div>
+                <div class="screen__gallery__colors__item" data-color="red"></div>
+                <div class="screen__gallery__colors__item" data-color="blue"></div>
+                <div class="screen__gallery__colors__item" data-color="cool_white"></div>
+                <div class="screen__gallery__colors__item" data-color="day_white"></div>
+                <div class="screen__gallery__colors__item" data-color="violet"></div>
+            </div>
+        </div>
         <div class="screen__gallery__content">
             <div class="rows">
                 <div class="col-md-15 screen__gallery__cell">
@@ -19,6 +32,11 @@
 
     <div class="screen__gallery__like"></div>
 
+    <div class="screen__gallery__stat">
+        <div>Приобрели</div>
+        <div class="screen__gallery__stat__count">84</div>
+    </div>
+
     <div class="screen__gallery__nav">
         <div name="navPrev" class="screen__gallery__nav__button i-disabled" data-arrow="up"></div>
         <div name="navNext" class="screen__gallery__nav__button" data-arrow="down">
@@ -28,11 +46,13 @@
 
 <script>
 
-    var $ = this;
+    var $ = this,
+    $scope = $$($.root);
 
     $.on("mount", function(){
         $.screens = new app.plugins.screens($.screens, {
             screens: '.screen__gallery__image',
+            activeClass: 'screen__gallery__colors__item--active',
             navPrev: $$($.navPrev),
             navNext: $$($.navNext),
             vertical: app.device.isPhone ? false : true,
@@ -40,6 +60,12 @@
         });
         $Screen.one("ready", function(){
             $.screens.init();
+
+            // $$($.colors).on("mouseover", ".screen__gallery__colors__item", function(e){
+            //     var color = e.currentTarget.getAttribute("data-color");
+            //     $scope.find(".screen__gallery__colors__item--active")[0].style['backgroundImage'] = "url(/public/images/gallery/slide0_" + color + ".jpg)";
+            //
+            // });
         });
     });
 

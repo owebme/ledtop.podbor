@@ -1,9 +1,24 @@
 {
   "apps" : [{
-    "name"          : "ResumeKraft",
+    "name"          : "Ledtop-podbor",
     "script"        : "./SERVER.js",
-    "watch"         : true,
-    "ignore_watch"  : ["assets", "node_modules"],
+    "env": {
+      "NODE_ENV": "development",
+    },
+    "env_production" : {
+       "NODE_ENV": "production"
+    },
+    "watch"         : [
+        "views/production/*.*",
+        "assets/js/app.build.js",
+        "assets/css/style.css",
+        "public/js/app.build.js",
+        "public/css/style.css",
+        "SERVER.js"
+    ],
+    "ignore_watch"  : [
+        "node_modules"
+    ],
     "watch_options" : {
       "followSymlinks": false
     }

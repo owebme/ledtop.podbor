@@ -11,5 +11,11 @@
     "connTimeout": 10000,
     "pasvTimeout": 10000,
     "keepalive": 10000,
-    "watch": []
+    "watch": [
+        "/assets/css/style.css",
+        "/assets/js/app.build.js",
+        "/public/css/style.css",
+        "/public/js/app.build.js",
+        "/SERVER.js"
+    ]
 }

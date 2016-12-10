@@ -1,5 +1,5 @@
 app.config = {
-    domain: 'http://192.168.1.64:3000',
+    domain: '',
     api: '/public/api',
     logger: {
         method: "addLog",
