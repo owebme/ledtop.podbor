@@ -3,7 +3,39 @@
     @include abs();
     @extend .c-white;
     @extend .cursor-default;
+    perspective:500px;
 
+    &:before {
+        @include accelerate(true);
+        @extend .content-empty;
+        @extend .pos-bl;
+        width:291px;
+        height:439px;
+        background-image:url(/public/images/gallery/people.png);
+        @extend .bg-cover;
+        @extend .zIndex-1;
+    }
+    &[data-likes="true"]{
+        .screen__gallery__like__items {
+            @extend .opacity-100;
+            @extend .transform-default;
+            @extend .pointerEvents-all;
+        }
+        .screen__gallery__container {
+            .d-no-mobile & {
+                &.screens-desktop {
+                    transform:translate3d(0, 71px, 0) scale(0.98) rotateX(2deg);
+                }
+            }
+        }
+    }
+    &__container {
+        .d-no-mobile & {
+            &.screens-desktop {
+                transform-origin:50% 100%;
+            }
+        }
+    }
     &__image {
         @include abs();
         @extend .bg-cover;
@@ -24,6 +56,39 @@
         @extend .btn-active;
         @extend .btn-hover;
         @extend .opacity-60;
+
+        &__items {
+            @extend .flex-row-left-center;
+            @extend .pos-abs;
+            @extend .t-m;
+            @extend .l-xl;
+            @extend .zIndex--1;
+            @extend .opacity-0;
+            @extend .pointerEvents-none;
+            @extend .trY-l;
+            @extend .mt-xs;
+            will-change:opacity, transform;
+            transition:transform 0.5s $cubic40, opacity 0.5s $cubic40;
+        }
+        &__item {
+            @include accelerate(true);
+            @extend .flex-centered;
+            @extend .w60;
+            @extend .cursor-pointer;
+            @extend .willChange-transform;
+            transition:transform .5s $cubic075;
+
+            &:hover {
+                transform:translate3d(0, 0, 0) scale(1.25);
+
+                path, rect, polygon, circle {
+                    @extend .fill-blue;
+                }
+            }
+            &:active {
+                transform:translate3d(0, 1px, 0) scale(0.9);
+            }
+        }
     }
     &__stat {
         @extend .flex-row-right-center;
@@ -77,6 +142,7 @@
         bottom:140px;
         @extend .l0;
         @extend .w100;
+        @extend .zIndex-1;
 
         &:before {
             @extend .content-empty;
@@ -126,11 +192,13 @@
         }
     }
     &__options {
+        @extend .flex-centered;
         @extend .pos-bl;
         @extend .w100p;
         height:140px;
         background:linear-gradient(to top, #070707, rgba(#070707,.0));
         @extend .nowrap;
+        @extend .pb-xxs;
         @extend .zIndex-1;
 
         &:before {
@@ -146,14 +214,6 @@
             @extend .h1px;
             @extend .bg-white;
             @extend .opacity-20;
-        }
-        &__rows {
-            @extend .pl-xl;
-        }
-        &__cell {
-            @extend .flex-row-left-center;
-            height:140px;
-            @extend .pb-xxs;
         }
         .button {
             margin-left:42px;

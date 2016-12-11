@@ -13,9 +13,12 @@
         <div class="content">
             <div class="rows">
                 <div class="row">
-                    <product-item-mobile name="ledribbon" item={ $Data.getProduct('ledribbon') }></product-item-mobile>
-                    <product-item-mobile name="power-supply" item={ $Data.getProduct('power-supply') }></product-item-mobile>
-                    <product-item-mobile name="ir-control" item={ $Data.getProduct('ir-control') }></product-item-mobile>
+                    <product-item-mobile name="ledribbon" item={ $Cursor.ledribbon }></product-item-mobile>
+                    <product-item-mobile name="power" item={ $Cursor.power }></product-item-mobile>
+                    <product-item-mobile name="control" item={ $Cursor.control }></product-item-mobile>
+                    <div class="search__empty">
+                        <div class="search__empty__text">К сожалению компоненты не найдены, измените условия поиска, длину или тип освещения.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,32 +41,6 @@
 
     $.tooltipScreen = null;
 
-    $.show = function(animate){
-        $Screens.self.trigger("steps-hidden");
-        $.root.setAttribute("data-visible", true);
-
-        $.update();
-
-        $.root.setAttribute("data-animate", false);
-        $.root.setAttribute("data-active", true);
-        $Router.params.set($State.get());
-    };
-
-    $.open = {
-        tutorial: function(){
-            $Tutorial.show($scope, "podbor");
-            $Config.set('tutorial', false);
-        }
-    };
-
-    $.on("overlay", function(active){
-        $.root.setAttribute("data-overlay", active);
-    });
-
-    $.on("hidden", function(active){
-        $.root.setAttribute("data-hidden", active);
-    });
-
     $.on("before-mount", function(){
 
         $Navbar = $.tags["section-navbar-mobile"];
@@ -76,132 +53,199 @@
         $Control.color = $Control.wrapper.tags["control-color"];
         $Control.length = $Control.wrapper.tags["control-length"];
 
+        $Control.refresh = {
+            humidity: function(){
+                $Options.set('hum', $Cursor.ledribbon.get("product", "hum"));
+            },
+            color: function(){
+                $Options.set('color', $Cursor.ledribbon.get("product", "color"));
+            }
+        };
+
         $Product = {
             "ledribbon": $["ledribbon"]._tag,
-            "power-supply": $["power-supply"]._tag,
-            "ir-control": $["ir-control"]._tag
+            "power": $["power"]._tag,
+            "control": $["control"]._tag
+        };
+
+        $Cursor = {
+            ledribbon: $store.data.getProductCursor("ledribbon"),
+            power: $store.data.getProductCursor("power"),
+            control: $store.data.getProductCursor("control")
         };
 
         $.sections = {
             resultCount: $.tags["section-result-count"],
             productsList: $.tags["section-products-list-mobile"]
-        };    
-
-        $.setParams = function(){
-            $Router.params.set($State.get());
         };
-
-        var setParams = _.debounce($.setParams, app.device.isMobile ? 500 : 100);
-
-        $State.on("update", function(e){
-            var data = $.getPropValue(e),
-                prop = data.prop,
-                value = data.value;
-
-            if (prop){
-                if (prop == "control"){
-                    $Product["ir-control"].update();
-                }
-            }
-            if ($.active) setParams();
-        });
-
-        $.reRender();
     });
 
-    $.getFirstProduct = function(name){
-        var item = $store[name].get()[0];
-        item.pack = "norm";
-        return item;
+    $.show = function(){
+        $Screens.self.trigger("steps-hidden");
+        $.root.setAttribute("data-visible", true);
+
+        $.render();
+
+        $.root.setAttribute("data-animate", false);
+        $.root.setAttribute("data-active", true);
+        $Router.params.set($State.get());
+
+        $.active = true;
     };
 
-    $.getProducts = function(name){
-        var array = [];
-            packs = ['econom', 'norm', 'lux'];
+    $.on("overlay", function(active){
+        $.root.setAttribute("data-overlay", active);
+    });
 
-        for(var i=0; i < packs.length; i++){
-            var arr = [];
-            arr = _.copyArray($store[name].get()).map(function(item, j){
-                item.pack = packs[i];
-                if (packs[i] == "econom" || packs[i] == "lux"){
-                    item.article = $.store[name][packs[i]][j];
-                    item.photo = "http://ledtop-shop.ru/files/catalog/" + item.article + ".jpg";
-                }
-                return item;
+    $.on("hidden", function(active){
+        $.root.setAttribute("data-hidden", active);
+    });
+
+    $.render = function(){
+        var group = $State.get("group"),
+            options = {
+                "active": true,
+                "light": $Options.get("light"),
+                "length": $Options.get("length")
+            };
+
+        // get package with url
+        var pkg = $Options.get("package") ?
+            $store.packages.getItemById(
+                $Options.get("package"), options
+            ) : false;
+
+        if (pkg){
+            $State.select("group").set(pkg.group);
+            $.set.productsAll(options);
+            $.set.products({
+                "ledribbon": pkg.ledribbon,
+                "power": pkg.power,
+                "control": pkg.control
             });
-            array = array.concat(arr);
         }
-        return array;
-    };
+        else {
+            $.set.productsAll(options);
+            options.group = group;
 
-    $.store = {
-        ledribbon: {
-            econom: ['010523', '020692'],
-            lux: ['013393', '014676']
-        },
-        power: {
-            econom: ['017831', '012919', '008889', '010505'],
-            lux: ['017855', '015992', '011895', '018308']
-        },
-        control: {
-            econom: ['012987', '021098', '015422', '020170', '011439'],
-            lux: ['016678', '016476', '018609', '016927', '021025']
-        }
-    };
+            // find first package with options
+            pkg = _.sortArray(
+                $store.packages.getItemsByParams(options)
+            , "pos")[0];
 
-    $.getTitleById = function(pack){
-             if (pack == "econom") return 'Эконом';
-        else if (pack == "norm") return 'Норма';
-        else if (pack == "lux") return 'LUX';
-    };
-
-    $.reRender = function(){
-        var data = [
-            {
-                _id: "ledribbon",
-                title: "Лента",
-                product: $.getFirstProduct("ledribbon"),
-                products: $.getProducts("ledribbon")
-            },
-            {
-                _id: "power-supply",
-                title: "Блок питания",
-                product: $.getFirstProduct("power"),
-                products: $.getProducts("power")
-            },
-            {
-                _id: "ir-control",
-                title: "Управление",
-                product: $.getFirstProduct("control"),
-                products: $.getProducts("control")
+            if (pkg){
+                $State.select("group").set(pkg.group);
+                $Options.select("package").set(pkg._id);
+                $.set.products(pkg);
             }
-        ];
+            // other take the first of the list
+            else {
+                group = "norm";
+                $Options.select("package").set();
+                $.set.products({
+                    "ledribbon": $Cursor.ledribbon.get("products", {"group": group}),
+                    "power": $Cursor.power.get("products", {"group": group}),
+                    "control": $Cursor.control.get("products", {"group": group})
+                });
+            }
+        }
 
-        $Data = _.extend(new Baobab(data),
-            {
-                getProduct: function(id){
-                    return $Data.select({"_id": id});
-                },
-                getProductsList: function(id, pack){
-                    return _.where($Data.select({"_id": id}).get("products"), {"pack": pack});
-                },
-                getProductsCount: function(id){
-                    var count = $Data.select({"_id": id}).get("products");
-                    return count ? count.length : 0;
+        $store.humidity.setStore();
+        $Control.refresh.humidity();
+
+        $store.color.setStore();
+        $Control.refresh.color();
+
+        if (!app.device.isPhone) $.set.totalPrice();
+
+        $.update();
+    };
+
+    $.set = {
+        params: function(){
+            $Router.params.set($Options.get());
+        },
+        products: function(data){
+            if (!data) return;
+
+            $store.data.setProducts({
+                "ledribbon": data.ledribbon && data.ledribbon.article ? data.ledribbon.article : data.ledribbon,
+                "power": data.power && data.power.article ? data.power.article : data.power,
+                "control": data.control && data.control.article ? data.control.article : data.control,
+            });
+        },
+        productsAll: function(options){
+            if (!options) return;
+
+            $store.data.setProductsAll({
+                "ledribbon": _.sortArray($store.products.getItemsByParamsWithoutGroup(
+                    _.extend(options, {"type": "ledribbon"})
+                ), "pos"),
+                "power": _.sortArray($store.products.getItemsByParamsWithoutGroup(
+                    _.extend(options, {"type": "power"})
+                ), "pos"),
+                "control": _.sortArray($store.products.getItemsByParamsWithoutGroup(
+                    _.extend(options, {"type": "control"})
+                ), "pos")
+            });
+        },
+        totalPrice: function(){
+            var result = 0,
+                products = {
+                    ledribbon: $Cursor.ledribbon.get("product", "price"),
+                    power: $Cursor.power.get("product", "price"),
+                    control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
+                };
+
+            result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
+            result += products.power ? products.power : 0;
+            result += products.control ? products.control : 0;
+
+            $.sections.totalPrice.refresh(result);
+            $Menu.totalPrice.refresh(result);
+        }
+    };
+
+    var setParams = _.debounce($.set.params, 300),
+        reRender = _.debounce($.render, 300);
+
+    $Options.on("write", function(e){
+        var prop = e.data.path[0];
+
+        if (prop == "controlled"){
+            $Product["control"].update();
+        }
+        else if (prop == "light" || prop == "length"){
+            reRender();
+        }
+        else if (prop == "hum"){
+            $Control.humidity.update();
+        }
+        else if (prop == "color"){
+            $Control.color.update();
+        }
+        if ($.active){
+            setParams();
+            if (prop != "length" && !app.device.isPhone) $.set.totalPrice();
+        }
+    });
+
+    _.bbUpdate($store.data, function(prop, value, e){
+        if ($.active){
+            if (value){
+                if (value.type == "ledribbon"){
+                    $Product["ledribbon"].update();
+                }
+                else if (value.type == "power"){
+                    $Product["power"].update();
+                }
+                else if (value.type == "control"){
+                    $Product["control"].update();
                 }
             }
-        );
-    };
-
-    $.getPropValue = function(e){
-        var prop = e.data && e.data.transaction && e.data.transaction.length && e.data.transaction[0].path ? e.data.transaction[0].path[0] : null,
-            value = e.data && e.data.transaction && e.data.transaction.length ? e.data.transaction[0].value : null;
-
-        return {
-            prop: prop,
-            value: value
+            if (!app.device.isPhone) $.set.totalPrice();
         }
-    };
+    });
 
 </script>
 

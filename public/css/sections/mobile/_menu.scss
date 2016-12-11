@@ -3,7 +3,7 @@
     @extend .display-block;
     @extend .overflowY-auto;
     @extend .section-hidden;
-    padding:21vh 20px 15vh;
+    padding:21.5vh 20px 15vh;
 
     &:after {
         @extend .content-empty;
@@ -29,7 +29,7 @@
     .button__close {
         @extend .opacity-100;
         @include ui-icon(back_circle, 24px, 34px);
-    }    
+    }
     &__item {
         @extend .pos-rel;
         @include flex("row", "flex-start", "center");
@@ -55,17 +55,18 @@
             }
             &[data-icon="order"]{
                 &:after {
-                    @include ui-icon("order", 52px, 52px);
-                }
-            }
-            &[data-icon="callback"]{
-                &:after {
-                    @include ui-icon("callback", 36px, 44px);
+                    @include ui-icon("order", 54px, 54px);
+                    transform:translateX(-3px);
                 }
             }
             &[data-icon="payment"]{
                 &:after {
-                    @include ui-icon("pay_mobile", 44px, 44px);
+                    @include ui-icon("wallet", 68px, 68px);
+                }
+            }
+            &[data-icon="gallery"]{
+                &:after {
+                    @include ui-icon("instagram", 42px, 42px);
                 }
             }
             &[data-icon="question"]{
@@ -73,11 +74,16 @@
                     @include ui-icon("help", 34px, 34px);
                 }
             }
-            &[data-icon="votes"]{
-                &:after {
-                    @include ui-icon("stars_v", 44px, 44px);
-                }
-            }
+            // &[data-icon="callback"]{
+            //     &:after {
+            //         @include ui-icon("callback", 36px, 44px);
+            //     }
+            // }
+            // &[data-icon="votes"]{
+            //     &:after {
+            //         @include ui-icon("stars_v", 44px, 44px);
+            //     }
+            // }
         }
         &__title {
             @extend .pl-s;

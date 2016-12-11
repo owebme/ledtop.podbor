@@ -1,42 +1,28 @@
-<screens-gallery class="screen__gallery">
+<screens-gallery class="screen__gallery" data-likes="false">
 
-    <div name="screens" class="screens screens-desktop">
-
+    <div name="screens" class="screens screens-desktop screen__gallery__container">
         <div each={ item in _.range(1, 7) } no-reorder class="screen__gallery__image" data-marquee="{ item }" style="background-image:url(/public/images/gallery/slide{ item }.jpg)"></div>
-
-        <div class="screen__gallery__light__title" data-balloon="Тип освещения, еще возможные варианты: монохромная, бегущий огонь" data-balloon-fontSize="small" data-balloon-length="large" data-balloon-pos="up">
-            <div class="screen__gallery__light__title__content">мультицветная</div>
-        </div>
-        <div class="screen__gallery__options">
-            <div class="rows screen__gallery__options__rows">
-                <div class="col-md-24 screen__gallery__options__cell">
-                    <div class="screen__gallery__select">
-                        <div class="screen__gallery__select__title">Класс</div>
-                        <div class="select select-xl select-rounded pl-s">
-                            <select>
-                                <option each={ item in $store.group.get() } no-reorder value={ item._id } selected={ item._id == "norm" }>{ item.title }</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="screen__gallery__price">
-                        = { _.numberFormat($Screen.sections.totalPrice.total, 0, "", ",") } ₽
-                    </div>
-                    <div class="screen__gallery__select ml-m">
-                        <div class="screen__gallery__select__title">длина</div>
-                        <div class="select select-l select-rounded pl-xs">
-                            <select>
-                                <option each={ item in _.range(5, 55, 5) } no-reorder selected={ item == 10 }>{ item } м</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button class="button btn btn-white-hover btn-xl btn-rounded">Хочу такую подсветку!</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <div class="screen__gallery__like"></div>
+    <div onClick={ open.likes } onUpdate="none" class="screen__gallery__like"></div>
+
+    <div onClick={ open.likes } name="social" class="screen__gallery__like__items">
+        <div class="screen__gallery__like__item" data-social="fb">
+            <icon-fb color="white"></icon-fb>
+        </div>
+        <div class="screen__gallery__like__item" data-social="vk">
+            <icon-vk color="white"></icon-vk>
+        </div>
+        <div class="screen__gallery__like__item" data-social="dk">
+            <icon-dk color="white"></icon-dk>
+        </div>
+        <div class="screen__gallery__like__item" data-social="gl">
+            <icon-gl color="white"></icon-gl>
+        </div>
+        <div class="screen__gallery__like__item" data-social="tw">
+            <icon-tw color="white"></icon-tw>
+        </div>
+    </div>
 
     <div class="screen__gallery__stat">
         <div>Приобрели</div>
@@ -50,12 +36,41 @@
         </div>
     </div>
 
+    <div class="screen__gallery__light__title" data-balloon="Тип освещения, еще возможные варианты: монохромная, бегущий огонь" data-balloon-fontSize="small" data-balloon-length="large" data-balloon-pos="up">
+        <div class="screen__gallery__light__title__content">мультицветная</div>
+    </div>
+    <div class="screen__gallery__options">
+        <div class="screen__gallery__select">
+            <div class="screen__gallery__select__title">Класс</div>
+            <div class="select select-xl select-rounded pl-s">
+                <select>
+                    <option each={ item in $store.group.get() } no-reorder value={ item._id } selected={ item._id == "norm" }>{ item.title }</option>
+                </select>
+            </div>
+        </div>
+        <div class="screen__gallery__price">
+            = { _.numberFormat($Screen.sections.totalPrice.total, 0, "", ",") } ₽
+        </div>
+        <div class="screen__gallery__select ml-m">
+            <div class="screen__gallery__select__title">длина</div>
+            <div class="select select-l select-rounded pl-xs">
+                <select>
+                    <option each={ item in _.range(5, 55, 5) } no-reorder selected={ item == 10 }>{ item } м</option>
+                </select>
+            </div>
+        </div>
+        <button class="button btn btn-white-hover btn-xl btn-rounded">Хочу такую подсветку!</button>
+    </div>
+
 <script>
 
     var $ = this,
     $scope = $$($.root);
 
+    $.showLikes = false;
+
     $.on("mount", function(){
+
         $.screens = new app.plugins.screens($.screens, {
             screens: '.screen__gallery__image',
             activeClass: 'screen__gallery__colors__item--active',
@@ -64,10 +79,31 @@
             vertical: app.device.isPhone ? false : true,
             duration: app.device.isPhone ? 375 : 600,
         });
+
         $Screen.one("ready", function(){
             $.screens.init();
         });
+
+        $.share = new app.plugins.share($.social, {
+            buttons: '.screen__gallery__like__item',
+            share: {
+                title: app.config.share.title
+            }
+        });
     });
+
+    $.open = {
+        likes: function(){
+            if ($.showLikes){
+                $.showLikes = false;
+                $.root.setAttribute("data-likes", $.showLikes);
+            }
+            else {
+                $.showLikes = true;
+                $.root.setAttribute("data-likes", $.showLikes);
+            }
+        }
+    };
 
 </script>
 

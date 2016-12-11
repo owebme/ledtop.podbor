@@ -68,7 +68,9 @@
     $.onSelect = function(){
         $.selected = null;
 
-        var article = $.product.article;
+        if (!app.device.isPhone){
+            var article = $.product.article;
+        }
 
         $store.data.setProduct(this.item);
 
@@ -80,7 +82,7 @@
 
         $.hide();
 
-        if ($Options.get("package") && article && article != this.item.article){
+        if (!app.device.isPhone && $Options.get("package") && article && article != this.item.article){
             $Options.select("package").set();
             $Screen.sections.packages.update();
             $Screen.sections.packagesSelect.update();

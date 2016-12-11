@@ -43,4 +43,17 @@ screen-podbor-mobile {
             }
         }
     }
+    .search__empty {
+        @extend .fontSize-28;
+        @extend .lineHeight-40;
+        @extend .zIndex-2;
+
+        &__text {
+            @extend .w100p;
+            @extend .pt-l;
+            @extend .plr-l;
+            @extend .mt-xs;
+            @extend .text-left;
+        }
+    }
 }

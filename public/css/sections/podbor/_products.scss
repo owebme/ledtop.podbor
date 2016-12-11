@@ -95,12 +95,9 @@ screen-podbor-mobile {
         @extend .h100v;
         @extend .bg-white;
         @extend .c-blue;
-        @extend .fontSize-32;
-        @extend .zIndex-4;
 
         &__text {
             @extend .pos-centered;
-            width:750px;
         }
     }
     .product[data-empty="true"] ~ .search__empty {
@@ -108,6 +105,14 @@ screen-podbor-mobile {
     }
 }
 screen-podbor {
+    .search__empty {
+        @extend .fontSize-32;
+        @extend .zIndex-4;
+
+        &__text {
+            width:750px;
+        }
+    }
     .products__list {
         @include accelerate();
         @extend .pos-abs;

@@ -14,21 +14,50 @@
 
             riot.route('/', function(){
                 if (!_.isEmpty(Router.params.get())){
-                    Router.mount('podbor');
+                    Router.mount({
+                        screen: 'podbor'
+                    });
                 }
                 else {
-                    Router.mount('begin');
+                    Router.mount({
+                        screen: 'begin'
+                    });
                 }
             });
 
             riot.route('podbor', function(){
-                Router.mount('podbor');
+                Router.mount({
+                    screen: 'podbor'
+                });
             });
 
-            // riot.route('offerManager', function(){
-            //     $Config.select('offers', 'manager').set(true);
-            //     Router.mount('podbor');
-            // });
+            riot.route('order', function(){
+                Router.mount({
+                    screen: 'podbor',
+                    section: 'order'
+                });
+            });
+
+            riot.route('sendmail', function(){
+                Router.mount({
+                    screen: 'podbor',
+                    section: 'sendmail'
+                });
+            });
+
+            riot.route('payment', function(){
+                Router.mount({
+                    screen: 'podbor',
+                    section: 'payment'
+                });
+            });
+
+            riot.route('gallery', function(){
+                Router.mount({
+                    screen: 'podbor',
+                    section: 'gallery'
+                });
+            });
 
             riot.route.base(this.base);
             riot.route.start(true);
@@ -47,18 +76,18 @@
             riot.route(url);
         },
 
-        mount: function(screen){
+        mount: function(options){
             if (!Router.start){
                 if (app.compatible){
-                    app.compatible.init(Router.render, screen);
+                    app.compatible.init(Router.render, options);
                 }
                 else {
-                    Router.render(screen);
+                    Router.render(options);
                 }
             }
         },
 
-        render: function(screen){
+        render: function(options){
             var $loader = $dom.body.find("#loader"),
                 section = riot.mount(".screens", "screens" + (app.device.isPhone ? "-mobile" : ""))[0];
 
@@ -69,11 +98,13 @@
                         $loader.remove();
                     });
                 }, {
-                    iterations: screen == "podbor" ? 7 : 2,
-                    timeout: screen == "podbor" ? 2000 : 500
+                    iterations: options.screen == "podbor" ? 7 : 2,
+                    timeout: options.screen == "podbor" ? 2000 : 500
                 });
                 $afterlag.run(function(){
-                    $Screens[screen].show();
+                    $Screens[options.screen].show({
+                        section: options.section
+                    });
                 }, {
                     iterations: 3,
                     timeout: 1000

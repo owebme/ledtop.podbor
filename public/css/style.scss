@@ -62,16 +62,16 @@
 @import 'sections/podbor/gallery/gallery';
 
 // Screens Mobile
-// @import 'sections/mobile/menu';
-// @import 'sections/mobile/begin';
-// @import 'sections/mobile/step1';
-// @import 'sections/mobile/step2';
-// @import 'sections/mobile/podbor/control';
-// @import 'sections/mobile/podbor/navbar';
-// @import 'sections/mobile/podbor/content';
-// @import 'sections/mobile/podbor/product';
-// @import 'sections/mobile/podbor/products';
-// @import 'sections/mobile/podbor/resultCount';
+@import 'sections/mobile/menu';
+@import 'sections/mobile/begin';
+@import 'sections/mobile/step1';
+@import 'sections/mobile/step2';
+@import 'sections/mobile/podbor/control';
+@import 'sections/mobile/podbor/navbar';
+@import 'sections/mobile/podbor/content';
+@import 'sections/mobile/podbor/product';
+@import 'sections/mobile/podbor/products';
+@import 'sections/mobile/podbor/resultCount';
 
 // states
 @import '../../assets/css/states/states';

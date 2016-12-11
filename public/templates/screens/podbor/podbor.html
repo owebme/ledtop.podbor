@@ -77,42 +77,49 @@
             order: $.tags["screens-order"],
             totalPrice: $Control.tags["total-price"]
         };
-
-        $.render();
     });
 
-
-    $.show = function(animate){
+    $.show = function(options){
         $Screens.self.trigger("steps-hidden");
         $.root.setAttribute("data-visible", true);
 
-        $.render(true);
+        $.render();
 
         $afterlag.m(function(){
-            if (animate){
+            if (options && options.animate){
                 $.root.setAttribute("is-animate", true);
-                _.onEndTransition($.menu, function(){
-                    $.onReady();
+                _.onEndTransition($Menu.root, function(){
+                    $.onReady(options.section);
                 });
             }
             else {
-                $.onReady();
+                $.onReady(options.section);
             }
         });
     };
 
-    $.onReady = function(){
+    $.onReady = function(section){
         $.root.setAttribute("data-animate", false);
         $.root.setAttribute("data-active", true);
+
         if ($State.get("tutorial")){
             $.open.tutorial();
         }
+
         $Router.params.set($Options.get());
+
         $.trigger("ready");
+
+        if (section){
+            if (section == "order") $.open.order();
+            else if (section == "sendmail") $.open.sendmail();
+            else if (section == "payment") $.open.payment();
+            else if (section == "gallery") $.open.gallery();
+        }
         $.active = true;
     };
 
-    $.render = function(update){
+    $.render = function(){
         var group = $State.get("group"),
             options = {
                 "active": true,
@@ -169,13 +176,22 @@
 
         $.set.totalPrice();
 
-        if (update) $.update();
+        $.update();
     };
 
     $.open = {
         tutorial: function(){
             $Tutorial.show($scope, "podbor");
             $State.set('tutorial', false);
+        },
+        order: function(){
+            $Menu.items.open.order();
+        },
+        payment: function(){
+            $Menu.items.open.payment();
+        },
+        sendmail: function(){
+            $Menu.items.open.sendmail();
         },
         gallery: function(){
             $Menu.items.open.gallery();
@@ -237,7 +253,7 @@
             $Product["control"].update();
         }
         else if (prop == "light" || prop == "length"){
-            reRender(true);
+            reRender();
         }
         else if (prop == "hum"){
             $Control.humidity.update();
@@ -285,6 +301,7 @@
                     $.tooltipScreen.show();
                 }, {
                     delay: 500,
+                    timeout: 1000,
                     iterations: 5
                 });
             }

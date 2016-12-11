@@ -45,6 +45,27 @@ screen-podbor-mobile {
             @extend .fontWeight-bold;
             @extend .text-uppercase;
         }
+        &__article {
+            @extend .pos-abs;
+            @extend .t-xxs;
+            @extend .r-s;
+            @extend .c-silver;
+            @extend .fontWeight-5;
+            @extend .fontSize-16;
+            @extend .opacity-85;
+            @extend .zIndex-1;
+            height:12px;
+
+            &:before {
+                @extend .content-empty;
+                @extend .pos-centered-v;
+                @extend .r100;
+                @extend .w10;
+                @extend .h10;
+                @extend .borderRadius-circle;
+                @extend .trX--xxs;
+            }
+        }
         &__item {
             &__text {
                 @extend .flex-centered;
@@ -70,19 +91,19 @@ screen-podbor-mobile {
             @extend .pr-xs;
             @include textEllipsis(100%, 100px, 4);
         }
-        &__label {
-            @extend .flex-centered;
-            @extend .pos-abs;
-            @extend .t-xs;
-            @extend .r-xs;
-            @extend .w50;
-            @extend .h50;
-            @extend .c-white;
-            @extend .fontSize-13;
-            @extend .fontWeight-5;
-            @extend .borderRadius-circle;
-            @extend .zIndex-1;
-        }
+        // &__label {
+        //     @extend .flex-centered;
+        //     @extend .pos-abs;
+        //     @extend .t-xs;
+        //     @extend .r-xs;
+        //     @extend .w50;
+        //     @extend .h50;
+        //     @extend .c-white;
+        //     @extend .fontSize-13;
+        //     @extend .fontWeight-5;
+        //     @extend .borderRadius-circle;
+        //     @extend .zIndex-1;
+        // }
         &__price {
             @extend .pos-abs;
             @extend .b-s;
@@ -157,22 +178,22 @@ screen-podbor-mobile {
                 transform:translate3d(-50%, 0, 0) scale(0.95);
             }
         }
-        &[data-pack="econom"]{
-            .product__label {
+        &[data-group="econom"]{
+            .product__article:before {
                 @extend .bg-blueLight;
+                box-shadow:0 1px 2px rgba($blueLight,.2);
             }
         }
-        &[data-pack="norm"]{
-            .product__label {
+        &[data-group="norm"]{
+            .product__article:before {
                 @extend .bg-emerald;
+                box-shadow:0 1px 2px rgba($emerald,.2);
             }
         }
-        &[data-pack="lux"]{
-            .product__label {
-                @extend .fontSize-18;
+        &[data-group="lux"]{
+            .product__article:before {
                 @extend .bg-blackLight;
-                @extend .fontWeight-normal;
-                padding-top:3px;
+                box-shadow:0 1px 2px rgba($blackLight,.2);
             }
         }
         &[data-product="ledribbon"],

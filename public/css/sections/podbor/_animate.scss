@@ -1,6 +1,6 @@
 screen-podbor {
     &[data-animate="true"]{
-        .panel {
+        .section__control {
             @include accelerate();
             @extend .opacity-01;
             transform:translate3d(-120px, 0, 0);
@@ -30,6 +30,14 @@ screen-podbor {
                 transition-delay:1.6s;
             }
         }
+        .menu {
+            @include accelerate();
+            @extend .opacity-01;
+            transform:translate3d(80px, 0, 0);
+            will-change:opacity, transform;
+            transition:opacity 0.6s $cubic645, transform 0.6s $cubic645;
+            transition-delay:3.5s;
+        }
         .product {
             @include accelerate();
             @extend .opacity-01;
@@ -45,22 +53,11 @@ screen-podbor {
                 transition-delay:3.2s;
             }
         }
-        .buttons-angle {
-            @include accelerate();
-            @extend .opacity-01;
-            transform:translate3d(-17px, 15px, 0) scale3d(0, 0, 0);
-            will-change:opacity, transform;
-            transition:opacity 0.4s $cubic215, transform 0.4s $cubic215;
-            transition-delay:3.7s;
-        }
         &[is-animate="true"]{
-            .panel {
+            .section__control,
+            .menu {
                 @extend .opacity-100;
                 @extend .transform-default;
-            }
-            .buttons-angle {
-                @extend .opacity-100;
-                transform:translate3d(-17px, 15px, 0) scale3d(1, 1, 1);
             }
             .control {
                 @extend .opacity-100;

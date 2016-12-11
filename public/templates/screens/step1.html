@@ -5,7 +5,7 @@
             Выберите тип подстветки
         </div>
         <div class="row">
-            <div onClick={ select } data-light="mono" onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" data-duration="xl">
+            <div onClick={ select } data-light="1" onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" data-duration="xl">
                 <div class="column" data-column="1">
                     <div class="column__content">
                         <div class="column__content__text">Монохромная подстветка</div>
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div onClick={ select } data-light="rgb" onUpdate="none" class="col-md-8 cell anim-group1 anim-scale-soft" delay-show="xs">
+            <div onClick={ select } data-light="2" onUpdate="none" class="col-md-8 cell anim-group1 anim-scale-soft" delay-show="xs">
                 <div class="column" data-column="2">
                     <div class="column__content">
                         <div class="column__content__text">Мультицветная</div>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div onClick={ select } data-light="lightrun" onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" delay-show="xs" data-duration="xl">
+            <div onClick={ select } data-light="3" onUpdate="none" class="col-md-8 cell anim-group1 anim-bt" delay-show="xs" data-duration="xl">
                 <div class="column" data-column="3">
                     <div class="column__content">
                         <div class="column__content__text">Бегущий огонь</div>
@@ -71,7 +71,7 @@
         $.hide(function(){
             $Screens.step2.show();
         });
-        $State.set('light', e.currentTarget.getAttribute("data-light"));
+        $Options.set('light', e.currentTarget.getAttribute("data-light"));
     };
 
     $.hide = function(callback){

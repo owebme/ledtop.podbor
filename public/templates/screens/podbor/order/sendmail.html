@@ -28,10 +28,17 @@
                     <ui-input update="email" placeholder="Укажите E-mail" cursor={ $store.order.select() } size="l"></ui-input>
                 </div>
             </div>
-            <div class="row mb-xl">
+            <div if={ $Screen.sections.totalPrice.total } class="row mb-xl">
+                <div class="col-sm-offset-6 col-sm-9 order__data__total">
+                    = { _.numberFormat($Screen.sections.totalPrice.total, 0, "", ",") } ₽
+                </div>
+                <div class="col-sm-9">
+                    <button class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Отправить расчет</button>
+                </div>
+            </div>
+            <div if={ !$Screen.sections.totalPrice.total } class="row mb-xl">
                 <div class="col-sm-24">
-                    <button if={ $Screen.sections.totalPrice.total } class="float-right btn btn-default-hover-success btn-xl btn-rounded plr-l">Отправить расчет</button>
-                    <p if={ !$Screen.sections.totalPrice.total } class="text-right">Вы не выбрали компоненты</p>
+                    <p class="text-right">Вы не выбрали компоненты</p>
                 </div>
             </div>
         </div>

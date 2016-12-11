@@ -15,7 +15,7 @@
 
     this.ready = false;
 
-    app.ver = "1.08";
+    app.ver = "1.12";
 
     var state = {
         group: "norm",
@@ -63,7 +63,13 @@
             default: "normal",
             screens: [
                 {
+                    title: "small",
+                    maxWidth: 360,
+                    path: "/public/css/style.smallScreen.css?" + _.newId()
+                },
+                {
                     title: "normal",
+                    minWidth: 360,
                     maxWidth: 1400,
                     path: "/public/css/style.css?" + _.newId()
                 },

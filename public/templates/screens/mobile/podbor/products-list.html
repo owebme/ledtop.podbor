@@ -6,14 +6,13 @@
 
     var $ = this;
 
-    $.show = function(product){
-        $.tags["products-list"].root.setAttribute("data-product", product);
+    $.show = function(item){
+        $.tags["products-list"].root.setAttribute("data-product", item.get("_id"));
 
         $.root.setAttribute("data-open", true);
         $Screen.trigger("hidden", true);
 
-        $.opts.item = $Data.getProduct(product);
-
+        $.tags["products-list"].opts.item = item;
         $.tags["products-list"].update();
     };
 

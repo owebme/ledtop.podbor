@@ -50,19 +50,7 @@ gulp.task('public.css', function() {
 
 gulp.task('public.css.largeScreen', function() {
 	return combiner(
-		gulp.src('public/css/style.scss'),
-		sass(),
-		csso(),
-		autoprefixer({
-			browsers: ['last 2 versions'],
-			cascade: false
-		}),
-        base64({
-            baseDir: './',
-            extensions: ['svg'],
-            maxImageSize: 16*1024, // bytes
-            debug: false
-        }),
+		gulp.src('public/css/style.css'),
 		px2vw({
 			width: 1400,
 			minPx: 2,
@@ -70,6 +58,23 @@ gulp.task('public.css.largeScreen', function() {
 			replace: true
 		}),
 		rename("style.largeScreen.css"),
+		gulp.dest('public/css'),
+		browserSync.stream()
+	).on('error', notify.onError({
+		"sound": false,
+	}));
+});
+
+gulp.task('public.css.smallScreen', function() {
+	return combiner(
+		gulp.src('public/css/style.css'),
+		px2vw({
+			width: 360,
+			minPx: 2,
+			maxPx: 10000,
+			replace: true
+		}),
+		rename("style.smallScreen.css"),
 		gulp.dest('public/css'),
 		browserSync.stream()
 	).on('error', notify.onError({
@@ -129,6 +134,7 @@ gulp.task('public.app', function() {
 	    'public/js/components/tutorial.js',
 		'public/js/components/router.js',
 		'assets/js/plugins/styles.js',
+		'assets/js/plugins/share.js',
 		'assets/js/plugins/animate.js',
 		'assets/js/plugins/marquee.js',
 		'assets/js/plugins/screens.js',
@@ -202,7 +208,7 @@ gulp.task('watch', function() {
 		'assets/css/ui/states/responsive/*.scss',
 		'public/css/style.scss',
 		'public/css/**/*.scss'
-	], gulp.parallel('public.css', 'public.css.largeScreen'));
+	], gulp.series('public.css', gulp.parallel('public.css.largeScreen', 'public.css.smallScreen')));
 });
 
 gulp.task('sftp-app.js', function () {
@@ -217,14 +223,18 @@ gulp.task('sftp-css.largeScreen', function () {
 	return gulp.src('public/css/style.largeScreen.css')
 	  .pipe(gulpSSH.sftp('write', '/var/www/ledtop-podbor/data/www/v.ledtop-shop.ru/public/css/style.largeScreen.css'));
 });
+gulp.task('sftp-css.smallScreen', function () {
+	return gulp.src('public/css/style.smallScreen.css')
+	  .pipe(gulpSSH.sftp('write', '/var/www/ledtop-podbor/data/www/v.ledtop-shop.ru/public/css/style.smallScreen.css'));
+});
 
-gulp.task('public.css.build', gulp.parallel('public.css', 'public.css.largeScreen', 'styleguide'));
+gulp.task('public.css.build', gulp.series('public.css', gulp.parallel('public.css.largeScreen', 'public.css.smallScreen')));
 
 gulp.task('public.js.build', gulp.parallel('public.libs', 'public.app', 'public.templates'));
 
 gulp.task('build', gulp.series(
 	gulp.parallel('public.css.build', gulp.series('public.js.build', 'public.app.build')),
-	gulp.parallel('sftp-app.js', 'sftp-css', 'sftp-css.largeScreen')
+	gulp.parallel('sftp-app.js', 'sftp-css', 'sftp-css.largeScreen', 'sftp-css.smallScreen')
 ));
 
 gulp.task('dev', gulp.series(

@@ -187,12 +187,14 @@
         $afterlag.run(function(){
             $.hide(function(){
                 $Router.nav("podbor");
-                $Screens.podbor.show(true);
+                $Screens.podbor.show({
+                    animate: true
+                });
             });
         }, {
             timeout: 500
         });
-        $Config.set('pack', e.currentTarget.getAttribute("data-pack"));
+        $State.set('group', e.currentTarget.getAttribute("data-pack"));
     };
 
     $.hide = function(callback){
