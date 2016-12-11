@@ -13,23 +13,6 @@
         @extend .text-right;
         @extend .pr-xxs;
     }
-    .input,
-    .textarea {
-        @extend .c-white;
-        @extend .bg-transparent;
-        box-shadow:0 0 0 1px rgba($white,.3);
-
-        &:hover {
-            box-shadow:0 0 0 1px rgba($white,.5);
-        }
-        &:focus {
-            background-color:rgba($white,.04);
-            box-shadow:0 0 0 1px rgba($lime,.8), 0 12px 20px -10px rgba($lime, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($lime, 0.2);
-        }
-    }
-    .input {
-        padding-bottom:1px;
-    }
     &__tooltip {
         @extend .pos-rel;
 

@@ -3,18 +3,13 @@
     "name"          : "Ledtop-podbor",
     "script"        : "./SERVER.js",
     "env": {
-      "NODE_ENV": "development",
-    },
-    "env_production" : {
-       "NODE_ENV": "production"
+      "NODE_ENV": "production"
     },
     "watch"         : [
-        "views/production/*.*",
-        "assets/js/app.build.js",
-        "assets/css/style.css",
-        "public/js/app.build.js",
-        "public/css/style.css",
-        "SERVER.js"
+        "./views/production/*.*",
+        "./assets/js/app.build.js",
+        "./public/js/app.build.js",
+        "./SERVER.js"
     ],
     "ignore_watch"  : [
         "node_modules"

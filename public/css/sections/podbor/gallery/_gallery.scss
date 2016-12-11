@@ -2,6 +2,7 @@
     @extend .display-block;
     @include abs();
     @extend .c-white;
+    @extend .cursor-default;
 
     &__image {
         @include abs();
@@ -33,6 +34,7 @@
         @extend .h40;
         @extend .fontSize-15;
         @extend .text-uppercase;
+        transform:translateX(-2px);
 
         &__count {
             @extend .flex-centered;
@@ -49,19 +51,17 @@
             }
         }
     }
-    &__colors {
+    &__light__title {
         @extend .flex-row-right-center;
         @extend .pos-abs;
         @extend .r-xl;
-        bottom:140px;
+        bottom:162px;
         @extend .h30;
         @extend .fontSize-16;
         @extend .text-uppercase;
 
-        &__text {
+        &__content {
             @extend .flex-centered;
-            @extend .opacity-0;
-            transform:translateY(-22px);
 
             &:before {
                 @extend .content-empty;
@@ -69,22 +69,6 @@
                 @include ui-icon(led_rgb, 44px, 44px);
                 @extend .mr-xs;
                 transform:translateY(-2px);
-            }
-        }
-        &__items {
-            @extend .pos-br;
-            @extend .flex-row-right-center;
-        }
-        &__item {
-            @extend .w50;
-            @extend .h70;
-            @extend .ml-xs;
-
-            @each $title, $color in (blue: $blue, cool_white: darken(#E0FFFF,12%), day_white: darken(#fff6d5,12%), green: $green, pink: #ec008c, red: $red, violet: #90F, warm_white: #fcfca0, white: #fff, yellow: #FF3){
-                &[data-color="#{$title}"]{
-                    background:linear-gradient(to top, rgba($color,.5), rgba($color,0));
-                    box-shadow:0 12px 20px -10px rgba($color, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($color, 0.2);
-                }
             }
         }
     }
@@ -141,11 +125,12 @@
             @extend .text-uppercase;
         }
     }
-    &__content {
+    &__options {
         @extend .pos-bl;
         @extend .w100p;
         height:140px;
         background:linear-gradient(to top, #070707, rgba(#070707,.0));
+        @extend .nowrap;
         @extend .zIndex-1;
 
         &:before {
@@ -162,20 +147,53 @@
             @extend .bg-white;
             @extend .opacity-20;
         }
-    }
-    .rows {
-        @extend .pl-xl;
-        @extend .pr-l;
-    }
-    &__cell {
-        @extend .flex-row-left-center;
-        height:140px;
-        @extend .pb-xxs;
+        &__rows {
+            @extend .pl-xl;
+        }
+        &__cell {
+            @extend .flex-row-left-center;
+            height:140px;
+            @extend .pb-xxs;
+        }
+        .button {
+            margin-left:42px;
+        }
     }
     &__title {
         @extend .pl-m;
         @extend .fontSize-28;
         @extend .fontWeight-3;
+    }
+    &__price {
+        @extend .fontSize-28;
+        @extend .pl-l;
+    }
+    &__select {
+        @extend .pos-rel;
+
+        &__title {
+            @extend .pos-abs;
+            @extend .b100;
+            @extend .l-m;
+            @extend .c-white;
+            @extend .fontSize-11;
+            line-height:10px;
+            @extend .text-uppercase;
+            @extend .fontWeight-bold;
+            padding:2px 6px;
+            @extend .opacity-80;
+        }
+    }
+    .select {
+        background-color:rgba($white,.06);
+        box-shadow:0 0 0 1px rgba($white,.5);
+
+        &:after {
+            border-top-color:$emerald;
+        }
+        &:hover {
+            box-shadow:0 0 0 1px rgba($white,.7);
+        }
     }
     .btn {
         @extend .c-yellow;
@@ -185,6 +203,7 @@
         &:hover {
             background:$green;
             color:$white;
+            box-shadow:0 0 0 1px $green;
         }
     }
 }

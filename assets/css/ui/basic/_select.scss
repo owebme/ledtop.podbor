@@ -129,4 +129,8 @@
             margin-top:-3px;
         }
     }
+    &-rounded {
+        @extend .overflow-hidden;
+        border-radius:100px;
+    }
 }

@@ -197,6 +197,9 @@ gulp.task('serve', function() {
 
 gulp.task('watch', function() {
 	gulp.watch([
+		'assets/css/ui/basic/*.scss',
+		'assets/css/ui/states/*.scss',
+		'assets/css/ui/states/responsive/*.scss',
 		'public/css/style.scss',
 		'public/css/**/*.scss'
 	], gulp.parallel('public.css', 'public.css.largeScreen'));
