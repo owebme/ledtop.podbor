@@ -68,24 +68,26 @@
     $.onSelect = function(){
         $.selected = null;
 
-        if (!app.device.isPhone){
-            var article = $.product.article;
+        if (app.device.isPhone){
+            $Screen.sections.product.show(this.item);
         }
+        else {
+            var article = $.product ? $.product.article : $store.data.getProduct(this.item.type).article;
 
-        $store.data.setProduct(this.item);
+            $store.data.setProduct(this.item);
 
-        if ($.opts.item.get("_id") == "ledribbon"){
-            $Control.refresh.humidity();
-            $Control.refresh.color();
-        }
-        if (app.device.isPhone) $.update();
+            if ($.opts.item.get("_id") == "ledribbon"){
+                $Control.refresh.humidity();
+                $Control.refresh.color();
+            }
 
-        $.hide();
+            $.hide();
 
-        if (!app.device.isPhone && $Options.get("package") && article && article != this.item.article){
-            $Options.select("package").set();
-            $Screen.sections.packages.update();
-            $Screen.sections.packagesSelect.update();
+            if ($Options.get("package") && article && article != this.item.article){
+                $Options.select("package").set();
+                $Screen.sections.packages.update();
+                $Screen.sections.packagesSelect.update();
+            }
         }
         // $State.select("group").set(this.item.group);
     };

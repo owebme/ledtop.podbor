@@ -4,7 +4,7 @@
     <div class="product__article">#{ opts.item.get('product').article }</div>
     <div class="rows product__item">
         <div class="col-xs-12 product__item__text">
-            <p>{ opts.item.get('product').text }</p>
+            <p>{ opts.item.get('product').text ? opts.item.get('product').text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore' }</p>
         </div>
         <div class="col-xs-12 product__item__photo">
             <img class="product__item__photo__image" onerror="this.src='/assets/images/no_photo_big.png'" src="{ $store.products.getImageByArticle(opts.item.get('product').article) }">

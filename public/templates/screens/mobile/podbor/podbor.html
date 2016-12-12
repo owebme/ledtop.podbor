@@ -76,6 +76,7 @@
 
         $.sections = {
             resultCount: $.tags["section-result-count"],
+            product: $.tags["section-product-mobile"],
             productsList: $.tags["section-products-list-mobile"]
         };
     });
@@ -156,7 +157,7 @@
         $store.color.setStore();
         $Control.refresh.color();
 
-        if (!app.device.isPhone) $.set.totalPrice();
+        $.set.totalPrice();
 
         $.update();
     };
@@ -190,19 +191,24 @@
             });
         },
         totalPrice: function(){
-            var result = 0,
-                products = {
-                    ledribbon: $Cursor.ledribbon.get("product", "price"),
-                    power: $Cursor.power.get("product", "price"),
-                    control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
-                };
+            if (app.device.isPhone){
+                $.sections.resultCount.update();
+            }
+            else {
+                var result = 0,
+                    products = {
+                        ledribbon: $Cursor.ledribbon.get("product", "price"),
+                        power: $Cursor.power.get("product", "price"),
+                        control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
+                    };
 
-            result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
-            result += products.power ? products.power : 0;
-            result += products.control ? products.control : 0;
+                result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
+                result += products.power ? products.power : 0;
+                result += products.control ? products.control : 0;
 
-            $.sections.totalPrice.refresh(result);
-            $Menu.totalPrice.refresh(result);
+                $.sections.totalPrice.refresh(result);
+                $Menu.totalPrice.refresh(result);
+            }
         }
     };
 
@@ -226,7 +232,7 @@
         }
         if ($.active){
             setParams();
-            if (prop != "length" && !app.device.isPhone) $.set.totalPrice();
+            if (prop != "length") $.set.totalPrice();
         }
     });
 
@@ -243,7 +249,7 @@
                     $Product["control"].update();
                 }
             }
-            if (!app.device.isPhone) $.set.totalPrice();
+            $.set.totalPrice();
         }
     });
 

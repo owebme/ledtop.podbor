@@ -1,6 +1,6 @@
 <control-wrapper class="control__wrapper">
 
-    <div if={ app.device.isPhone } onClick={ parent.hide } onUpdate="none" class="control back"></div>
+    <div if={ app.device.isMobile } onClick={ parent.hide } onUpdate="none" class="control back"></div>
 
     <div if={ !app.device.isPhone } onClick={ $Menu.items.open.order } onUpdate="none" class="control">
         <div class="button__ok"></div>

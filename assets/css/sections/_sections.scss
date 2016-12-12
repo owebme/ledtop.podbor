@@ -27,20 +27,20 @@
 		@extend .willChange-transform;
 		transition:transform .5s $cubic645, visibility 0s .5s;
 
-		.d-phone & {
+		.d-mobile & {
 			transition:transform .42s $cubic645, visibility 0s .42s;
 		}
 		&[data-short="true"]{
 			transition:transform .4s $cubic40, visibility 0s .4s;
 
-			.d-phone & {
+			.d-mobile & {
 				transition:transform .3s $cubic28, visibility 0s .3s;
 			}
 		}
 		&[data-slow="true"]{
 			transition:transform .7s $cubic60, visibility 0s .7s;
 
-			.d-phone & {
+			.d-mobile & {
 				transition:transform .4s $cubic40, visibility 0s .4s;
 			}
 		}
@@ -96,7 +96,7 @@
 			@extend .transform-default;
 			transition:transform .7s $cubic60, visibility 0s;
 
-			.d-phone & {
+			.d-mobile & {
 				transition:transform .42s $cubic645, visibility 0s;
 			}
 			&[data-notfully="true"] {
@@ -106,14 +106,14 @@
 				@extend .transform-default;
 				transition:transform .55s $cubic28, visibility 0s;
 
-				.d-phone & {
+				.d-mobile & {
 					transition:transform .42s $cubic645, visibility 0s;
 				}
 			}
 			&[data-slow="true"]{
 				transition:transform 1s $cubic60, visibility 0s;
 
-				.d-phone & {
+				.d-mobile & {
 					transition:transform .5s $cubic32, visibility 0s;
 				}
 			}

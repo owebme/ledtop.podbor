@@ -12,6 +12,9 @@ screen-podbor {
         max-width:307px;
         transition:all 0.2s $cubic645;
 
+        .d-tablet & {
+            @extend .t-s;
+        }
         &:after {
             @extend .content-empty;
             @extend .display-block;
@@ -55,6 +58,9 @@ screen-podbor {
                 @extend .ml-m;
                 @extend .opacity-75;
                 background:linear-gradient(to right, rgba(#D3DCE6,0), $grayLighten, rgba(#D3DCE6,0));
+            }
+            .d-tablet & {
+                @extend .display-none;
             }
         }
     }

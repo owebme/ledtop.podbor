@@ -4,6 +4,9 @@ screen-podbor {
         @extend .pt-m;
         @extend .h95v;
 
+        .d-tablet & {
+            padding-top:30px;
+        }
         &:nth-child(1),
         &:nth-child(2){
             &:after {
@@ -117,9 +120,19 @@ screen-podbor {
                 @extend .trX--l;
             }
         }
+        &__header {
+            @extend .pos-abs;
+            @extend .t-xl;
+            @extend .l0;
+            @extend .w100p;
+
+            .d-tablet & {
+                @extend .trY-m;
+            }
+        }
         &__label {
             @extend .pos-abs;
-            @extend .t10;
+            top:-13px;
             @extend .r-s;
             @extend .flex-centered;
             @extend .w70;
@@ -133,7 +146,7 @@ screen-podbor {
         &__select {
             @extend .flex-centered;
             @extend .pos-abs;
-            @extend .t-xl;
+            @extend .t0;
             @extend .l-l;
             @extend .w60;
             @extend .h60;
@@ -185,7 +198,7 @@ screen-podbor {
         }
         &__article {
             @extend .pos-centered-h;
-            top:100px;
+            @extend .t-m;
             @extend .pl-m;
             @extend .userSelect-text;
             color:darken($smokeSilver,10%);
@@ -198,7 +211,7 @@ screen-podbor {
         }
         &__sizes {
             @extend .pos-abs;
-            top:155px;
+            @extend .t-xl;
             @extend .r-xs;
             @extend .flex-centered;
             @extend .w50;
@@ -247,6 +260,9 @@ screen-podbor {
                 @extend .fontWeight-3;
                 @extend .lineHeight-l;
 
+                .d-tablet & {
+                    @extend .fontSize-20;
+                }
                 &:after {
                     @extend .w70p;
                     @extend .fontSize-16;
@@ -293,6 +309,14 @@ screen-podbor {
             @extend .fontSize-36;
             @extend .fontWeight-3;
             @extend .pb-l;
+
+            .d-tablet & {
+                padding-bottom:60px;
+                margin-top:-110px;
+                width:220px;
+                height:220px;
+                font-size:38px;
+            }
         }
         &__tooltip__screen {
             @include accelerate();

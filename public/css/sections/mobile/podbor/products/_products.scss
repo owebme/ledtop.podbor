@@ -27,6 +27,14 @@ screen-podbor-mobile {
                 }
             }
         }
+        &__item {
+            &[data-active="true"]{
+                &:after {
+                    width:23px;
+                    height:23px;
+                }
+            }
+        }
         &[data-product="ledribbon"] {
             .products__list__item__image {
                 max-width:85px;

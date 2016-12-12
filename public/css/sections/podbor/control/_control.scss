@@ -3,6 +3,24 @@
     @include flex("column", "flex-start", "center");
     @extend .w100p;
     @extend .pb-l;
+
+    .d-tablet & {
+        @extend .pb0;
+    }
+}
+.control__opener {
+    @extend .pos-tl;
+    @extend .w80;
+    @extend .h80;
+    @extend .bg-blue;
+    @extend .zIndex-5;
+    border-radius:0 0 3px 0;
+
+    &:after {
+        @extend .content-empty;
+        @extend .pos-centered;
+        @include ui-icon("settings_white", 50px, 50px);
+    }
 }
 .section__control {
     @extend .display-block;
@@ -15,6 +33,22 @@
     // border-right:1px solid #D3DCE6;
     box-shadow:0 1px 2px 0 rgba(31,45,61,.3);
 
+    .d-tablet & {
+        @extend .pos-tl;
+        @extend .border-none;
+        @extend .zIndex-10;
+    }
+    .back {
+        @extend .btn-active;
+        margin-bottom:35px;
+
+        &:after {
+            @extend .content-empty;
+            @extend .display-block;
+            @include ui-icon("back_circle", 35px, 47px);
+            @extend .mb--xs;
+        }
+    }
     .button__ok {
         @extend .flex-centered;
         @extend .w70;
@@ -39,267 +73,285 @@
             transform:scale(1.5) rotate(-9deg);
         }
     }
-    control-color {
-        &[data-hidden="true"]{
-            .control__icon {
-                width:62px;
-                height:62px;
-                @extend .bg-cover;
-                background-image:url(/public/images/colors.svg);
+}
+control-color {
+    &[data-hidden="true"]{
+        .control__icon {
+            width:62px;
+            height:62px;
+            @extend .bg-cover;
+            background-image:url(/public/images/colors.svg);
 
-                &:after {
-                    @extend .display-none;
-                }
-            }
-        }
-    }
-    control-humidity {
-        .btn-primary {
-            @extend .pointerEvents-none;
-        }
-    }
-    .control {
-        @extend .display-block;
-        @extend .pos-rel;
-        @extend .flex-centered;
-        @extend .h70;
-        @extend .w100p;
-        margin-bottom:45px;
-        perspective:200px;
-
-        &[data-hidden="true"]{
-            @extend .pointerEvents-none;
-
-            .control__value,
-            .control__container {
+            &:after {
                 @extend .display-none;
             }
         }
-        input {
-            @extend .userSelect-none;
+    }
+}
+control-humidity {
+    .btn-primary {
+        @extend .pointerEvents-none;
+    }
+}
+.control {
+    @extend .display-block;
+    @extend .pos-rel;
+    @extend .flex-centered;
+    @extend .h70;
+    @extend .w100p;
+    margin-bottom:45px;
+    perspective:200px;
+
+    &[data-hidden="true"]{
+        @extend .pointerEvents-none;
+
+        .control__value,
+        .control__container {
+            @extend .display-none;
         }
-        &__container {
-            @include accelerate();
+    }
+    input {
+        @extend .userSelect-none;
+    }
+    &__container {
+        @include accelerate();
+        @extend .pos-abs;
+        @extend .t--m;
+        @extend .l-xl;
+        @extend .ml-xs;
+        @extend .ptb-m;
+        @extend .pl-m;
+        @extend .pr-s;
+        min-width:164px;
+        box-shadow:5px 5px 20px 0 rgba(#D3DCE6,.7);
+        @extend .bg-white;
+        @extend .borderRadius-xl;
+        @extend .visibility-hidden;
+        @extend .pointerEvents-none;
+        @extend .opacity-0;
+        will-change:transform, opacity;
+        transform-style:preserve-3d;
+        transform-origin:0 50%;
+        transform:translate3d(-20px, -10px, 0) perspective(200px) scale3d(0.7, 0, 1);
+        transition:transform 0.4s $bounce, opacity 0.4s $bounce, visibility 0s 0.4s;
+
+        .d-safari &,
+        .d-tablet & {
+            transform:translate3d(-20px, -10px, 0) scale3d(0.7, 0, 1);
+        }
+        .d-tablet & {
+            @extend .boxShadow-none;
+        }
+        &__title {
             @extend .pos-abs;
-            @extend .t--m;
-            @extend .l-xl;
-            @extend .ml-xs;
-            @extend .ptb-m;
-            @extend .pl-m;
-            @extend .pr-s;
-            min-width:164px;
-            box-shadow:5px 5px 20px 0 rgba(#D3DCE6,.7);
+            @extend .t--s;
+            @extend .l0;
+            @extend .fontWeight-bold;
+            @extend .text-uppercase;
+            @extend .c-blue;
             @extend .bg-white;
-            @extend .borderRadius-xl;
-            @extend .visibility-hidden;
-            @extend .pointerEvents-none;
-            @extend .opacity-0;
-            will-change:transform, opacity;
-            transform-style:preserve-3d;
-            transform-origin:0 50%;
-            transform:translate3d(-20px, -10px, 0) perspective(200px) scale3d(0.7, 0, 1);
-            transition:transform 0.4s $bounce, opacity 0.4s $bounce, visibility 0s 0.4s;
+            @extend .borderRadiusTop-xl;
+            @extend .pt-xxs;
+            @extend .plr-xs;
+            @extend .pb-xs;
+            @extend .fontSize-12;
+        }
+        .control__color__items {
+            @extend .w35;
+            @extend .h35;
+        }
+    }
+    &[data-active="true"]{
+        @extend .zIndex-1;
 
-            &__title {
-                @extend .pos-abs;
-                @extend .t--s;
-                @extend .l0;
-                @extend .fontWeight-bold;
-                @extend .text-uppercase;
-                @extend .c-blue;
-                @extend .bg-white;
-                @extend .borderRadiusTop-xl;
-                @extend .pt-xxs;
-                @extend .plr-xs;
-                @extend .pb-xs;
-                @extend .fontSize-12;
-            }
-            .control__color__items {
-                @extend .w35;
-                @extend .h35;
+        .control__container {
+            @extend .visibility-visible;
+            @extend .pointerEvents-all;
+            @extend .opacity-100;
+            transform:translate3d(0, 0, 0) perspective(200px) scale3d(1, 1, 1);
+            transition:transform 0.3s $bounceSoft, opacity 0.3s $bounceSoft, visibility 0s;
+
+            .d-safari &,
+            .d-tablet & {
+                transform:translate3d(0, 0, 0) scale3d(1, 1, 1);
             }
         }
-        &[data-active="true"]{
-            @extend .zIndex-1;
-
-            .control__container {
-                @extend .visibility-visible;
-                @extend .pointerEvents-all;
-                @extend .opacity-100;
-                transform:translate3d(0, 0, 0) perspective(200px) scale3d(1, 1, 1);
-                transition:transform 0.3s $bounceSoft, opacity 0.3s $bounceSoft, visibility 0s;
-            }
-            .control__icon {
-                &[data-icon="humidity"]{
-                    @include ui-icon(humidity_blue);
-                }
-                &[data-icon="length"]{
-                    @include ui-icon(length_blue);
-                }
-                &[data-icon="light"]{
-                    @include ui-icon(light_blue);
-                }
-            }
-        }
-        &__icon {
-            @extend .cursor-pointer;
-
-            &[data-icon="light"]{
-                @include ui-icon(light, 67px, 67px);
-            }
+        .control__icon {
             &[data-icon="humidity"]{
-                @include ui-icon(humidity, 38px, 48px);
-            }
-            &[data-icon="color"]{
-                @extend .w40;
-                @extend .h40;
-                @extend .borderRadius-circle;
-
-                &:after {
-                    @include accelerate(true);
-                    @extend .content-empty;
-                    @extend .pos-abs;
-                    top:-9px;
-                    right:-28px;
-                    width:56px;
-                    height:56px;
-                    @extend .bg-cover;
-                    background-image:url(/public/images/colors_blue.svg);
-                }
+                @include ui-icon(humidity_blue);
             }
             &[data-icon="length"]{
-                @include ui-icon(length, 36px, 56px);
+                @include ui-icon(length_blue);
             }
-            &[data-color="white"],
-            &[data-color="white|warm_white"],
-            &[data-color="white|day_white|warm_white"],
-            &[data-color="warm_white"],
-            &[data-color="uni"],
-            &[data-color="warm_cool"] {
-                box-shadow:0 0 0 1px $smokeSilver;
+            &[data-icon="light"]{
+                @include ui-icon(light_blue);
             }
         }
-        &__light__icon {
-            @extend .pos-centered;
-            @extend .cursor-pointer;
+    }
+    &__icon {
+        @extend .cursor-pointer;
 
-            &[data-light="1"]{
-                @include ui-icon(led_mono_white, 29px, 29px);
-                @extend .borderRadius-circle;
-                @extend .bg-blue;
-            }
-            &[data-light="2"]{
-                @include ui-icon(led_rgb, 36px, 36px);
-            }
-            &[data-light="3"]{
-                @include ui-icon(led_lightrun_blue, 34px, 34px);
-                @extend .borderRadius-circle;
-                @extend .bg-white;
-            }
+        &[data-icon="light"]{
+            @include ui-icon(light, 67px, 67px);
         }
-        &__value {
-            @extend .flex-centered;
-            @extend .pos-tr;
+        &[data-icon="humidity"]{
+            @include ui-icon(humidity, 38px, 48px);
+        }
+        &[data-icon="color"]{
             @extend .w40;
             @extend .h40;
-            @extend .fontWeight-5;
-            @extend .c-white;
+            @extend .borderRadius-circle;
+
+            &:after {
+                @include accelerate(true);
+                @extend .content-empty;
+                @extend .pos-abs;
+                top:-9px;
+                right:-28px;
+                width:56px;
+                height:56px;
+                @extend .bg-cover;
+                background-image:url(/public/images/colors_blue.svg);
+            }
+        }
+        &[data-icon="length"]{
+            @include ui-icon(length, 36px, 56px);
+        }
+        &[data-color="white"],
+        &[data-color="white|warm_white"],
+        &[data-color="white|day_white|warm_white"],
+        &[data-color="warm_white"],
+        &[data-color="uni"],
+        &[data-color="warm_cool"] {
+            box-shadow:0 0 0 1px $smokeSilver;
+        }
+    }
+    &__light__icon {
+        @extend .pos-centered;
+        @extend .cursor-pointer;
+
+        &[data-light="1"]{
+            @include ui-icon(led_mono_white, 29px, 29px);
             @extend .borderRadius-circle;
             @extend .bg-blue;
-            @extend .trX-m;
-            @extend .cursor-pointer;
+        }
+        &[data-light="2"]{
+            @include ui-icon(led_rgb, 36px, 36px);
+        }
+        &[data-light="3"]{
+            @include ui-icon(led_lightrun_blue, 34px, 34px);
+            @extend .borderRadius-circle;
+            @extend .bg-white;
+        }
+    }
+    &__value {
+        @extend .flex-centered;
+        @extend .pos-tr;
+        @extend .w40;
+        @extend .h40;
+        @extend .fontWeight-5;
+        @extend .c-white;
+        @extend .borderRadius-circle;
+        @extend .bg-blue;
+        @extend .trX-m;
+        @extend .cursor-pointer;
 
+        &:after {
+            @extend .content-empty;
+            @extend .pos-centered;
+            width:48px;
+            height:48px;
+            @extend .borderRadius-circle;
+            border:1px dashed $blue;
+        }
+    }
+    &__color {
+        @extend .pos-rel;
+        @extend .cursor-default;
+        @extend .borderRadius-circle;
+        margin-left:2.5px;
+        margin-right:2.5px;
+        transition:transform 0.3s $cubic075, box-shadow 0.3s $cubic075;
+
+        &:after {
+            @extend .content-empty;
+            @include abs();
+            @extend .borderRadius-circle;
+            box-shadow:inset 0 1px 2px rgba(0,0,0,.13);
+        }
+        &:not([data-active="true"]):hover {
+            @extend .cursor-pointer;
+            transform:scale(1.1);
+            box-shadow:0 12px 20px -10px rgba($smoke, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($smoke, 0.2);
+        }
+        &[data-active="true"]{
+            @extend .pointerEvents-none;
+
+            &:before {
+                @extend .content-empty;
+                @include abs();
+                @extend .bg-black;
+                @extend .borderRadius-circle;
+                @extend .zIndex-1;
+            }
             &:after {
                 @extend .content-empty;
                 @extend .pos-centered;
-                width:48px;
-                height:48px;
-                @extend .borderRadius-circle;
-                border:1px dashed $blue;
+                @include ui-icon(check_white, 24px, 24px);
+                @extend .zIndex-2;
             }
         }
-        &__color {
-            @extend .pos-rel;
-            @extend .cursor-default;
+        &[data-color="white"],
+        &[data-color="white|warm_white"]{
+            box-shadow:0 0 0 1px rgba(#E0E6ED,.8), 0 7px 8px -5px rgba($smoke, 0.1);
+        }
+        &__item {
+            @extend .display-inlineBlock;
+            @extend .h40;
+        }
+        &__items {
+            @extend .flex-centered;
+            @extend .w40;
+            @extend .h40;
             @extend .borderRadius-circle;
-            margin-left:2.5px;
-            margin-right:2.5px;
-            transition:transform 0.3s $cubic075, box-shadow 0.3s $cubic075;
+            @extend .overflow-hidden;
 
-            &:not([data-active="true"]):hover {
-                @extend .cursor-pointer;
-                transform:scale(1.1);
-                box-shadow:0 12px 20px -10px rgba($smoke, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($smoke, 0.2);
-            }
-            &[data-active="true"]{
-                @extend .pointerEvents-none;
-
-                &:before {
-                    @extend .content-empty;
-                    @include abs();
-                    @extend .bg-black;
-                    @extend .borderRadius-circle;
-                    @extend .zIndex-1;
-                }
-                &:after {
-                    @extend .content-empty;
-                    @extend .pos-centered;
-                    @include ui-icon(check_white, 24px, 24px);
-                    @extend .zIndex-2;
+            &[data-items="1"]{
+                .control__color__item {
+                    @extend .w100p;
                 }
             }
-            &[data-color="white"],
-            &[data-color="white|warm_white"]{
-                box-shadow:0 0 0 1px #E0E6ED, 0 7px 8px -5px rgba($smoke, 0.2);
-            }
-            &__item {
-                @extend .display-inlineBlock;
-                @extend .h40;
-            }
-            &__items {
-                @extend .flex-centered;
-                @extend .w40;
-                @extend .h40;
-                @extend .borderRadius-circle;
-                @extend .overflow-hidden;
-
-                &[data-items="1"]{
-                    .control__color__item {
-                        @extend .w100p;
-                    }
+            &[data-items="2"]{
+                .control__color__item {
+                    @extend .w50p;
                 }
-                &[data-items="2"]{
-                    .control__color__item {
-                        @extend .w50p;
-                    }
-                }
-                &[data-items="3"]{
-                    .control__color__item {
-                        width:33.34%;
+            }
+            &[data-items="3"]{
+                .control__color__item {
+                    width:33.34%;
 
-                        &:nth-child(2){
-                            width:34%;
-                        }
+                    &:nth-child(2){
+                        width:34%;
                     }
                 }
             }
         }
-        &__light__item {
-            @extend .pos-rel;
-            @extend .mlr-xs;
-            @extend .cursor-pointer;
+    }
+    &__light__item {
+        @extend .pos-rel;
+        @extend .mlr-xs;
+        @extend .cursor-pointer;
 
-            &[data-light="1"]{
-                @include ui-icon("led_mono", 36px, 36px);
-                transform:translateY(1px);
-            }
-            &[data-light="2"]{
-                @include ui-icon("led_rgb", 40px, 40px);
-            }
-            &[data-light="3"]{
-                @include ui-icon(led_lightrun_blue, 36px, 36px);
-                transform:translateY(1px);
-            }
+        &[data-light="1"]{
+            @include ui-icon("led_mono", 36px, 36px);
+            transform:translateY(1px);
+        }
+        &[data-light="2"]{
+            @include ui-icon("led_rgb", 40px, 40px);
+        }
+        &[data-light="3"]{
+            @include ui-icon(led_lightrun_blue, 36px, 36px);
+            transform:translateY(1px);
         }
     }
 }

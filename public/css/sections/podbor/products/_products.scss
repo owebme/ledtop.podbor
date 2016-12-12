@@ -131,6 +131,10 @@ screen-podbor {
         box-shadow:0 8.66px 40px 0 rgba(#D3DCE6,.34);
         @extend .zIndex-10;
 
+        .d-tablet & {
+            top:-1.25vh;
+            height:102.5vh;
+        }
         &[data-active="true"]{
             @extend .opacity-100;
             @extend .visibility-visible;

@@ -20,6 +20,26 @@
             transition:opacity 0.5s $cubic645, background-color 0.5s $cubic645;
         }
     }
+    &__navbar {
+        @include accelerate();
+        @include flex("row", "space-between", "center");
+        @extend .w100p;
+        @extend .h60;
+        @extend .pos-bl;
+        @extend .zIndex-2;
+        @extend .opacity-0;
+        transition:opacity .4s $cubic40;
+        will-change:opacity;
+
+        &[data-pos="up"]{
+            @extend .pos-tl;
+            box-shadow:0 1px 2px 0 rgba(31,45,61,.15);
+        }
+        &[data-pos="down"]{
+            @extend .pos-bl;
+            box-shadow:0 -1px 2px 0 rgba(31,45,61,.15);
+        }
+    }
     &__buttons {
         @extend .display-block;
         @extend .buttons-angle;
@@ -186,6 +206,7 @@
                         transition:transform 0.55s $cubic60;
                     }
                 }
+                .#{$title}__navbar,
                 .#{$title}__buttons {
                     @extend .opacity-100;
                     transition:opacity .4s $cubic40 .2s;

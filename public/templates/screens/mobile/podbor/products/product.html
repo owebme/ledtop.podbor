@@ -1,0 +1,51 @@
+<section-product-mobile class="oScreen zIndex-2" data-open={ active } data-show="down">
+
+    <div class="oScreen__buttons" data-pos="top-right">
+        <div onClick={ hide } onUpdate="none" class="button__close" data-color="gray"></div>
+    </div>
+
+    <div class="oScreen__content">
+        <div class="article">Арт: <strong>{ item.article }</strong></div>
+        <img class="image" src="{ $store.products.getImageByArticle(item.article) }" data-type="{ item.type }">
+        <div class="title">{ item.title }</div>
+        <div class="text">{ item.text ? item.text : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore' } <span if={ item.type != "ledribbon" && item.size.length } class="c-black">длина: { item.size.length } мм, ширина: { item.size.width } мм, высота: { item.size.height } мм</span></div>
+        <div if={ item.type == "ledribbon" } class="colors">
+            <div each={ item in $store.color.mergeItems($store.data.getProducts('ledribbon')) } no-reorder class="control__color" data-color={ item.color }>
+                <control-color-item item={ item.color }></control-color-item>
+            </div>
+        </div>
+    </div>
+
+    <div class="oScreen__navbar { visibility-hidden : $store.data.getProduct(item.type).article == item.article }" data-pos="down">
+        <div class="price">{ _.numberFormat(item.price, 0, "", ",") } ₽ { item.type == "ledribbon" ? "/ м" : "x 1 шт" }</div>
+        <div class="button">
+            <button onClick={ select } onUpdate="none" class="btn btn-l btn-primary text-uppercase">Выбрать</button>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.show = function(item){
+        $.update({
+            item: item,
+            active: true
+        })
+    };
+
+    $.select = function(){
+        $store.data.setProduct($.item);
+        $Screen.sections.productsList.update();
+        $.hide();
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+</script>
+
+</section-product-mobile>

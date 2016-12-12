@@ -206,6 +206,8 @@ gulp.task('watch', function() {
 		'assets/css/ui/basic/*.scss',
 		'assets/css/ui/states/*.scss',
 		'assets/css/ui/states/responsive/*.scss',
+		'assets/css/modules/*.scss',
+		'assets/css/sections/_sections.scss',
 		'public/css/style.scss',
 		'public/css/**/*.scss'
 	], gulp.series('public.css', gulp.parallel('public.css.largeScreen', 'public.css.smallScreen')));

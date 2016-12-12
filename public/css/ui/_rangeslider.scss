@@ -12,7 +12,8 @@
         border-radius:0 0 3px 3px;
         transform:translateY(-2px);
 
-        .d-phone & {
+        .d-phone &,
+        .d-tablet & {
             width:24px;
             height:24px;
             transform:translateY(2px);
@@ -27,7 +28,8 @@
             @extend .bg-blue;
             @extend .opacity-10;
 
-            .d-phone & {
+            .d-phone &,
+            .d-tablet & {
                 height:43px;
             }
         }
@@ -43,7 +45,8 @@
             border-left:9px solid transparent;
             box-shadow:0 2px 0 $blue;
 
-            .d-phone & {
+            .d-phone &,
+            .d-tablet & {
                 top:-15px;
                 border-bottom-width:15px;
                 border-right-width:12px;

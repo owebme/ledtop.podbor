@@ -3,16 +3,6 @@ section-control-mobile.section__control {
     @extend .border-none;
     @extend .zIndex-10;
 
-    .back {
-        @extend .btn-active;
-
-        &:after {
-            @extend .content-empty;
-            @extend .display-block;
-            @include ui-icon("back_circle", 35px, 47px);
-            @extend .mb--xs;
-        }
-    }
     .control__wrapper {
         @extend .xs-pt0;
         @extend .xs-pb0;

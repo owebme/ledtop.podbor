@@ -1,7 +1,23 @@
-<section-control class="section__control">
-
-    <total-price if={ !app.device.isPhone }></total-price>
+<section-control class="section__control { section-hidden : app.device.isMobile }" data-pos="left" data-short="true" data-open="false" data-shadow="true">
 
     <control-wrapper></control-wrapper>
+
+    <total-price if={ !app.device.isMobile }></total-price>
+
+<script>
+
+    var $ = this;
+
+    $.show = function(){
+        $.root.setAttribute("data-open", true);
+        $Screen.trigger("overlay", true);
+    };
+
+    $.hide = function(){
+        $.root.setAttribute("data-open", false);
+        $Screen.trigger("overlay", false);
+    };
+
+</script>
 
 </section-control>

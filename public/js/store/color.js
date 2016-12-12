@@ -1,8 +1,8 @@
 $store.color = _.extend(new Baobab([]),
     {
-        setStore: function(){
+        mergeItems: function(items){
             var colors = [];
-                related = _.compact(_.flatten(_.pluck($store.data.getProducts("ledribbon"), "related")));
+                related = _.compact(_.flatten(_.pluck(items, "related")));
 
             _.each(related, function(item){
                 if (!_.findWhere(colors, {"color": item.color})){
@@ -17,7 +17,12 @@ $store.color = _.extend(new Baobab([]),
                     });
                 }
             });
-            $store.color.set(colors);
+            return colors;
+        },
+        setStore: function(){
+            $store.color.set(
+                $store.color.mergeItems($store.data.getProducts("ledribbon"))
+            );
         }
     }
 );

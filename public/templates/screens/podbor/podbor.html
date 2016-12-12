@@ -4,6 +4,8 @@
 
     <div class="wrapper">
 
+        <div if={ app.device.isMobile } onClick={ open.control } onUpdate="none" class="control__opener"></div>
+
         <section-control></section-control>
 
         <section-packages-select></section-packages-select>
@@ -98,6 +100,10 @@
         });
     };
 
+    $.on("overlay", function(active){
+        $.root.setAttribute("data-overlay", active);
+    });    
+
     $.onReady = function(section){
         $.root.setAttribute("data-animate", false);
         $.root.setAttribute("data-active", true);
@@ -183,6 +189,9 @@
         tutorial: function(){
             $Tutorial.show($scope, "podbor");
             $State.set('tutorial', false);
+        },
+        control: function(){
+            $Control.show();
         },
         order: function(){
             $Menu.items.open.order();

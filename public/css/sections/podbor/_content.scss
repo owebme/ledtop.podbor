@@ -8,6 +8,10 @@ screen-podbor {
         @extend .h95v;
         @extend .text-center;
 
+        .d-tablet & {
+            @extend .w100p;
+            @extend .pr-xss;
+        }
         .title {
             @extend .fontSize-28;
             @extend .fontWeight-3;

@@ -51,6 +51,11 @@ $store.data = _.extend(new Baobab([
         getProductsCount: function(type){
             var count = $store.data.get({"_id": type}, "products");
             return count ? count.length : 0;
+        },
+        getProductsCountAll: function(){
+            return _.reduce($store.data.get(), function(memo, item){
+                return memo + item.products.length;
+            }, 0);
         }
     }
 );
