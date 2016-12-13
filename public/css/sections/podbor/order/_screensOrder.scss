@@ -110,4 +110,14 @@
             box-shadow:0 0 0 1px rgba($white,.5);
         }
     }
+    .d-tablet & {
+        width:calc(100% - 340px);
+
+        &__section {
+            .rows {
+                @extend .pl-l;
+                @extend .pr-m;
+            }
+        }
+    }
 }

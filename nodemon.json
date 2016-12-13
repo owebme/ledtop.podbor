@@ -5,8 +5,10 @@
       "/libs/*.*",
       "/router/*.*",
       "/views/*.*",
+      "/assets/app.build.js",
       "/assets/API/*.*",
       "/assets/API/**/*.*",
+      "/public/app.build.js",
       "/public/API/*.*",
       "/public/API/**/*.*"
   ]

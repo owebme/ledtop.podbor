@@ -211,6 +211,12 @@ gulp.task('watch', function() {
 		'public/css/style.scss',
 		'public/css/**/*.scss'
 	], gulp.series('public.css', gulp.parallel('public.css.largeScreen', 'public.css.smallScreen')));
+
+	// gulp.watch([
+	// 	'public/js/components/*.js',
+	// 	'public/js/store/*.js',
+	// 	'public/templates/**/*.html'
+	// ], gulp.series('public.js.build', 'public.app.build'));
 });
 
 gulp.task('sftp-app.js', function () {

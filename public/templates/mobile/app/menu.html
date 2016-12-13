@@ -31,7 +31,7 @@
 
     $.show = function(){
 
-        $Screen.trigger("hidden", true);
+        $Screen.trigger("mode", "hidden", true);
 
         $.update({
             active: true
@@ -49,7 +49,7 @@
 
     $.hide = function(){
 
-        $Screen.trigger("hidden", false);
+        $Screen.trigger("mode", "hidden", false);
 
         $.update({
             active: false

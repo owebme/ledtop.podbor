@@ -16,19 +16,10 @@
         @extend .bg-cover;
         background-image:url('http://ledtop-shop.ru/img/logo.png');
     }
-    // &__title {
-    //     @extend .pos-tl;
-    //     @extend .pt-m;
-    //     @extend .pl-m;
-    //     @extend .ml-xxs;
-    //     @extend .c-blue;
-    //     @extend .fontSize-l;
-    //     @extend .fontWeight-8;
-    //     @extend .text-uppercase;
-    // }
     .button__close {
         @extend .opacity-100;
-        @include ui-icon(back_circle, 24px, 34px);
+        @include ui-icon("back", 32px, 32px);
+        transform:translateX(2px) scaleX(-1);
     }
     &__item {
         @extend .pos-rel;
@@ -74,16 +65,6 @@
                     @include ui-icon("help", 34px, 34px);
                 }
             }
-            // &[data-icon="callback"]{
-            //     &:after {
-            //         @include ui-icon("callback", 36px, 44px);
-            //     }
-            // }
-            // &[data-icon="votes"]{
-            //     &:after {
-            //         @include ui-icon("stars_v", 44px, 44px);
-            //     }
-            // }
         }
         &__title {
             @extend .pl-s;

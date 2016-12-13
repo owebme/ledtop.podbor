@@ -10,7 +10,7 @@
         $.tags["products-list"].root.setAttribute("data-product", item.get("_id"));
 
         $.root.setAttribute("data-open", true);
-        $Screen.trigger("hidden", true);
+        $Screen.trigger("mode", "hidden", true);
 
         $.tags["products-list"].opts.item = item;
         $.tags["products-list"].update();
@@ -18,7 +18,7 @@
 
     $.hide = function(){
         $.root.setAttribute("data-open", false);
-        $Screen.trigger("hidden", false);
+        $Screen.trigger("mode", "hidden", false);
     };
 
 </script>

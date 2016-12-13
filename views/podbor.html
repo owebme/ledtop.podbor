@@ -24,68 +24,60 @@
     </div>
 
     <!--/ VENDORS /-->
-    <!-- <script src="/public/js/libs/jquery.min.js"></script>
-    <script src="/public/js/libs/modernizr.custom.js"></script>
-    <script src="/public/js/libs/fastclick.min.js"></script>
-    <script src="/public/js/libs/riot/riot+compiler.update.js"></script>
-    <script src="/public/js/libs/baobab.js"></script>
-    <script src="/public/js/libs/underscore-min.js"></script>
-    <script src="/public/js/libs/rangeslider.js"></script>
-    <script src="/public/js/libs/afterlag-js/dist/afterlag.min.js"></script>
-    <script src="/public/js/libs/url.min.js"></script>
-    <script src="/public/js/libs/store.min.js"></script> -->
     <script src="/public/js/libs.js"></script>
 
     <!--/ Root /-->
     <script src="/public/templates/root.html" type="riot/tag"></script>
 
     <!--/ Section screens /-->
-    <script src="/public/templates/screens/screens.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/begin.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/step1.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/step2.html" type="riot/tag"></script>
+    <script src="/public/templates/app/screens/screens.html" type="riot/tag"></script>
+    <script src="/public/templates/app/screens/begin.html" type="riot/tag"></script>
+    <script src="/public/templates/app/screens/step1.html" type="riot/tag"></script>
+    <script src="/public/templates/app/screens/step2.html" type="riot/tag"></script>
 
-    <script src="/public/templates/screens/mobile/screens.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/begin.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/step1.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/step2.html" type="riot/tag"></script>
+    <!--/ Section screens (mobile) /-->
+    <script src="/public/templates/mobile/screens/screens.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/screens/begin.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/screens/step1.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/screens/step2.html" type="riot/tag"></script>
 
-    <!--/ Section podbor /-->
-    <script src="/public/templates/screens/podbor/podbor.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/packages/packages-select.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/packages/packages.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-wrapper.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-length.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-humidity.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-color.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-color-item.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/control/control-light.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/products/product-item.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/products/product-content.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/products/products-list.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/products/product-tooltip-screen.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/products/connect-control.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/offer-manager.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/menu/menu.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/menu/menu-items.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/total-price.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/screens-order.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/order-list.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/order.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/sendmail.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/order/payment.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/podbor/gallery.html" type="riot/tag"></script>
+    <!--/ App templates /-->
+    <script src="/public/templates/app/section.html" type="riot/tag"></script>
+    <script src="/public/templates/app/packages/packages-select.html" type="riot/tag"></script>
+    <script src="/public/templates/app/packages/packages.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-wrapper.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-length.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-humidity.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-color.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-color-item.html" type="riot/tag"></script>
+    <script src="/public/templates/app/control/control-light.html" type="riot/tag"></script>
+    <script src="/public/templates/app/products/product-item.html" type="riot/tag"></script>
+    <script src="/public/templates/app/products/product-content.html" type="riot/tag"></script>
+    <script src="/public/templates/app/products/products-list.html" type="riot/tag"></script>
+    <script src="/public/templates/app/products/product-tooltip-screen.html" type="riot/tag"></script>
+    <script src="/public/templates/app/products/connect-control.html" type="riot/tag"></script>
+    <script src="/public/templates/app/offer-manager.html" type="riot/tag"></script>
+    <script src="/public/templates/app/menu/menu.html" type="riot/tag"></script>
+    <script src="/public/templates/app/menu/menu-items.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/total-price.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/screens-order.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/order-list.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/order.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/sendmail.html" type="riot/tag"></script>
+    <script src="/public/templates/app/order/payment.html" type="riot/tag"></script>
+    <script src="/public/templates/app/gallery.html" type="riot/tag"></script>
 
-    <script src="/public/templates/screens/mobile/podbor/podbor.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/navbar.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/control.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/menu.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/result-count.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/products/product.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/products/product-item.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/products/product-content.html" type="riot/tag"></script>
-    <script src="/public/templates/screens/mobile/podbor/products/products-list.html" type="riot/tag"></script>
+    <!--/ App templates (mobile) /-->
+    <script src="/public/templates/mobile/app/section.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/navbar.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/control.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/menu.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/result-count.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/products/product.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/products/product-item.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/products/product-content.html" type="riot/tag"></script>
+    <script src="/public/templates/mobile/app/products/products-list.html" type="riot/tag"></script>
 
     <!--/ Modules /-->
     <script src="/assets/templates/modules/notify.html" type="riot/tag"></script>

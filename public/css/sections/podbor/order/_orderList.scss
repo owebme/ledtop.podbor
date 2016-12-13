@@ -80,4 +80,23 @@
         will-change:opacity;
         transition:opacity .3s $cubic28;
     }
+    .d-tablet & {
+        @extend .l--xs;
+        @extend .pl0;
+        width:350px;
+
+        &__item {
+            &:before {
+                @extend .r-auto;
+                @extend .l-xs;
+                width:240px;
+            }
+            &__image {
+                @extend .display-none;
+            }
+            &__title {
+                @extend .mb-xs;
+            }
+        }
+    }
 }

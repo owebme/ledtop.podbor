@@ -1,34 +1,35 @@
-<screen-podbor-mobile class="section" data-active="false" data-overlay="false" data-visible="false" data-animate="true" is-animate="false" data-hidden="false">
+<screen-podbor class="section" data-active="false" data-visible="false" data-animate="true" is-animate="false">
 
     <!-- <offer-manager></offer-manager> -->
 
-    <section-control-mobile></section-control-mobile>
+    <div class="wrapper">
 
-    <section-menu-mobile></section-menu-mobile>
+        <div if={ app.device.isMobile } onClick={ open.control } onUpdate="none" class="control__opener"></div>
 
-    <div class="section__content">
+        <section-control></section-control>
 
-        <section-navbar-mobile></section-navbar-mobile>
+        <section-packages-select></section-packages-select>
 
         <div class="content">
             <div class="rows">
                 <div class="row">
-                    <product-item-mobile name="ledribbon" item={ $Cursor.ledribbon }></product-item-mobile>
-                    <product-item-mobile name="power" item={ $Cursor.power }></product-item-mobile>
-                    <product-item-mobile name="control" item={ $Cursor.control }></product-item-mobile>
+                    <product-item name="ledribbon" item={ $Cursor.ledribbon }></product-item>
+                    <product-item name="power" item={ $Cursor.power }></product-item>
+                    <product-item name="control" item={ $Cursor.control }></product-item>
                     <div class="search__empty">
                         <div class="search__empty__text">К сожалению компоненты не найдены, измените условия поиска, длину или тип освещения.</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <section-menu></section-menu>
+
     </div>
 
-    <section-products-list-mobile></section-products-list-mobile>
+    <section-packages></section-packages>
 
-    <section-product-mobile></section-product-mobile>
-
-    <section-result-count></section-result-count>
+    <screens-order></screens-order>
 
     <div class="section__overlay"></div>
 
@@ -43,10 +44,8 @@
 
     $.on("before-mount", function(){
 
-        $Navbar = $.tags["section-navbar-mobile"];
-        $Menu = $.tags["section-menu-mobile"];
-
-        $Control = $.tags["section-control-mobile"];
+        $Menu = $.tags["section-menu"];
+        $Control = $.tags["section-control"];
         $Control.wrapper = $Control.tags["control-wrapper"];
         $Control.light = $Control.wrapper.tags["control-light"];
         $Control.humidity = $Control.wrapper.tags["control-humidity"];
@@ -75,32 +74,56 @@
         };
 
         $.sections = {
-            resultCount: $.tags["section-result-count"],
-            product: $.tags["section-product-mobile"],
-            productsList: $.tags["section-products-list-mobile"]
+            packages: $.tags["section-packages"],
+            packagesSelect: $.tags["section-packages-select"],
+            order: $.tags["screens-order"],
+            totalPrice: $Control.tags["total-price"]
         };
     });
 
-    $.show = function(){
+    $.show = function(options){
         $Screens.self.trigger("steps-hidden");
         $.root.setAttribute("data-visible", true);
 
         $.render();
 
-        $.root.setAttribute("data-animate", false);
-        $.root.setAttribute("data-active", true);
-        $Router.params.set($State.get());
-
-        $.active = true;
+        $afterlag.m(function(){
+            if (options && options.animate){
+                $.root.setAttribute("is-animate", true);
+                _.onEndTransition($Menu.root, function(){
+                    $.onReady(options.section);
+                });
+            }
+            else {
+                $.onReady(options.section);
+            }
+        });
     };
 
-    $.on("overlay", function(active){
-        $.root.setAttribute("data-overlay", active);
+    $.on("mode", function(mode, active){
+        $.root.setAttribute("data-" + mode, active);
     });
 
-    $.on("hidden", function(active){
-        $.root.setAttribute("data-hidden", active);
-    });
+    $.onReady = function(section){
+        $.root.setAttribute("data-animate", false);
+        $.root.setAttribute("data-active", true);
+
+        if ($State.get("tutorial")){
+            $.open.tutorial();
+        }
+
+        $Router.params.set($Options.get());
+
+        $.trigger("ready");
+
+        if (section){
+            if (section == "order") $.open.order();
+            else if (section == "sendmail") $.open.sendmail();
+            else if (section == "payment") $.open.payment();
+            else if (section == "gallery") $.open.gallery();
+        }
+        $.active = true;
+    };
 
     $.render = function(){
         var group = $State.get("group"),
@@ -162,6 +185,28 @@
         $.update();
     };
 
+    $.open = {
+        tutorial: function(){
+            $Tutorial.show($scope, "podbor");
+            $State.set('tutorial', false);
+        },
+        control: function(){
+            $Control.show();
+        },
+        order: function(){
+            $Menu.items.open.order();
+        },
+        payment: function(){
+            $Menu.items.open.payment();
+        },
+        sendmail: function(){
+            $Menu.items.open.sendmail();
+        },
+        gallery: function(){
+            $Menu.items.open.gallery();
+        }
+    };
+
     $.set = {
         params: function(){
             $Router.params.set($Options.get());
@@ -191,24 +236,19 @@
             });
         },
         totalPrice: function(){
-            if (app.device.isPhone){
-                $.sections.resultCount.update();
-            }
-            else {
-                var result = 0,
-                    products = {
-                        ledribbon: $Cursor.ledribbon.get("product", "price"),
-                        power: $Cursor.power.get("product", "price"),
-                        control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
-                    };
+            var result = 0,
+                products = {
+                    ledribbon: $Cursor.ledribbon.get("product", "price"),
+                    power: $Cursor.power.get("product", "price"),
+                    control: $Options.get("controlled") ? $Cursor.control.get("product", "price") : null
+                };
 
-                result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
-                result += products.power ? products.power : 0;
-                result += products.control ? products.control : 0;
+            result += products.ledribbon ? products.ledribbon * $Options.get("length") : 0;
+            result += products.power ? products.power : 0;
+            result += products.control ? products.control : 0;
 
-                $.sections.totalPrice.refresh(result);
-                $Menu.totalPrice.refresh(result);
-            }
+            $.sections.totalPrice.refresh(result);
+            $Menu.totalPrice.refresh(result);
         }
     };
 
@@ -232,7 +272,7 @@
         }
         if ($.active){
             setParams();
-            if (prop != "length") $.set.totalPrice();
+            if (prop != "length" && !app.device.isPhone) $.set.totalPrice();
         }
     });
 
@@ -253,6 +293,30 @@
         }
     });
 
+    _.bbUpdate($State, function(prop, value, e){
+        if (prop){
+            if (prop == "showProducts" && value && !$State.get("tooltipScreen") && !$Tutorial.active){
+                $afterlag.run(function(){
+                    if ($State.get("tooltipScreen")) return;
+                    if (value == "ledribbon"){
+                        $.tooltipScreen = $Product["control"].tags["product-tooltip-screen"];
+                    }
+                    else if (value == "power"){
+                        $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                    }
+                    else if (value == "control"){
+                        $.tooltipScreen = $Product["ledribbon"].tags["product-tooltip-screen"];
+                    }
+                    $.tooltipScreen.show();
+                }, {
+                    delay: 500,
+                    timeout: 1000,
+                    iterations: 5
+                });
+            }
+        }
+    });
+
 </script>
 
-</screen-podbor-mobile>
+</screen-podbor>

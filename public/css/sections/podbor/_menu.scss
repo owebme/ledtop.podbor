@@ -81,6 +81,10 @@ screen-podbor {
             .menu__items {
                 transition:transform .55s $cubic40;
                 transform:translate3d(0px, -50%, 0);
+
+                path, rect, polygon, circle {
+                    @extend .transition-none;
+                }
             }
             .order__list {
                 @extend .visibility-visible;
@@ -331,12 +335,23 @@ screen-podbor {
                 &__opener {
                     @extend .transition-none;
                 }
+                &__wrapper {
+                    @extend .trX--xl;
+                }
+                &__items {
+                    transform:translate3d(-330px, -50%, 0);
+                }
             }
         }
         .menu {
             @extend .pos-tr;
             @extend .trX-xl;
 
+            &[data-order="true"]{
+                .menu__items {
+                    transform:translate3d(-80px, -50%, 0);
+                }
+            }
             &__opener {
                 @extend .trX--xl;
                 @extend .bg-blue;
@@ -348,14 +363,10 @@ screen-podbor {
                     @extend .bg-white;
                 }
             }
-            &__close {
-                margin-right:75px;
-            }
             &__wrapper {
                 @extend .bg-blue;
-            }
-            &__contacts__link {
-                transform:translateX(-70px);
+                width:340px;
+                transform:translate3d(260px, 0, 0);
             }
             &__footer__text {
                 @extend .display-none;

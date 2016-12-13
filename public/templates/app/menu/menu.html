@@ -40,12 +40,12 @@
 
     $.show = function(){
         document.addEventListener('click', $.handleClickOutside);
-        $Screen.root.setAttribute("data-menu", true);
+        $Screen.trigger("mode", "menu", true);
     };
 
     $.hide = function(){
         document.removeEventListener('click', $.handleClickOutside)
-        $Screen.root.setAttribute("data-menu", false);
+        $Screen.trigger("mode", "menu", false);
 
         if ($.orderMode){
             $.orderMode = false;

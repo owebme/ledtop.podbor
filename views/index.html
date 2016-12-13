@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no" />
 	<meta name="google" content="notranslate" />
     <link rel="manifest" href="/manifest.json">
-    <link id="styles" rel="stylesheet" href="/public/css/style.css?v1.02">
+    <link id="styles" rel="stylesheet" href="/public/css/style.css">
 </head>
 <body class="appLoading">
 
@@ -23,11 +23,7 @@
         <div class="loader-spinner"></div>
     </div>
 
-    <script src="/public/js/app.build.js?v1.02"></script>
-    <!-- <script src="/public/js/libs.js?v1.02"></script>
-    <script src="/public/js/templates.js?v1.02"></script>
-    <script src="/public/js/app.js?v1.02"></script>
-    <script src="/public/js/init.js?v1.02"></script> -->
+    <script src="{{ cachify('/public/js/app.build.js') }}"></script>
 
 </body>
 </html>
