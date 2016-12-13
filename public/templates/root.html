@@ -15,7 +15,7 @@
 
     this.ready = false;
 
-    app.ver = "1.12";
+    app.ver = "1.14";
 
     var state = {
         group: "norm",
@@ -68,10 +68,23 @@
                     path: "/public/css/style.smallScreen.css?" + _.newId()
                 },
                 {
-                    title: "normal",
+                    title: "phone",
                     minWidth: 360,
+                    maxWidth: 767,
+                    reload: true
+                },
+                {
+                    title: "tablet",
+                    minWidth: 768,
+                    maxWidth: 1024,
+                    reload: true
+                },
+                {
+                    title: "normal",
+                    minWidth: 1025,
                     maxWidth: 1400,
-                    path: "/public/css/style.css?" + _.newId()
+                    path: "/public/css/style.css?" + _.newId(),
+                    reload: true
                 },
                 {
                     title: "large",

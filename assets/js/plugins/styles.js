@@ -20,10 +20,13 @@
 
             WD.resizer(app.$dom.window[0].innerWidth);
 
+            var onResizer = _.debounce(WD.resizer, 100);
+
             app.$dom.window.on('resize.styles', function(){
-               if (WD.resizer(this.innerWidth).length && WD.callback){
-                   WD.callback(WD.screen);
-               }
+                var result = onResizer(this.innerWidth);
+                if (result && result.length && WD.callback){
+                    WD.callback(WD.screen);
+                }
             });
 
             WD.ready = true;
@@ -36,7 +39,7 @@
                 screen.minWidth && !screen.maxWidth && width > screen.minWidth ||
                 screen.maxWidth && !screen.minWidth && width < screen.maxWidth) && WD.screen !== screen.title){
 
-                    if (screen.reload && WD.ready){
+                    if (screen.reload && WD.ready && WD.screen != screen.title){
                         window.location.reload();
                     }
                     else if (screen.path){
