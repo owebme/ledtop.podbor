@@ -56,7 +56,7 @@ screen-podbor-mobile {
                 @extend .t0;
                 @extend .w70;
                 @extend .h50;
-                margin-left:-35px;
+                @extend .ml--35;
                 transform:translateY(30px);
                 @extend .opacity-0;
                 @extend .borderRadius-xl;

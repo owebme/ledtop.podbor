@@ -1,0 +1,53 @@
+<control-bright class="control" data-active={ active }>
+
+    <div onClick={ toggle } onUpdate="none" class="control__bright__icon" data-bright="{ $Options.get('bright') }"></div>
+    <div onClick={ toggle } onUpdate="none" class="control__icon" data-icon="bright"></div>
+    <div class="control__container flex-row-left-center">
+        <div class="control__container__title">яркость</div>
+        <div onClick={ select } onUpdate="none" each={ item in $store.bright.get() } class="control__bright__item" data-balloon="{ item.title }" data-balloon-pos="up" data-bright="{ item._id }">
+            <div class="control__bright__item__line"></div>
+            <div class="control__bright__item__line"></div>
+            <div class="control__bright__item__line"></div>
+            <div class="control__bright__item__line"></div>
+        </div>
+    </div>
+
+<script>
+
+    var $ = this;
+
+    $.active = false;
+
+    $.toggle = function(){
+        $.update({
+            active: !$.active
+        })
+    };
+
+    $.select = function(){
+        $Options.set('bright', this.item._id);
+        $.hide();
+    };
+
+    $.hide = function(){
+        $.update({
+            active: false
+        })
+    };
+
+    $.handleClickOutside = function(e){
+        if (!$.root.contains(e.target)) $.hide();
+    };
+
+    $.on("updated", function(){
+        if ($.active){
+            document.addEventListener('click', $.handleClickOutside);
+        }
+        else {
+            document.removeEventListener('click', $.handleClickOutside)
+        }
+    });
+
+</script>
+
+</control-bright>

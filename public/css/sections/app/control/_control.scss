@@ -40,7 +40,7 @@
     }
     .back {
         @extend .btn-active;
-        margin-bottom:35px;
+        @extend .mb35;
 
         &:after {
             @extend .content-empty;
@@ -99,7 +99,7 @@ control-humidity {
     @extend .flex-centered;
     @extend .h70;
     @extend .w100p;
-    margin-bottom:45px;
+    @extend .mb45;
     perspective:200px;
 
     &[data-hidden="true"]{
@@ -142,6 +142,9 @@ control-humidity {
         .d-tablet & {
             box-shadow:0 8.66px 35px 0 rgba(31,35,37,.25);
         }
+        control-light & {
+            @extend .t0;
+        }
         &__title {
             @extend .pos-abs;
             @extend .t--s;
@@ -177,14 +180,17 @@ control-humidity {
             }
         }
         .control__icon {
-            &[data-icon="humidity"]{
-                @include ui-icon(humidity_blue);
+            &[data-icon="light"]{
+                @include ui-icon(light_blue);
+            }
+            &[data-icon="bright"]{
+                @include ui-icon(brightness_blue);
             }
             &[data-icon="length"]{
                 @include ui-icon(length_blue);
             }
-            &[data-icon="light"]{
-                @include ui-icon(light_blue);
+            &[data-icon="humidity"]{
+                @include ui-icon(humidity_blue);
             }
         }
     }
@@ -193,6 +199,37 @@ control-humidity {
 
         &[data-icon="light"]{
             @include ui-icon(light, 67px, 67px);
+        }
+        &[data-icon="bright"]{
+            @include ui-icon(brightness, 80px, 80px);
+
+            &:before {
+                @extend .content-empty;
+                @extend .pos-centered;
+                @extend .bg-white;
+                width:22px;
+                height:22px;
+                border:2px solid $blue;
+                @extend .borderRadius-circle;
+            }
+            &:after {
+                @include accelerate(true);
+                @extend .content-empty;
+                @extend .pos-abs;
+                top:-5px;
+                right:-13px;
+                @include ui-icon(energy, 26px, 45px);
+            }
+            .d-mobile & {
+                &:after {
+                    top:-9px;
+                    right:-28px;
+                    @include ui-icon(energy_fill, 56px, 56px);
+                }
+            }
+        }
+        &[data-icon="length"]{
+            @include ui-icon(length, 36px, 56px);
         }
         &[data-icon="humidity"]{
             @include ui-icon(humidity, 38px, 48px);
@@ -212,10 +249,14 @@ control-humidity {
                 height:56px;
                 @extend .bg-cover;
                 background-image:url(/public/images/colors_blue.svg);
+
+                .d-mobile & {
+                    right:-25px;
+                    width:50px;
+                    height:50px;
+                    background-image:url(/public/images/colors_hue.svg);
+                }
             }
-        }
-        &[data-icon="length"]{
-            @include ui-icon(length, 36px, 56px);
         }
         &[data-color="white"],
         &[data-color="white|warm_white"],
@@ -242,6 +283,35 @@ control-humidity {
             @include ui-icon(led_lightrun_blue, 34px, 34px);
             @extend .borderRadius-circle;
             @extend .bg-white;
+        }
+    }
+    &__bright__icon {
+        width:24px;
+        height:24px;
+        @extend .pos-centered;
+        @extend .cursor-pointer;
+        @extend .borderRadius-circle;
+        @extend .overflow-hidden;
+        @extend .zIndex-1;
+        box-shadow:0 12px 20px -10px rgba($yellowDark, 0.28), 0 7px 8px -5px rgba($yellowDark, 0.2);
+
+        &:after {
+            @extend .content-empty;
+            @extend .pos-abs;
+            @extend .l0;
+            @extend .w100p;
+            @extend .h100p;
+            @extend .bg-yellowDark;
+        }
+        &[data-bright="1"]{
+            &:after {
+                @extend .t70;
+            }
+        }
+        &[data-bright="2"]{
+            &:after {
+                @extend .t45;
+            }
         }
     }
     &__value {
@@ -352,6 +422,56 @@ control-humidity {
         &[data-light="3"]{
             @include ui-icon(led_lightrun_blue, 36px, 36px);
             transform:translateY(1px);
+        }
+    }
+    &__bright__item {
+        width:29px;
+        @extend .pos-rel;
+        @extend .mlr-xs;
+        @extend .cursor-pointer;
+
+        &__line {
+            @extend .h4px;
+            @extend .bg-orange;
+            @extend .borderRadius-xl;
+            margin-bottom:4px;
+        }
+        &[data-bright="1"]{
+            .control__bright__item__line:nth-child(1){
+                @extend .opacity-15;
+            }
+            .control__bright__item__line:nth-child(2){
+                @extend .opacity-25;
+            }
+            .control__bright__item__line:nth-child(3){
+                @extend .opacity-50;
+            }
+            .control__bright__item__line:nth-child(4){
+                @extend .bg-orangeDark;
+            }
+        }
+        &[data-bright="2"]{
+            .control__bright__item__line:nth-child(1){
+                @extend .opacity-25;
+            }
+            .control__bright__item__line:nth-child(2){
+                @extend .opacity-50;
+            }
+            .control__bright__item__line:nth-child(3){
+                @extend .opacity-75;
+            }
+            .control__bright__item__line:nth-child(4){
+                @extend .bg-orangeDark;
+            }
+        }
+        &[data-bright="3"]{
+            .control__bright__item__line:nth-child(1){
+                @extend .opacity-85;
+            }
+            .control__bright__item__line:nth-child(3),
+            .control__bright__item__line:nth-child(4){
+                @extend .bg-orangeDark;
+            }
         }
     }
 }

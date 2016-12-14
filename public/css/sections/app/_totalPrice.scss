@@ -44,7 +44,7 @@ screen-podbor {
             @extend .pointerEvents-none;
             width:242px;
             height:242px;
-            padding-bottom:60px;
+            @extend .pb60;
             @extend .pr-s;
 
             &__equal {

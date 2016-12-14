@@ -23,7 +23,7 @@ section-navbar-mobile {
     .pack__name {
         @extend .pos-rel;
         @extend .pl-s;
-        padding-right:25px;
+        @extend .pr25;
         @extend .fontSize-20;
         @extend .fontWeight-5;
         @extend .maxW-100p;

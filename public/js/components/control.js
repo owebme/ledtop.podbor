@@ -8,10 +8,11 @@
         if (!tag) return;
 
         $ = tag;
-        if (app.device.isMobile) $Control = $.tags["section-control-mobile"];
+        if (app.device.isPhone) $Control = $.tags["section-control-mobile"];
         else $Control = $.tags["section-control"];
         $Control.wrapper = $Control.tags["control-wrapper"];
         $Control.light = $Control.wrapper.tags["control-light"];
+        $Control.bright = $Control.wrapper.tags["control-bright"];
         $Control.humidity = $Control.wrapper.tags["control-humidity"];
         $Control.color = $Control.wrapper.tags["control-color"];
         $Control.length = $Control.wrapper.tags["control-length"];

@@ -24,9 +24,9 @@
     });
 
     $.on("steps-hidden", function(){
-        $Screens.begin.root.setAttribute("data-visible", false);
-        $Screens.step1.root.setAttribute("data-visible", false);
-        $Screens.step2.root.setAttribute("data-visible", false);
+        $Screens.begin.unmount();
+        $Screens.step1.unmount();
+        $Screens.step2.unmount();
     });
 
 </script>

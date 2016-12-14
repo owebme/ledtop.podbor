@@ -6,10 +6,10 @@ screen-step1 {
         @extend .c-white;
         @extend .cursor-default;
         @extend .t-m;
-        left:-20px;
+        @extend .l--m;
         @extend .ptb-m;
         @extend .pr-m;
-        padding-left:60px;
+        @extend .pl60;
         box-shadow:0 12px 20px -10px rgba($black, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba($black, 0.2);
         @extend .zIndex-2;
 
@@ -75,7 +75,7 @@ screen-step1 {
                 background-image:url(/public/images/light/foto3.jpg);
             }
             .column__content {
-                margin-top:-20px;
+                @extend .mt--m;
             }
         }
         &__content {

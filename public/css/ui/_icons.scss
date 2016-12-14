@@ -2,8 +2,7 @@
     loading, loading_white, close, close_white, close_strong, close_strong_white,
     minus, minus_white, plus, plus_white, plus_thin, plus_thin_white,
     pencil, pencil_white, menu, menu_white, more_h, more_h_white, more_v,
-    more_v_white, back, back_white, back_circle, back_circle_white, help, close_fill, close_strong, close_fill_gray, close_fill_white, info_white, check, check_black, check_white, check_circle, check_circle_green, edit, edit_white, repeat, settings_white, light, light_white, light_blue, humidity, humidity_blue, length, length_blue, unbox_white, led_mono, led_mono_white, led_rgb, led_lightrun_blue, led_lightrun_white, okey_white, sendEmail, order, stars_v, callback, phone, star_fill, pay_mobile, wallet, sizes_gray, arrowRight_white, like_fill_white, user_white,
-    instagram
+    more_v_white, back, back_white, back_circle, back_circle_white, help, close_fill, close_strong, close_fill_gray, close_fill_white, info_white, check, check_black, check_white, check_circle, check_circle_green, edit, edit_white, repeat, settings_white, light, light_white, light_blue, brightness, brightness_blue, power, power_blue, humidity, humidity_blue, length, length_blue, unbox_white, led_mono, led_mono_white, led_rgb, led_lightrun_blue, led_lightrun_white, okey_white, sendEmail, order, stars_v, callback, phone, star_fill, pay_mobile, wallet, sizes_gray, arrowRight_white, like_fill_white, user_white, instagram, energy, energy_fill
 ){
     .ui-icon-#{$icon} {
         background:url('/assets/images/ui/ui-#{$icon}.svg') no-repeat 0 0 / cover;

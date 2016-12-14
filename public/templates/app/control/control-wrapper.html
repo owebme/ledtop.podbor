@@ -1,12 +1,14 @@
 <control-wrapper class="control__wrapper">
 
-    <div if={ app.device.isMobile } onClick={ parent.hide } onUpdate="none" class="control back"></div>
+    <div if={ app.device.isTablet } onClick={ parent.hide } onUpdate="none" class="control back"></div>
 
-    <div if={ !app.device.isMobile } onClick={ $Menu.items.open.order } onUpdate="none" class="control">
+    <!-- <div if={ !app.device.isMobile } onClick={ $Menu.items.open.order } onUpdate="none" class="control">
         <div class="button__ok"></div>
-    </div>
+    </div> -->
 
     <control-light></control-light>
+
+    <control-bright></control-bright>
 
     <control-length></control-length>
 

@@ -3,8 +3,10 @@
     @include abs();
     @extend .c-white;
     @extend .cursor-default;
-    perspective:500px;
 
+    .d-no-safari & {
+        perspective:500px;
+    }
     &:before {
         @include accelerate(true);
         @extend .content-empty;
@@ -48,6 +50,7 @@
         }
     }
     &__like {
+        @include accelerate(true);
         @extend .pos-abs;
         @extend .t-m;
         @extend .l-m;
@@ -91,6 +94,7 @@
         }
     }
     &__stat {
+        @include accelerate();
         @extend .flex-row-right-center;
         @extend .pos-abs;
         @extend .t-m;
@@ -99,7 +103,7 @@
         @extend .h40;
         @extend .fontSize-15;
         @extend .text-uppercase;
-        transform:translateX(-2px);
+        transform:translate3d(-2px, 0, 0);
 
         &__count {
             @extend .flex-centered;
@@ -117,6 +121,7 @@
         }
     }
     &__light__title {
+        @include accelerate(true);
         @extend .flex-row-right-center;
         @extend .pos-abs;
         @extend .r-xl;
@@ -138,6 +143,7 @@
         }
     }
     &__nav {
+        @include accelerate(true);
         @extend .pos-abs;
         bottom:140px;
         @extend .l0;
@@ -192,6 +198,7 @@
         }
     }
     &__options {
+        @include accelerate(true);
         @extend .flex-centered;
         @extend .pos-bl;
         @extend .w100p;
